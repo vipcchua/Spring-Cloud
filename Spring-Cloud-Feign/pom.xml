@@ -5,7 +5,7 @@
 
 
 	<groupId>com.didispace</groupId>
-	<artifactId>Spring-Cloud-Ribbon</artifactId>
+	<artifactId>Spring-Cloud-Feign</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.1.RELEASE</version>
+		<version>1.4.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -46,6 +46,14 @@
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-ribbon</artifactId>
+    <version>1.2.3.RELEASE</version>
+</dependency>
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-feign -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-feign</artifactId>
     <version>1.2.3.RELEASE</version>
 </dependency>
 		
@@ -84,14 +92,15 @@
 		
 		
 	</dependencies>
-
+	<!--Brixton.RELEASE -->
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Brixton.RELEASE</version>
+				<version>Brixton.SR5</version>
+				
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

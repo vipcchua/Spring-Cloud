@@ -5,12 +5,13 @@
 
 
 	<groupId>com.didispace</groupId>
-	<artifactId>Spring-Cloud-Ribbon</artifactId>
+	<artifactId>Spring-Cloud-Service-2</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>compute-service</name>
 	<description>Spring Cloud project</description>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

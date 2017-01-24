@@ -5,11 +5,11 @@
 
 
 	<groupId>com.didispace</groupId>
-	<artifactId>Spring-Cloud-Ribbon</artifactId>
+	<artifactId>Spring-Cloud-Server</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>eureka-server</name>
 	<description>Spring Cloud project</description>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -58,12 +58,13 @@
     <version>1.2.3.RELEASE</version>
 </dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<version>1.4.1.RELEASE</version>
-		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-eureka-server -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-eureka-server</artifactId>
+    <version>1.2.3.RELEASE</version>
+</dependency>
+		
 		
 		
 	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->

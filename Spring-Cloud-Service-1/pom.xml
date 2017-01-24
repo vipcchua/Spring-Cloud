@@ -5,12 +5,13 @@
 
 
 	<groupId>com.didispace</groupId>
-	<artifactId>Spring-Cloud-Ribbon</artifactId>
+	<artifactId>compute-service</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Spring-Cloud-Service-1</name>
 	<description>Spring Cloud project</description>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -84,7 +85,7 @@
 		
 		
 	</dependencies>
-
+	<!-- Brixton.RELEASE -->
 
 	<dependencyManagement>
 		<dependencies>
