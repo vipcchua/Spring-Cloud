@@ -3,7 +3,7 @@ Implementation-Title: eureka-server
 Implementation-Version: 1.0.0
 Built-By: Cchua
 Implementation-Vendor-Id: com.didispace
-Build-Jdk: 1.8.0_101
+Build-Jdk: 1.8.0_111
 Implementation-URL: http://projects.spring.io/spring-boot/Spring-Cloud
  -Server/
 Created-By: Maven Integration for Eclipse
