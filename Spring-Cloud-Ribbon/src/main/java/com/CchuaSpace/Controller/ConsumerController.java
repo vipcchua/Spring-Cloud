@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.CchuaSpace.Service.ComputeService;
+
+/*
+
 @RestController
 public class ConsumerController {
 
@@ -17,5 +21,22 @@ public class ConsumerController {
         return restTemplate.getForEntity("http://Server-Service/add?a=10&b=20", String.class).getBody();
     }
 
+
+    
+
+
+    
+}*/
+
+@RestController
+public class ConsumerController {
+
+    @Autowired
+    private ComputeService computeService;
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String add() {
+        return computeService.addService();
+    }
 
 }
