@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 
-	<groupId>com.didispace</groupId>
+	<groupId>com.CchuaSpace</groupId>
 	<artifactId>Spring-Cloud-Feign</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Implementation-Title: 
 Implementation-Version: 1.0.0
 Built-By: Cchua
-Implementation-Vendor-Id: com.didispace
+Implementation-Vendor-Id: com.CchuaSpace
 Build-Jdk: 1.8.0_111
 Implementation-URL: http://projects.spring.io/spring-boot/Spring-Cloud
  -Feign/

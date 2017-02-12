@@ -4,12 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 
-	<groupId>com.didispace</groupId>
-	<artifactId>compute-service</artifactId>
+	<groupId>com.CchuaSpace</groupId>
+	<artifactId>Spring-Cloud-Service-1</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>Spring-Cloud-Service-1</name>
 	<description>Spring Cloud project</description>
 
 	<parent>
@@ -154,4 +153,5 @@
 
 
 
+	<name>compute-service</name>
 </project>

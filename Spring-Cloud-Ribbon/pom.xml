@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 
-	<groupId>com.didispace</groupId>
+	<groupId>com.CchuaSpace</groupId>
 	<artifactId>Spring-Cloud-Ribbon</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name></name>
+	<name>Spring-Cloud-Ribbon</name>
 	<description>Spring Cloud project</description>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
