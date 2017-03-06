@@ -1,0 +1,68 @@
+package com.CchuaSpace.Model;
+
+public class CommodityCatalog {
+    /**
+    * id
+    */
+    private String catalogId;
+
+    /**
+    * 父亲ID
+    */
+    private String parentsId;
+
+    /**
+    * 名称
+    */
+    private String nodeName;
+
+    /**
+    * 商品编号
+    */
+    private Integer commodityNumber;
+
+    /**
+    * 深度
+    */
+    private Integer depth;
+
+    public String getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(String catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    public String getParentsId() {
+        return parentsId;
+    }
+
+    public void setParentsId(String parentsId) {
+        this.parentsId = parentsId;
+    }
+
+    public String getNodeName() {
+        return nodeName;
+    }
+
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
+    }
+
+    public Integer getCommodityNumber() {
+        return commodityNumber;
+    }
+
+    public void setCommodityNumber(Integer commodityNumber) {
+        this.commodityNumber = commodityNumber;
+    }
+
+    public Integer getDepth() {
+        return depth;
+    }
+
+    public void setDepth(Integer depth) {
+        this.depth = depth;
+    }
+}
