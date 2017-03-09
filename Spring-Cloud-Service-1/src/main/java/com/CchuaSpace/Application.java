@@ -51,10 +51,10 @@ public class Application {
 		return new org.apache.tomcat.jdbc.pool.DataSource();
 	}
 	/*Spring Boot普通类调用bean*/
-	 @Bean
+	/* @Bean
      public SpringUtil springUtil(){
 		 return new SpringUtil();
-		 }
+		 }*/
 
 	@Bean
 	public SqlSessionFactory sqlSessionFactoryBean() throws Exception {

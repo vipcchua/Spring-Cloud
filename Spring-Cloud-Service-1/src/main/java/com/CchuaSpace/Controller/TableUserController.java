@@ -274,7 +274,7 @@ public class TableUserController {
 
 	public ResponseEntity<PaginationVo> UserInsert(@RequestBody String UserInsert, Model model) {
 
-		PaginationVo user = tableUserService.UserInsert(UserInsert,model);
+		PaginationVo user = tableUserService.UserInsert(UserInsert, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -293,16 +293,12 @@ public class TableUserController {
 	@RequestMapping(value = "/DeleteUserid", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> DeleteUserid(@RequestBody String Dmouldinfo) {
-		
-		
+
 		String user = tableUserService.DeleteUserid(Dmouldinfo);
 
 		ResponseEntity<String> data = new ResponseEntity<String>(user, HttpStatus.OK);
 
 		return data;
-		
-		
-		
 
 	}
 
@@ -316,23 +312,19 @@ public class TableUserController {
 	@RequestMapping(value = "/DeleteUserName", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> DeleteUserName(@RequestBody String Dmouldinfo) {
-		/*List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
-		int Dmouldinfos = tableUserMapper.DeleteUserName(json.get(0).getUsername());
-		if (Dmouldinfos != 0)
-			return "Success";
-		else
-			return "Error";*/
-		
-		
+		/*
+		 * List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
+		 * int Dmouldinfos =
+		 * tableUserMapper.DeleteUserName(json.get(0).getUsername()); if
+		 * (Dmouldinfos != 0) return "Success"; else return "Error";
+		 */
+
 		PaginationVo user = tableUserService.DeleteUserName(Dmouldinfo);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
 		return data;
 
-		
-		
-		
 	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
@@ -345,14 +337,14 @@ public class TableUserController {
 	@RequestMapping(value = "/AdminUpdateUser", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> AdminUpdateUser(@RequestBody String UserInsert, Model model) throws UnsupportedEncodingException{
-	
-		PaginationVo user = tableUserService.AdminUpdateUser(UserInsert,model);
+	public ResponseEntity<PaginationVo> AdminUpdateUser(@RequestBody String UserInsert, Model model)
+			throws UnsupportedEncodingException {
 
-	ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		PaginationVo user = tableUserService.AdminUpdateUser(UserInsert, model);
 
-	return data;
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
+		return data;
 
 	}
 
@@ -363,7 +355,7 @@ public class TableUserController {
 	@ResponseBody
 	public ResponseEntity<JSONObject> Modifypassword(@RequestBody String UserInsert, Model model) {
 
-		JSONObject user = tableUserService.Modifypassword(UserInsert,model);
+		JSONObject user = tableUserService.Modifypassword(UserInsert, model);
 
 		ResponseEntity<JSONObject> data = new ResponseEntity<JSONObject>(user, HttpStatus.OK);
 

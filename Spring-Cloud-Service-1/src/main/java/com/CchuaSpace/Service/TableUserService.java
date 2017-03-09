@@ -56,41 +56,33 @@ public class TableUserService {
 
 	@Autowired
 	private PaginationVo paginationVo;
-	
 
-    @Autowired
-    private DiscoveryClient client;
-	
-    private final Logger logger = Logger.getLogger(getClass());
-	
+	@Autowired
+	private DiscoveryClient client;
 
-	
+	private final Logger logger = Logger.getLogger(getClass());
+
 	@ApiOperation(value = "使用id查询指定用户信息", notes = "使用用户id查询用户所有信息", response = TableUser.class)
 
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Id", value = "请输入用户Id", required = true, dataType = "Char"), })
-	
-	
-	
-	
-	
+	@ApiImplicitParams({ @ApiImplicitParam(name = "Id", value = "请输入用户Id", required = true, dataType = "Char"), })
+
 	/* 在用 */
-/*	@RequestMapping(value = "/SelectuserID", method = RequestMethod.POST)
-	@ResponseBody
-	public List<TableUser> SelectuserID(@RequestBody String UserInfo, Model model) {
+	/*
+	 * @RequestMapping(value = "/SelectuserID", method = RequestMethod.POST)
+	 * 
+	 * @ResponseBody public List<TableUser> SelectuserID(@RequestBody String
+	 * UserInfo, Model model) {
+	 * 
+	 * List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
+	 * 
+	 * List<TableUser> user = tableUserMapper.SelectuserID(json.get(0).getId());
+	 * 
+	 * System.out.println(user); return user; }
+	 */
 
-		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
-
-		List<TableUser> user = tableUserMapper.SelectuserID(json.get(0).getId());
-
-		System.out.println(user);
-		return user;
-	}*/
-	
-	
 	@RequestMapping(value = "/SelectuserID", method = RequestMethod.POST)
 	public PaginationVo SelectuserID(@RequestBody String UserInfo, Model model) {
 		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
@@ -98,79 +90,51 @@ public class TableUserService {
 		paginationVo.setDataResult(json);
 
 		return paginationVo;
-		
-		
-	
+
 	}
-	
 
-	
-
-
-	
-	
-	
-	
 	@ApiOperation(value = "查询用户名是否存在", notes = "使用用户名查询用户名是否存在", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-	@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "UserName", value = "请输入制定信息", required = true, dataType = "varchar"), })
-	
-	
-	
+			@ApiImplicitParam(name = "UserName", value = "请输入制定信息", required = true, dataType = "varchar"), })
+
 	@RequestMapping(value = "/SelectUsername", method = RequestMethod.POST)
 	@ResponseBody
 
-		public PaginationVo SelectUsername(@RequestBody String UserInfo, Model model) {		
+	public PaginationVo SelectUsername(@RequestBody String UserInfo, Model model) {
 		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
 		List<TableUser> data = tableUserMapper.SelectUsername(json.get(0).getUsername());
 
-	
-    	paginationVo.setDataResult(data);
+		paginationVo.setDataResult(data);
 
 		return paginationVo;
-	
+
 	}
 
-	
-	
-	
-	
-	
 	@ApiOperation(value = "使用用户名查询指定用户信息", notes = "使用用户名查询用户所有信息", response = TableUser.class)
 
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "UserName", value = "请输入制定信息", required = true, dataType = "varchar"), })
-	
-	
-	
+			@ApiImplicitParam(name = "UserName", value = "请输入制定信息", required = true, dataType = "varchar"), })
+
 	@RequestMapping(value = "/UserInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public PaginationVo Loginusers(@RequestBody String UserInfo, Model model) {
 		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
-		
-		List<TableUser> data = tableUserMapper.UserInfo(json.get(0).getUsername());
-	  	paginationVo.setDataResult(data);
 
-			return paginationVo;
-		
+		List<TableUser> data = tableUserMapper.UserInfo(json.get(0).getUsername());
+		paginationVo.setDataResult(data);
+
+		return paginationVo;
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@ApiOperation(value = "使用多重条件查询指定用户信息", notes = "使用多重条件查询指定用户", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	
 	@RequestMapping(value = "/SelectUserCondition", method = RequestMethod.POST)
 	@ResponseBody
 	public PaginationVo SelectUserCondition(@RequestBody String UserInfo, Model model) {
@@ -182,9 +146,7 @@ public class TableUserService {
 
 		return paginationVo;
 	}
-	
-	
-	
+
 	@ApiOperation(value = "用户身份修改用户信息", notes = "以用户身份修改用户信息", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
@@ -192,78 +154,50 @@ public class TableUserService {
 	@ResponseBody
 	public PaginationVo UpdateUser(@RequestBody String UserInsert, Model model) {
 		List<TableUser> data = JSON.parseArray(UserInsert, TableUser.class);
-	
-		int tostate=tableUserMapper.UpdateUser(data.get(0));
-		
-		if (tostate!=0) 
+
+		int tostate = tableUserMapper.UpdateUser(data.get(0));
+
+		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
-		
+
 		paginationVo.setDataResult(data);
 
 		return paginationVo;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-
-
-	
-	
 	@ApiOperation(value = "查询所有用户", notes = "无条件查询所有的用户信息", response = TableUser.class)
 
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	
 	@RequestMapping(value = "/Selectalluser", method = RequestMethod.POST)
-	@ResponseBody	
+	@ResponseBody
 	public PaginationVo alluser(@RequestBody String selectmodeid, Model model) {
-   
+
 		List<TableUser> json = JSON.parseArray(selectmodeid, TableUser.class);
-		List<TableUser> data = tableUserMapper.alluser(json.get(0).getPage(),json.get(0).getPageRow());
-	   
+		List<TableUser> data = tableUserMapper.alluser(json.get(0).getPage(), json.get(0).getPageRow());
+
 		paginationVo.setDataResult(data);
 
 		return paginationVo;
 
-}
-   
-   
-   
+	}
+
 	@ApiOperation(value = "查询所有用户数量", notes = "无条件查询所有的用户数量", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-		@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
 	@RequestMapping(value = "/SelectalluserNumber", method = RequestMethod.POST)
 	@ResponseBody
 	public PaginationVo alluserNumber() {
-		List<TableUser> data = tableUserMapper.alluserNumber(); 
+		List<TableUser> data = tableUserMapper.alluserNumber();
 		paginationVo.setDataResult(data);
 
 		return paginationVo;
-}
-   
-	
-	
-	
-	
-	
-	
-	
-   
-   
-	
+	}
+
 	@ApiOperation(value = "查询所有用户", notes = "无条件查询所有的用户信息", response = TableUser.class)
 
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
@@ -274,44 +208,15 @@ public class TableUserService {
 	@ResponseBody
 	public PaginationVo allusers() {
 
-        ServiceInstance instance = client.getLocalServiceInstance();
-		
+		ServiceInstance instance = client.getLocalServiceInstance();
+
 		List<TableUser> data = tableUserMapper.allusers();
 		logger.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId());
 		paginationVo.setDataResult(data);
 
 		return paginationVo;
 
-}
-   
-   
-   
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-
-	
-	
-	
-	
-
-
-	
-
+	}
 
 	@ApiOperation(value = "新增一名用户", notes = "（需要管理员权限）新增一名用户  需要指定role :ROLE_ADMIN为管理员，ROLE_USER为用户 , enabled=1开启用户使用,=0未开启使用", response = TableUser.class)
 
@@ -391,18 +296,16 @@ public class TableUserService {
 	public PaginationVo DeleteUserName(@RequestBody String Dmouldinfo) {
 		List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
 		int Dmouldinfos = tableUserMapper.DeleteUserName(json.get(0).getUsername());
-	
-		if (Dmouldinfos !=0)
+
+		if (Dmouldinfos != 0)
 			paginationVo.setSqlState("Success");
-			else
+		else
 			paginationVo.setSqlState("Error");
-		
-		
+
 		paginationVo.setDataResult(json);
 
 		return paginationVo;
-		
-		
+
 	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
@@ -415,21 +318,17 @@ public class TableUserService {
 	@RequestMapping(value = "/AdminUpdateUser", method = RequestMethod.POST)
 	@ResponseBody
 
-	public PaginationVo AdminUpdateUser(@RequestBody String UserInsert, Model model) throws UnsupportedEncodingException {
+	public PaginationVo AdminUpdateUser(@RequestBody String UserInsert, Model model)
+			throws UnsupportedEncodingException {
 
-		String decodeStr = URLDecoder.decode(UserInsert.toString(),"UTF-8");
-	
-	
-	
-	
-		
+		String decodeStr = URLDecoder.decode(UserInsert.toString(), "UTF-8");
+
 		List<TableUser> json = JSON.parseArray(decodeStr, TableUser.class);
 
 		String rsausername = json.get(0).getUsername().toString();
 		String rsapassword = json.get(0).getPassword().toString();
 		String rsanewpassword = json.get(0).getNewpassword().toString();
 
-		
 		try {
 			rsausername = AesUtils.aesDecrypt(rsausername, "abcdefgabcdefghi");
 			rsapassword = AesUtils.aesDecrypt(rsapassword, "abcdefgabcdefghi");
@@ -444,38 +343,26 @@ public class TableUserService {
 
 		rsapassword = RSAUtils.decryptBase64(rsapassword);
 		rsanewpassword = RSAUtils.decryptBase64(rsanewpassword);
-		
-		
-		
-		
+
 		JSONObject usernameobj = new JSONObject(rsausername.toString()); // 在这里转换。
 		JSONObject passwordobj = new JSONObject(rsapassword.toString()); // 在这里转换。
 		JSONObject newpasswordobj = new JSONObject(rsanewpassword.toString()); // 在这里转换。
-		
-		
+
 		rsausername = usernameobj.get("username").toString();
 		rsapassword = passwordobj.get("password").toString();
 		rsanewpassword = newpasswordobj.get("newpassword").toString();
-		
-		
 
 		json.get(0).setUsername(rsausername);
 		json.get(0).setPassword(rsapassword);
 		json.get(0).setNewpassword(rsapassword);
-		
 
 		tableUserMapper.AdminUpdateUser(json.get(0));
 
-	
-		
 		paginationVo.setDataResult(json);
 
 		return paginationVo;
-		
 
 	}
-
-
 
 	@ApiOperation(value = "用户身份修改密码", notes = "以用户身份修改个人密码，需要个人原密码，需加密Post", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
@@ -547,6 +434,5 @@ public class TableUserService {
 
 		return uuid;
 	}
-	
-	
+
 }

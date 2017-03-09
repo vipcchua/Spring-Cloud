@@ -55,6 +55,7 @@ import com.CchuaSpace.Currency.AesUtils;
 import com.CchuaSpace.Currency.RSAUtils;
 import com.CchuaSpace.Model.CommodityCatalog;
 import com.CchuaSpace.Model.CommodityInfo;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 import com.CchuaSpace.Service.CommodityCatalogClient;
 import com.CchuaSpace.Service.CommodityInfoClient;
@@ -90,27 +91,37 @@ public class CommodityCatalogController {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-	@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> SelectCatalog(@RequestBody String SelectCommodityByNumber,
+	/*@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
+	public ResponseEntity<PaginationVo> SelectCatalog(@RequestBody String SelectCommodityByNumber,
 			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.SelectCatalog(SelectCommodityByNumber);
+		ResponseEntity<PaginationVo> user = commodityCatalogClient.SelectCatalog(SelectCommodityByNumber);
+		return user;
+	}*/
+
+	
+	
+	
+	@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
+	public ResponseEntity<PaginationVo> SelectCatalog(@RequestBody String SelectCommodityByNumber,
+			Model model) {
+		ResponseEntity<PaginationVo> user = commodityCatalogClient.SelectCatalog(SelectCommodityByNumber);
 		return user;
 	}
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	@RequestMapping(value = "/DeleteCatalog", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalog(@RequestBody String SelectCommodityByNumber,
+	public ResponseEntity<PaginationVo> DeleteCatalog(@RequestBody String SelectCommodityByNumber,
 			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.DeleteCatalog(SelectCommodityByNumber);
+		ResponseEntity<PaginationVo> user = commodityCatalogClient.DeleteCatalog(SelectCommodityByNumber);
 		return user;
 
 	}
 
 	@RequestMapping(value = "/DeleteCatalogById", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalogById(@RequestBody String SelectCommodityByNumber,
+	public ResponseEntity<PaginationVo> DeleteCatalogById(@RequestBody String SelectCommodityByNumber,
 			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.DeleteCatalogById(SelectCommodityByNumber);
+		ResponseEntity<PaginationVo> user = commodityCatalogClient.DeleteCatalogById(SelectCommodityByNumber);
 		return user;
 
 	}
@@ -118,17 +129,17 @@ public class CommodityCatalogController {
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> InsertCommodityInfo(@RequestBody String SelectCommodityByNumber,
+	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String SelectCommodityByNumber,
 			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.InsertCommodityInfo(SelectCommodityByNumber);
+		ResponseEntity<PaginationVo> user = commodityCatalogClient.InsertCommodityInfo(SelectCommodityByNumber);
 		return user;
 	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
 	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
-				public ResponseEntity<List<CommodityCatalog>> UpdateCatalog(@RequestBody String SelectCommodityByNumber, Model model) {		
-		      	ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.UpdateCatalog(SelectCommodityByNumber);
+				public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String SelectCommodityByNumber, Model model) {		
+		      	ResponseEntity<PaginationVo> user = commodityCatalogClient.UpdateCatalog(SelectCommodityByNumber);
 		    	return user;
 		    	}
 

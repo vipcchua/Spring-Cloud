@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.CchuaSpace.Model.CommodityCatalog;
 import com.CchuaSpace.Model.CommodityInfo;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 import com.CchuaSpace.Service.CommodityCatalogClient;
 import com.CchuaSpace.Service.CommodityInfoClient;
@@ -20,33 +21,28 @@ import com.CchuaSpace.Service.TableUserClient;
 public class CommodityCatalogHystrix implements CommodityCatalogClient {
 
 	@Override
-	public ResponseEntity<List<CommodityCatalog>> SelectCatalog(String selectCommodityByNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<PaginationVo> SelectCatalog(String selectCommodityByNumber) {
+	     return new ResponseEntity<PaginationVo>(HttpStatus.FORBIDDEN); 
 	}
 
 	@Override
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalog(String selectCommodityByNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<PaginationVo> DeleteCatalog(String selectCommodityByNumber) {
+	     return new ResponseEntity<PaginationVo>(HttpStatus.FORBIDDEN); 
 	}
 
 	@Override
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalogById(String selectCommodityByNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<PaginationVo> DeleteCatalogById(String selectCommodityByNumber) {
+	     return new ResponseEntity<PaginationVo>(HttpStatus.FORBIDDEN); 
 	}
 
 	@Override
-	public ResponseEntity<List<CommodityCatalog>> InsertCommodityInfo(String selectCommodityByNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<PaginationVo> InsertCommodityInfo(String selectCommodityByNumber) {
+	     return new ResponseEntity<PaginationVo>(HttpStatus.FORBIDDEN); 
 	}
 
 	@Override
-	public ResponseEntity<List<CommodityCatalog>> UpdateCatalog(String selectCommodityByNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<PaginationVo> UpdateCatalog(String selectCommodityByNumber) {
+	     return new ResponseEntity<PaginationVo>(HttpStatus.FORBIDDEN); 
 	}
 
 

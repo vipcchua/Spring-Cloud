@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 import com.CchuaSpace.Service.ComputeClient;
 import com.alibaba.fastjson.JSON;
@@ -44,10 +45,10 @@ public class ConsumerController {
 
     @RequestMapping(value = "/SelectuserIDsss", method = RequestMethod.POST)
 
-	public ResponseEntity<List<TableUser>> SelectUserId(@RequestBody String SelectUserId, Model model) {
+	public ResponseEntity<PaginationVo> SelectUserId(@RequestBody String SelectUserId, Model model) {
     	
-    	ResponseEntity<List<TableUser>> user = computeClient.SelectUserId(SelectUserId);
-   System.out.println(user.getBody().get(0).getName());
+    	ResponseEntity<PaginationVo> user = computeClient.SelectUserId(SelectUserId);
+
     /*	ResponseEntity<String> str= new ResponseEntity<String>("hello",HttpStatus.OK);*/
     	
     	return user;

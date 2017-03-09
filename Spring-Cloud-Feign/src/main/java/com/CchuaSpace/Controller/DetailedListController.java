@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.CchuaSpace.Currency.AesUtils;
 import com.CchuaSpace.Currency.RSAUtils;
 import com.CchuaSpace.Model.DetailedList;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Service.CommodityInfoClient;
 import com.CchuaSpace.Service.DetailedListClient;
 import com.CchuaSpace.Service.TableUserClient;
@@ -48,34 +49,34 @@ public class DetailedListController {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 	@RequestMapping(value = "/SelectByUserId", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> SelectByUserId(@RequestBody String SelectByUserId, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.SelectByUserId(SelectByUserId);
+	public ResponseEntity<PaginationVo> SelectByUserId(@RequestBody String SelectByUserId, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.SelectByUserId(SelectByUserId);
 		return user;
 	}
 
 	@RequestMapping(value = "/SelectByDetailedId", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> SelectByDetailedId(@RequestBody String SelectByDetailedId, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.SelectByDetailedId(SelectByDetailedId);
+	public ResponseEntity<PaginationVo> SelectByDetailedId(@RequestBody String SelectByDetailedId, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.SelectByDetailedId(SelectByDetailedId);
 		return user;
 	}
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 	@RequestMapping(value = "/DeleteByCommodity", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> DeleteByCommodity(@RequestBody String DeleteByDetailedId, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.DeleteByCommodity(DeleteByDetailedId);
+	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String DeleteByDetailedId, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.DeleteByCommodity(DeleteByDetailedId);
 		return user;
 	}
 	
 	
 	@RequestMapping(value = "/DeleteBydetailedId", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> DeleteByNumber(@RequestBody String DeleteByNumber, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.DeleteBydetailedId(DeleteByNumber);
+	public ResponseEntity<PaginationVo> DeleteByNumber(@RequestBody String DeleteByNumber, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.DeleteBydetailedId(DeleteByNumber);
 		return user;
 	}
 	
 	@RequestMapping(value = "/DeleteCommodity", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> DeleteCommodity(@RequestBody String DeleteByNumber, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.DeleteCommodity(DeleteByNumber);
+	public ResponseEntity<PaginationVo> DeleteCommodity(@RequestBody String DeleteByNumber, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.DeleteCommodity(DeleteByNumber);
 		return user;
 	}
 	
@@ -83,8 +84,8 @@ public class DetailedListController {
 	
 	
 	@RequestMapping(value = "/DeleteAll", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> DeleteAll(@RequestBody String DeleteAll, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.DeleteAll(DeleteAll);
+	public ResponseEntity<PaginationVo> DeleteAll(@RequestBody String DeleteAll, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.DeleteAll(DeleteAll);
 		return user;
 	}
 	
@@ -92,8 +93,8 @@ public class DetailedListController {
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	@RequestMapping(value = "/InsertDetailed", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> InsertDetailed(@RequestBody String InsertDetailed, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.InsertDetailed(InsertDetailed);
+	public ResponseEntity<PaginationVo> InsertDetailed(@RequestBody String InsertDetailed, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.InsertDetailed(InsertDetailed);
 		return user;
 	}
 	
@@ -102,14 +103,14 @@ public class DetailedListController {
 
 	
 	@RequestMapping(value = "/UpdateByUserId", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> UpdateByUserId(@RequestBody String UpdateByUserId, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.UpdateByUserId(UpdateByUserId);
+	public ResponseEntity<PaginationVo> UpdateByUserId(@RequestBody String UpdateByUserId, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.UpdateByUserId(UpdateByUserId);
 		return user;
 	}
 	
 	@RequestMapping(value = "/UpdateByDetailedId", method = RequestMethod.POST)
-	public ResponseEntity<List<DetailedList>> UpdateByDetailedId(@RequestBody String UpdateByDetailedId, Model model) {
-		ResponseEntity<List<DetailedList>> user = detailedListClient.UpdateByDetailedId(UpdateByDetailedId);
+	public ResponseEntity<PaginationVo> UpdateByDetailedId(@RequestBody String UpdateByDetailedId, Model model) {
+		ResponseEntity<PaginationVo> user = detailedListClient.UpdateByDetailedId(UpdateByDetailedId);
 		return user;
 	}
 	

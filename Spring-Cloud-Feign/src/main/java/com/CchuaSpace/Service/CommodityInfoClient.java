@@ -24,35 +24,36 @@ import com.CchuaSpace.Hystrix.CommodityInfoHystrix;
 import com.CchuaSpace.Hystrix.ComputeClientHystrix;
 import com.CchuaSpace.Hystrix.TableUserClientHystrix;
 import com.CchuaSpace.Model.CommodityInfo;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 
 
 @FeignClient(value = "Server-Service", fallback = CommodityInfoHystrix.class)
 public interface CommodityInfoClient {
+	/*--------------- -----<----*查询*---->--- ----------------------*/
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/SelectCommodityByNumber")
+	ResponseEntity<PaginationVo> SelectCommodityByNumber(String selectCommodityByNumber);
 
-	@RequestMapping(method = RequestMethod.POST, value = "/SelectCommodityByNumber")
-	ResponseEntity<List<CommodityInfo>> SelectCommodityByNumber(String selectCommodityByNumber);
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/SelectCommodityById")
+	ResponseEntity<PaginationVo> SelectCommodityById(String selectCommodityById);
 
-	@RequestMapping(method = RequestMethod.POST, value = "/SelectCommodityById")
-	ResponseEntity<List<CommodityInfo>> SelectCommodityById(String selectCommodityById);
-
-	@RequestMapping(method = RequestMethod.POST, value = "/SelectCommodityInfo")
-	ResponseEntity<List<CommodityInfo>> SelectCommodityInfo(String SelectCommodityInfo);
-
-	@RequestMapping(method = RequestMethod.POST, value = "/DeleteCommodityByNumber")
-	ResponseEntity<List<CommodityInfo>> DeleteCommodityByNumber(String DeleteCommodityByNumber);
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/SelectCommodityInfo")
+	ResponseEntity<PaginationVo> SelectCommodityInfo(String SelectCommodityInfo);
+	/*--------------- -----<----*删除*---->--- ----------------------*/
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/DeleteCommodityByNumber")
+	ResponseEntity<PaginationVo> DeleteCommodityByNumber(String DeleteCommodityByNumber);
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/DeleteCommodityById")
-	ResponseEntity<List<CommodityInfo>> DeleteCommodityById(String DeleteCommodityById);
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/DeleteCommodityById")
+	ResponseEntity<PaginationVo> DeleteCommodityById(String DeleteCommodityById);
+	/*--------------- -----<----*增加*---->--- ----------------------*/
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/InsertCommodityInfo")
+	ResponseEntity<PaginationVo> InsertCommodityInfo(String insertCommodityInfo);
+	/*--------------- -----<----*修改*---->--- ----------------------*/
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/UpdCommodityInfoById")
+	ResponseEntity<PaginationVo> UpdCommodityInfoById(String selectCommodityInfo);
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/InsertCommodityInfo")
-	ResponseEntity<List<CommodityInfo>> InsertCommodityInfo(String insertCommodityInfo);
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/UpdCommodityInfoById")
-	ResponseEntity<List<CommodityInfo>> UpdCommodityInfoById(String selectCommodityInfo);
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/updCommodityInfoByNumber")
-	ResponseEntity<List<CommodityInfo>> UpdCommodityInfoByNumber(String updCommodityInfoByNumber);
+	@RequestMapping(method = RequestMethod.POST, value = "/Commodit/updCommodityInfoByNumber")
+	ResponseEntity<PaginationVo> UpdCommodityInfoByNumber(String updCommodityInfoByNumber);
 
 	
 	

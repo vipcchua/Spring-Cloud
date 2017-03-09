@@ -19,6 +19,7 @@ compute-service
 */
 
 import com.CchuaSpace.Hystrix.ComputeClientHystrix;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 
 
@@ -41,7 +42,7 @@ public interface ComputeClient {
 	String login();
 
 	@RequestMapping(method = RequestMethod.POST, value = "/SelectuserID")
-	ResponseEntity<List<TableUser>> SelectUserId(String selectUserId);
+	ResponseEntity<PaginationVo> SelectUserId(String selectUserId);
 
 
 }

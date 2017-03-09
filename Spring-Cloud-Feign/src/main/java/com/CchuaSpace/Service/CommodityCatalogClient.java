@@ -26,6 +26,7 @@ import com.CchuaSpace.Hystrix.ComputeClientHystrix;
 import com.CchuaSpace.Hystrix.TableUserClientHystrix;
 import com.CchuaSpace.Model.CommodityCatalog;
 import com.CchuaSpace.Model.CommodityInfo;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 
 
@@ -35,23 +36,26 @@ public interface CommodityCatalogClient {
 
 
 	
-	
+
+	/*--------------- -----<----*查询*---->--- ----------------------*/
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/Catalog/SelectCatalog")
-	ResponseEntity<List<CommodityCatalog>> SelectCatalog(String selectCommodityByNumber);
-
+	ResponseEntity<PaginationVo> SelectCatalog(String selectCommodityByNumber);
+	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Catalog/DeleteCatalog")
-	ResponseEntity<List<CommodityCatalog>> DeleteCatalog(String selectCommodityByNumber);
+	ResponseEntity<PaginationVo> DeleteCatalog(String selectCommodityByNumber);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Catalog/DeleteCatalogById")
-	ResponseEntity<List<CommodityCatalog>> DeleteCatalogById(String selectCommodityByNumber);
+	ResponseEntity<PaginationVo> DeleteCatalogById(String selectCommodityByNumber);
+
+	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Catalog/InsertCommodityInfo")
-	ResponseEntity<List<CommodityCatalog>> InsertCommodityInfo(String selectCommodityByNumber);
-
+	ResponseEntity<PaginationVo> InsertCommodityInfo(String selectCommodityByNumber);
+	/*--------------- -----<----*修改*---->--- ----------------------*/
 	@RequestMapping(method = RequestMethod.POST, value = "/Catalog/UpdateCatalog")
-	ResponseEntity<List<CommodityCatalog>> UpdateCatalog(String selectCommodityByNumber);
+	ResponseEntity<PaginationVo> UpdateCatalog(String selectCommodityByNumber);
 	
 }
 

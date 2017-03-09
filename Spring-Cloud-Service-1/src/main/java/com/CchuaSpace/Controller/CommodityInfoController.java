@@ -192,6 +192,7 @@ public class CommodityInfoController {
 
 	}
 
+	
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 	@ApiOperation(value = "增加商品详细信息", notes = "增加商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),

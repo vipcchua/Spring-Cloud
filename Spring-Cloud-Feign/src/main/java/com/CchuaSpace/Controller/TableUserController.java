@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 import com.CchuaSpace.Service.TableUserClient;
 
@@ -23,9 +24,9 @@ public class TableUserController {
 
 	    @RequestMapping(value = "/SelectuserID", method = RequestMethod.POST)
 
-		public ResponseEntity<List<TableUser>> SelectUserId(@RequestBody String SelectUserId, Model model) {
+		public ResponseEntity<PaginationVo> SelectUserId(@RequestBody String SelectUserId, Model model) {
 	    	
-	    	ResponseEntity<List<TableUser>> user = tableUserClient.SelectUserId(SelectUserId);
+	    	ResponseEntity<PaginationVo> user = tableUserClient.SelectUserId(SelectUserId);
 
 	    /*	ResponseEntity<String> str= new ResponseEntity<String>("hello",HttpStatus.OK);*/
 	    	
@@ -37,27 +38,27 @@ public class TableUserController {
 	    
 
 	    @RequestMapping(value = "/SelectUsername", method = RequestMethod.POST)
-		public ResponseEntity<List<TableUser>> SelectUserName(@RequestBody String SelectUserName, Model model) { 
-	    	ResponseEntity<List<TableUser>> user = tableUserClient.SelectUserName(SelectUserName);
+		public ResponseEntity<PaginationVo> SelectUserName(@RequestBody String SelectUserName, Model model) { 
+	    	ResponseEntity<PaginationVo> user = tableUserClient.SelectUserName(SelectUserName);
 	    	return user;
 	    }
 	    
 	    @RequestMapping(value = "/UserInfo", method = RequestMethod.POST)
-		public ResponseEntity<List<TableUser>> UserInfo(@RequestBody String UserInfo, Model model) { 
-	    	ResponseEntity<List<TableUser>> user = tableUserClient.UserInfo(UserInfo);
+		public ResponseEntity<PaginationVo> UserInfo(@RequestBody String UserInfo, Model model) { 
+	    	ResponseEntity<PaginationVo> user = tableUserClient.UserInfo(UserInfo);
 	    	return user;
 	    }
 	    
 
 	    @RequestMapping(value = "/SelectUserCondition", method = RequestMethod.POST)
-			public ResponseEntity<List<TableUser>> SelectUserCondition(@RequestBody String SelectUserCondition, Model model) { 
-		    	ResponseEntity<List<TableUser>> user = tableUserClient.SelectUserCondition(SelectUserCondition);
+			public ResponseEntity<PaginationVo> SelectUserCondition(@RequestBody String SelectUserCondition, Model model) { 
+		    	ResponseEntity<PaginationVo> user = tableUserClient.SelectUserCondition(SelectUserCondition);
 		    	return user;
 		    }
 		    
 	    @RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
-				public ResponseEntity<List<TableUser>> UpdateUser(@RequestBody String UpdateUser, Model model) { 
-			    	ResponseEntity<List<TableUser>> user = tableUserClient.UpdateUser(UpdateUser);
+				public ResponseEntity<PaginationVo> UpdateUser(@RequestBody String UpdateUser, Model model) { 
+			    	ResponseEntity<PaginationVo> user = tableUserClient.UpdateUser(UpdateUser);
 			    	return user;
 			    }
 	    

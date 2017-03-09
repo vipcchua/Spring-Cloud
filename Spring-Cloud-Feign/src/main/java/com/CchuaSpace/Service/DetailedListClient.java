@@ -26,39 +26,41 @@ import com.CchuaSpace.Hystrix.DetailedListHystrix;
 import com.CchuaSpace.Hystrix.TableUserClientHystrix;
 import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.DetailedList;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 
 
 @FeignClient(value = "Server-Service", fallback = DetailedListHystrix.class)
 
 public interface DetailedListClient {
-
+	/*--------------- -----<----*查询*---->--- ----------------------*/
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/SelectByUserId")
-	ResponseEntity<List<DetailedList>> SelectByUserId(String selectByUserId);
+	ResponseEntity<PaginationVo> SelectByUserId(String selectByUserId);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/SelectByDetailedId")
-	ResponseEntity<List<DetailedList>> SelectByDetailedId(String selectByDetailedId);
-
+	ResponseEntity<PaginationVo> SelectByDetailedId(String selectByDetailedId);
+	/*--------------- -----<----*删除*---->--- ----------------------*/
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/DeleteByDetailedId")
-	ResponseEntity<List<DetailedList>> DeleteByCommodity(String deleteByDetailedId);
+	ResponseEntity<PaginationVo> DeleteByCommodity(String deleteByDetailedId);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/DeleteBydetailedId")
-	ResponseEntity<List<DetailedList>> DeleteBydetailedId(String deleteByNumber);
+	ResponseEntity<PaginationVo> DeleteBydetailedId(String deleteByNumber);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/DeleteCommodity")
-	ResponseEntity<List<DetailedList>> DeleteCommodity(String deleteByNumber);
+	ResponseEntity<PaginationVo> DeleteCommodity(String deleteByNumber);
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/DeleteAll")
-	ResponseEntity<List<DetailedList>> DeleteAll(String deleteAll);
-
+	ResponseEntity<PaginationVo> DeleteAll(String deleteAll);
+	/*--------------- -----<----*增加*---->--- ----------------------*/
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/InsertDetailed")
-	ResponseEntity<List<DetailedList>> InsertDetailed(String insertDetailed);
+	ResponseEntity<PaginationVo> InsertDetailed(String insertDetailed);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/UpdateByUserId")
-	ResponseEntity<List<DetailedList>> UpdateByUserId(String updateByUserId);
+	ResponseEntity<PaginationVo> UpdateByUserId(String updateByUserId);
 
+	/*--------------- -----<----*修改*---->--- ----------------------*/
 	@RequestMapping(method = RequestMethod.POST, value = "/Detailed/UpdateByDetailedId")
-	ResponseEntity<List<DetailedList>> UpdateByDetailedId(String updateByDetailedId);
+	ResponseEntity<PaginationVo> UpdateByDetailedId(String updateByDetailedId);
 	
 
 

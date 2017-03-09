@@ -35,6 +35,7 @@ import com.CchuaSpace.Currency.RSAUtils;
 import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.DetailedList;
 import com.CchuaSpace.Model.OrderInfo;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Service.CommodityInfoClient;
 import com.CchuaSpace.Service.DetailedListClient;
 import com.CchuaSpace.Service.OrderInfoClient;
@@ -51,18 +52,26 @@ public class OrderInfoController {
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 
+	
+	@RequestMapping(value = "/SelectByNumber", method = RequestMethod.POST)
+	public ResponseEntity<PaginationVo> SelectByNumber(@RequestBody String DeleteByNumber, Model model) {		
+  	ResponseEntity<PaginationVo> user = orderInfoClient.SelectByNumber(DeleteByNumber);
+	return user;
+
+	}
+	
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	@RequestMapping(value = "/DeleteByNumber", method = RequestMethod.POST)
-	public ResponseEntity<List<OrderInfo>> DeleteByNumber(@RequestBody String DeleteByNumber, Model model) {		
-  	ResponseEntity<List<OrderInfo>> user = orderInfoClient.DeleteByNumber(DeleteByNumber);
+	public ResponseEntity<PaginationVo> DeleteByNumber(@RequestBody String DeleteByNumber, Model model) {		
+  	ResponseEntity<PaginationVo> user = orderInfoClient.DeleteByNumber(DeleteByNumber);
 	return user;
 
 	}
 	
 	@RequestMapping(value = "/DeleteById", method = RequestMethod.POST)
-	public ResponseEntity<List<OrderInfo>> DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {		
-  	ResponseEntity<List<OrderInfo>> user = orderInfoClient.DeleteById(DeleteCommodityById);
+	public ResponseEntity<PaginationVo> DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {		
+  	ResponseEntity<PaginationVo> user = orderInfoClient.DeleteById(DeleteCommodityById);
 	return user;
 	}
 	 

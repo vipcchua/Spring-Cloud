@@ -1,14 +1,11 @@
- package com.CchuaSpace.Service;
-
-import java.util.List;
+package com.CchuaSpace.Service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 /*
 @FeignClient("Server-Service")
 public interface ComputeClient {
@@ -20,39 +17,25 @@ public interface ComputeClient {
 compute-service
 */
 
-import com.CchuaSpace.Hystrix.ComputeClientHystrix;
 import com.CchuaSpace.Hystrix.TableUserClientHystrix;
-import com.CchuaSpace.Model.TableUser;
-
+import com.CchuaSpace.Model.PaginationVo;
 
 @FeignClient(value = "Server-Service", fallback = TableUserClientHystrix.class)
 public interface TableUserClient {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/SelectuserID")
-	ResponseEntity<List<TableUser>> SelectUserId(String selectUserId);
+	ResponseEntity<PaginationVo> SelectUserId(String selectUserId);
 
-	
-	
 	@RequestMapping(method = RequestMethod.POST, value = "/SelectUsername")
-	ResponseEntity<List<TableUser>> SelectUserName(String selectUserName);
-
+	ResponseEntity<PaginationVo> SelectUserName(String selectUserName);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/UserInfo")
-	ResponseEntity<List<TableUser>> UserInfo(String UserInfo);
-
+	ResponseEntity<PaginationVo> UserInfo(String UserInfo);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/SelectUserCondition")
-	ResponseEntity<List<TableUser>> SelectUserCondition(String selectUserCondition);
-
+	ResponseEntity<PaginationVo> SelectUserCondition(String selectUserCondition);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/UpdateUser")
-	ResponseEntity<List<TableUser>> UpdateUser(String updateUser);
-
-	
-	
+	ResponseEntity<PaginationVo> UpdateUser(String updateUser);
 
 }
-
-
-
-

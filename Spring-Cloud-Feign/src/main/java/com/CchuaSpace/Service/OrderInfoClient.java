@@ -26,6 +26,7 @@ import com.CchuaSpace.Hystrix.OrderInfoHystrix;
 import com.CchuaSpace.Hystrix.TableUserClientHystrix;
 import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.OrderInfo;
+import com.CchuaSpace.Model.PaginationVo;
 import com.CchuaSpace.Model.TableUser;
 
 
@@ -37,10 +38,14 @@ public interface OrderInfoClient {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/OrderInfo/DeleteByNumber")
-	ResponseEntity<List<OrderInfo>> DeleteByNumber(String DeleteCommodityByNumber);
+	ResponseEntity<PaginationVo> DeleteByNumber(String DeleteCommodityByNumber);
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/OrderInfo/DeleteById")
-	ResponseEntity<List<OrderInfo>> DeleteById(String DeleteCommodityById);
+	ResponseEntity<PaginationVo> DeleteById(String DeleteCommodityById);
+
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/OrderInfo/DeleteById")
+	ResponseEntity<PaginationVo> SelectByNumber(String deleteByNumber);
 	
 	
 	
