@@ -92,8 +92,7 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping(value = "/Commodit")
 @Api(value = "商品信息表", description = "商品信息列表commodity_info")
 
-
-public class CommodityInfoController   {
+public class CommodityInfoController {
 
 	private static SqlSessionFactory sqlSessionFactory;
 	/* private Logger logger = Logger.getLogger(TableInfoController.class); */
@@ -106,11 +105,8 @@ public class CommodityInfoController   {
 	@Resource
 	private Application computeServiceApplication;
 
-
-
-
 	@Autowired
-	private CommodityInfoService commodityInfoBusiness;
+	private CommodityInfoService commodityInfoService;
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 	@ApiOperation(value = "使用商品编号查询商品详细信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
@@ -123,17 +119,17 @@ public class CommodityInfoController   {
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
-		
-		PaginationVo user = commodityInfoBusiness.SelectCommodityByNumber(CommodityInfo, model);
+
+		PaginationVo user = commodityInfoService.SelectCommodityByNumber(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-	
+
 		return data;
 
 	}
 
 	@ApiOperation(value = "使用商品iD查询商品详细信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses(					{ @ApiResponse(code = 400, message = "请求参数没填好"),
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
@@ -141,8 +137,8 @@ public class CommodityInfoController   {
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
-	
-		PaginationVo user = commodityInfoBusiness.SelectCommodityByID(CommodityByID, model);
+
+		PaginationVo user = commodityInfoService.SelectCommodityByID(CommodityByID, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
@@ -154,10 +150,11 @@ public class CommodityInfoController   {
 	@RequestMapping(value = "/SelectCommodityInfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
-		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
-				.SelectCommodityInfo(CommodityByID, model);
+	public ResponseEntity<PaginationVo> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
+		PaginationVo user = commodityInfoService.SelectCommodityInfo(CommodityByID, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
+
 	}
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
@@ -170,11 +167,11 @@ public class CommodityInfoController   {
 
 	@RequestMapping(value = "/DeleteCommodityByNumber", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<CommodityInfo>> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
+	public ResponseEntity<PaginationVo> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
 			Model model) {
 
-		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
-				.DeleteCommodityByNumber(DeleteCommodityByNumber, model);
+		PaginationVo user = commodityInfoService.DeleteCommodityByNumber(DeleteCommodityByNumber, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -186,11 +183,11 @@ public class CommodityInfoController   {
 			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
 	@RequestMapping(value = "/DeleteCommodityById", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<CommodityInfo>> DeleteCommodityById(@RequestBody String DeleteCommodityById,
-			Model model) {
+	public ResponseEntity<PaginationVo> DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {
 
-		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
-				.DeleteCommodityById(DeleteCommodityById, model);
+		PaginationVo user = commodityInfoService.DeleteCommodityById(DeleteCommodityById, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
 		return data;
 
 	}
@@ -203,11 +200,10 @@ public class CommodityInfoController   {
 	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> InsertCommodityInfo(@RequestBody String InsertCommodityInfo,
-			Model model) {
+	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String InsertCommodityInfo, Model model) {
 
-		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
-				.InsertCommodityInfo(InsertCommodityInfo, model);
+		PaginationVo user = commodityInfoService.InsertCommodityInfo(InsertCommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -221,10 +217,11 @@ public class CommodityInfoController   {
 	@RequestMapping(value = "/UpdCommodityInfoById", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
+	public ResponseEntity<PaginationVo> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
 
-		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
-				.UpdCommodityInfoById(CommodityByID, model);
+		PaginationVo user = commodityInfoService.UpdCommodityInfoById(CommodityByID, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
 		return data;
 
 	}
@@ -236,11 +233,11 @@ public class CommodityInfoController   {
 	@RequestMapping(value = "/UpdCommodityInfoByNumber", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
+	public ResponseEntity<PaginationVo> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
 			Model model) {
 
-		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
-				.UpdCommodityInfoById(UpdCommodityInfoByNumber, model);
+		PaginationVo user = commodityInfoService.UpdCommodityInfoByNumber(UpdCommodityInfoByNumber, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}

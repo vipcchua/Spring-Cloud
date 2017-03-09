@@ -50,11 +50,9 @@ public class CommodityInfoService {
 		paginationVo.setDataResult(data);
 
 		return paginationVo;
-		
-		
-		
-		/*相当于
-		 * PaginationVo resultPr=new PaginationVo();
+
+		/*
+		 * 相当于 PaginationVo resultPr=new PaginationVo();
 		 * resultPr.setDataResult(data);
 		 */
 
@@ -67,106 +65,90 @@ public class CommodityInfoService {
 		 * CommodityInfoVo.class);
 		 */
 
-	
-
 	}
 
 	public PaginationVo SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
-	/*	List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityByID(json.get(0).getCommodityId());
 
-		String jsons = JSON.toJSONString(user);
-		List<CommodityInfoVo> data = JSON.parseArray(jsons.toString(), CommodityInfoVo.class);
-
-		return data;*/
-
-		
-		
 		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByNumber(json.get(0).getCommodityNumber());
-
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(json.get(0).getCommodityId());
 		paginationVo.setDataResult(data);
-
 		return paginationVo;
 	}
 
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
+	public PaginationVo SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
+
 		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
-		return data;
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json.get(0));
+		paginationVo.setDataResult(data);
+		return paginationVo;
 
 	}
 
-	public ResponseEntity<List<CommodityInfo>> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
-			Model model) {
+	public PaginationVo DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber, Model model) {
 		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityByNumber, CommodityInfo.class);
 
 		int tostate = commodityInfoMapper.DeleteCommodityByNumber(json.get(0).getCommodityNumber());
 
 		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
+			paginationVo.setSqlState("Success");
 		else
-			json.get(0).setSqlstate("ERROR");
+			paginationVo.setSqlState("Error");
 
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(json, HttpStatus.OK);
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json.get(0));
 
-		return data;
+		paginationVo.setDataResult(data);
+		return paginationVo;
 
 	}
 
-	public ResponseEntity<List<CommodityInfo>> DeleteCommodityById(@RequestBody String DeleteCommodityById,
-			Model model) {
+	public PaginationVo DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {
 		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityById, CommodityInfo.class);
 
 		int tostate = commodityInfoMapper.DeleteCommodityById(json.get(0).getCommodityId());
+
 		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
+			/* json.get(0).setSqlstate("Success"); */
+			paginationVo.setSqlState("Success");
 		else
-			json.get(0).setSqlstate("ERROR");
+			paginationVo.setSqlState("Error");
 
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(json, HttpStatus.OK);
-
-		return data;
+		paginationVo.setDataResult(json);
+		return paginationVo;
 
 	}
 
-	public ResponseEntity<List<CommodityInfo>> InsertCommodityInfo(@RequestBody String InsertCommodityInfo,
-			Model model) {
+	public PaginationVo InsertCommodityInfo(@RequestBody String InsertCommodityInfo, Model model) {
 
 		List<CommodityInfo> json = JSON.parseArray(InsertCommodityInfo, CommodityInfo.class);
 		json.get(0).setCommodityId(uuid());
 		List<CommodityInfo> user = commodityInfoMapper.InsertCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
 
-		return data;
+		paginationVo.setDataResult(user);
+		return paginationVo;
 
 	}
 
-	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
+	public PaginationVo UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
 		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
 		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoById(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
 
-		return data;
+		paginationVo.setDataResult(user);
+		return paginationVo;
 
 	}
 
-	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
-			Model model) {
+	public PaginationVo UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber, Model model) {
 		List<CommodityInfo> json = JSON.parseArray(UpdCommodityInfoByNumber, CommodityInfo.class);
 		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoByNumber(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
 
-		return data;
+		paginationVo.setDataResult(user);
+		return paginationVo;
 
 	}
 
 	private String uuid() {
 		String uuid = UUID.randomUUID().toString();
 		System.out.println(uuid);
-
 		return uuid;
 	}
 

@@ -7,8 +7,12 @@ public class CommodityInfoVo extends BaseObjectVo{
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2670901258346630100L;
 
+	/**
+	 * 
+	 */
+	
 	/**
     * 商品编号
     */

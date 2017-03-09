@@ -1,12 +1,9 @@
 package com.CchuaSpace.Model;
 
-import com.CchuaSpace.Pojo.BaseObjectVo;
-
-public class CommodityInfo extends BaseObjectVo{
+public class CommodityInfo{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 商品编号

@@ -46,6 +46,8 @@ import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.DetailedList;
 import com.CchuaSpace.Model.OrderInfo;
 import com.CchuaSpace.Model.TableUser;
+import com.CchuaSpace.Pojo.PaginationVo;
+import com.CchuaSpace.Service.OrderInfoService;
 import com.alibaba.fastjson.JSON;
 
 import io.swagger.annotations.Api;
@@ -69,7 +71,7 @@ public class OrderInfoController {
 	private DiscoveryClient client;
 
 	@Autowired
-	private OrderInfoMapper orderInfoMapper;
+	private OrderInfoService orderInfoService;
 
 	@Resource
 	private Application application;
@@ -78,22 +80,16 @@ public class OrderInfoController {
 	@ApiOperation(value = "使用用户Id查询购物车", notes = "使用商品Id查询购物车", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "orderNumber", value = "请输入对应参数", required = true, dataType = "varchar")
-	})
+	@ApiImplicitParams({ @ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "orderNumber", value = "请输入对应参数", required = true, dataType = "varchar") })
 
 	@RequestMapping(value = "/SelectByNumber", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<OrderInfo>> SelectByNumber(@RequestBody String CommodityInfo,
-			Model model) {
-		List<OrderInfo> json = JSON.parseArray(CommodityInfo, OrderInfo.class);
-		List<OrderInfo> user = 
-				orderInfoMapper
-				.SelectByNumber(json.get(0).getUserId(),json.get(0).getOrderNumber());
-		ResponseEntity<List<OrderInfo>> data = new ResponseEntity<List<OrderInfo>>(user, HttpStatus.OK);
-		System.out.println(data);
+	public ResponseEntity<PaginationVo> SelectByNumber(@RequestBody String CommodityInfo, Model model) {
+
+		PaginationVo user = orderInfoService.SelectByNumber(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -109,55 +105,33 @@ public class OrderInfoController {
 	@RequestMapping(value = "/DeleteByNumber", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<OrderInfo>> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<OrderInfo> json = JSON.parseArray(CommodityInfo, OrderInfo.class);
-		int tostate = orderInfoMapper.DeleteNumber(json.get(0).getOrderNumber(),json.get(0).getUserId()
-				);
+	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<OrderInfo>> data = new ResponseEntity<List<OrderInfo>>(json, HttpStatus.OK);
-
+		PaginationVo user = orderInfoService.DeleteByCommodity(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
 
-	
-	
 	@ApiOperation(value = "使用订单Id删除订单对应商品", notes = "使用订单Id删除订单", response = OrderInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "OrderId", value = "请输入对应参数", required = true, dataType = "varchar"),
+	@ApiImplicitParams({ @ApiImplicitParam(name = "OrderId", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar") })
 
 	@RequestMapping(value = "/DeleteById", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<OrderInfo>> DeleteByOrderId(@RequestBody String CommodityInfo, Model model) {
-		List<OrderInfo> json = JSON.parseArray(CommodityInfo, OrderInfo.class);
-		int tostate = orderInfoMapper.DeleteorderId(json.get(0).getOrderId(),json.get(0).getUserId()
-				);
+	public ResponseEntity<PaginationVo> DeleteByOrderId(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<OrderInfo>> data = new ResponseEntity<List<OrderInfo>>(json, HttpStatus.OK);
-
+		PaginationVo user = orderInfoService.DeleteByOrderId(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
-
 	/*--------------- -----<----*修改*---->--- ----------------------*/
-
-
 
 	private String uuid() {
 		String uuid = UUID.randomUUID().toString();

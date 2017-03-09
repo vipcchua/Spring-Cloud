@@ -21,6 +21,7 @@ import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.CommodityInfoSql;
 import com.CchuaSpace.Model.TableUser;
 import com.CchuaSpace.Model.TableUserSql;
+import com.CchuaSpace.Pojo.CommodityInfoVo;
 
 
 

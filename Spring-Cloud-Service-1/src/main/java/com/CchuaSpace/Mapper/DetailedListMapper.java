@@ -49,7 +49,7 @@ public interface DetailedListMapper {
 	public int InsertDetailedList(DetailedList detailedList);
 	
 	/*--------------- -----<----*删除*---->--- ----------------------*/
-	@Delete("Delete FROM detailed_list where user_id = #{userId} And detailed_id = #{detailedId} And commodity_number = #{commodityNumber}")
+	@Delete("Delete FROM detailed_list where user_id = #{userId} And commodity_number = #{commodityNumber}")
 	int DeleteCommodity(DetailedList detailedList);
 	
 	@Delete("Delete FROM detailed_list where user_id = #{userId} And commodity_number = #{commodityNumber}")

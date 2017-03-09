@@ -44,6 +44,9 @@ import com.CchuaSpace.Mapper.DetailedListMapper;
 import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.DetailedList;
 import com.CchuaSpace.Model.TableUser;
+import com.CchuaSpace.Pojo.PaginationVo;
+import com.CchuaSpace.Service.CommodityInfoService;
+import com.CchuaSpace.Service.DetailedListService;
 import com.alibaba.fastjson.JSON;
 
 import io.swagger.annotations.Api;
@@ -72,6 +75,9 @@ public class DetailedListController {
 	@Resource
 	private Application computeServiceApplication;
 
+	@Autowired
+	private DetailedListService detailedListService;
+
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 	@ApiOperation(value = "使用用户Id查询购物车", notes = "使用商品Id查询购物车", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
@@ -82,12 +88,11 @@ public class DetailedListController {
 	@RequestMapping(value = "/SelectByUserId", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> SelectDetailedListByUserId(@RequestBody String CommodityInfo,
-			Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		List<DetailedList> user = detailedListMapper.SelectDetailedListByUserId(json.get(0).getUserId());
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(user, HttpStatus.OK);
-		System.out.println(data);
+	public ResponseEntity<PaginationVo> SelectDetailedListByUserId(@RequestBody String CommodityInfo, Model model) {
+
+		PaginationVo user = detailedListService.SelectDetailedListByUserId(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -101,12 +106,11 @@ public class DetailedListController {
 	@RequestMapping(value = "/SelectByDetailedId", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> SelectDetailedListByDetailedId(@RequestBody String CommodityInfo,
-			Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		List<DetailedList> user = detailedListMapper.SelectDetailedListByDetailedId(json.get(0).getDetailedId());
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(user, HttpStatus.OK);
+	public ResponseEntity<PaginationVo> SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
 
+		PaginationVo user = detailedListService.SelectDetailedListByDetailedId(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -123,18 +127,11 @@ public class DetailedListController {
 	@RequestMapping(value = "/DeleteByCommodity", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteByCommodity(json.get(0).getDetailedId(),
-				json.get(0).getCommodityNumber());
+	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
+		PaginationVo user = detailedListService.DeleteByCommodity(CommodityInfo, model);
 
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -144,22 +141,18 @@ public class DetailedListController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "detailedId", value = "请输入对应参数", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar") })
+			@ApiImplicitParam(name = "userid", value = "请输入对应参数", required = true, dataType = "varchar") })
 
 	@RequestMapping(value = "/DeleteBydetailedId", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteBydetailedId(json.get(0).getUserId(), json.get(0).getDetailedId());
+	public ResponseEntity<PaginationVo> DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
+		
+		
+		PaginationVo user = detailedListService.DeleteBydetailedId(CommodityInfo, model);
 
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -170,25 +163,21 @@ public class DetailedListController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "userid", value = "请输入对应参数", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "detailedId", value = "请输入对应参数", required = true, dataType = "varchar")
-
+		
 	})
 
 	@RequestMapping(value = "/DeleteCommodity", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteCommodity(json.get(0));
+	public ResponseEntity<PaginationVo> DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
+		
+		PaginationVo user = detailedListService.DeleteCommodity(CommodityInfo, model);
 
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
+		
+		
 
 	}
 
@@ -202,18 +191,15 @@ public class DetailedListController {
 	@RequestMapping(value = "/DeleteAll", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteAlldetailed(json.get(0).getUserId());
+	public ResponseEntity<PaginationVo> DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
+		
+		
+		PaginationVo user = detailedListService.DeleteAlldetailed(CommodityInfo, model);
 
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
+		
 
 	}
 
@@ -226,18 +212,13 @@ public class DetailedListController {
 	@RequestMapping(value = "/InsertDetailed", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		json.get(0).setDetailedId(uuid());
-		int tostate = detailedListMapper.InsertDetailedList(json.get(0));
+	public ResponseEntity<PaginationVo> InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
+		
+		
+		PaginationVo user = detailedListService.InsertDetailedListInfo(CommodityInfo, model);
 
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -252,19 +233,15 @@ public class DetailedListController {
 	@RequestMapping(value = "/UpdateByUserId", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
+	public ResponseEntity<PaginationVo> UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
+	
+		
+		PaginationVo user = detailedListService.UpdateCommodityByUserId(CommodityInfo, model);
 
-		int tostate = detailedListMapper.UpdateCommodityByUserId(json.get(0));
-
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
+		
+		
 
 	}
 
@@ -274,19 +251,13 @@ public class DetailedListController {
 	@RequestMapping(value = "/UpdateByDetailedId", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<DetailedList>> UpdateCommodityBydetailedId(@RequestBody String CommodityInfo,
+	public ResponseEntity<PaginationVo> UpdateCommodityBydetailedId(@RequestBody String CommodityInfo,
 			Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.UpdateCommodityBydetailedId(json.get(0));
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<DetailedList>> data = new ResponseEntity<List<DetailedList>>(json, HttpStatus.OK);
-
+		PaginationVo user = detailedListService.UpdateCommodityBydetailedId(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
+		
 
 	}
 

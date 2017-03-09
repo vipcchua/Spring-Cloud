@@ -49,6 +49,8 @@ import com.CchuaSpace.Mapper.CommodityInfoMapper;
 import com.CchuaSpace.Model.CommodityCatalog;
 import com.CchuaSpace.Model.CommodityInfo;
 import com.CchuaSpace.Model.OrderInfo;
+import com.CchuaSpace.Pojo.PaginationVo;
+import com.CchuaSpace.Service.CommodityCatalogService;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
@@ -89,7 +91,7 @@ public class CommodityCatalogController {
 	private DiscoveryClient client;
 
 	@Autowired
-	private CommodityCatalogMapper commodityCatalogMapper;
+	private CommodityCatalogService commodityCatalogService;
 
 	@Resource
 	private Application computeServiceApplication;
@@ -105,10 +107,20 @@ public class CommodityCatalogController {
 	@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityCatalog>> SelectCatalog(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		List<CommodityCatalog> user = commodityCatalogMapper.SelectCatalog(json.get(0));
-		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(user, HttpStatus.OK);
+	public ResponseEntity<PaginationVo> SelectCatalog(@RequestBody String CommodityInfo, Model model) {
+		/*
+		 * List<CommodityCatalog> json = JSON.parseArray(CommodityInfo,
+		 * CommodityCatalog.class); List<CommodityCatalog> user =
+		 * commodityCatalogMapper.SelectCatalog(json.get(0));
+		 */
+
+		PaginationVo user = commodityCatalogService.SelectCatalog(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		/*
+		 * ResponseEntity<List<CommodityCatalog>> data = new
+		 * ResponseEntity<List<CommodityCatalog>>(user, HttpStatus.OK);
+		 */
 
 		return data;
 
@@ -129,16 +141,10 @@ public class CommodityCatalogController {
 	@RequestMapping(value = "/DeleteCatalog", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityCatalog>> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		int tostate = commodityCatalogMapper.DeleteCatalog(json.get(0));
+	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(json, HttpStatus.OK);
+		PaginationVo user = commodityCatalogService.DeleteByCommodity(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
 		return data;
 
@@ -153,16 +159,10 @@ public class CommodityCatalogController {
 	@RequestMapping(value = "/DeleteCatalogById", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalogById(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		int tostate = commodityCatalogMapper.DeleteCatalog(json.get(0));
+	public ResponseEntity<PaginationVo> DeleteCatalogById(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(json, HttpStatus.OK);
+		PaginationVo user = commodityCatalogService.DeleteCatalogById(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
 		return data;
 
@@ -183,12 +183,10 @@ public class CommodityCatalogController {
 	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityCatalog>> InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		json.get(0).setCatalogId(uuid());
-		List<CommodityCatalog> user = commodityCatalogMapper.InsertCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(user, HttpStatus.OK);
-
+	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
+		
+		PaginationVo user = commodityCatalogService.InsertCommodityInfo(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -207,26 +205,17 @@ public class CommodityCatalogController {
 	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityCatalog>> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		int tostate = commodityCatalogMapper.UpdateCatalog(json.get(0));
+	public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
 
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(json, HttpStatus.OK);
-
+	
+		
+		PaginationVo user = commodityCatalogService.UpdateCatalog(CommodityInfo, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
+		
+		
+		
 
-	}
-
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
-
-		return uuid;
 	}
 
 }

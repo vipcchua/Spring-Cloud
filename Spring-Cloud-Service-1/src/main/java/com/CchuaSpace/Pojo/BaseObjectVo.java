@@ -5,9 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true) 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseObjectVo implements Serializable {
-
 
 	/**
 	 * 
@@ -17,15 +16,19 @@ public class BaseObjectVo implements Serializable {
 	private String orderby;
 
 	private int page;
-	
+
 	private int pageRow;
-	
 
 	private String Sorting;
+
 	private String ErrorCode;
-	private List<?> list;	
-	
-	
+
+	private String ErrorSolve;
+
+	private String SqlState;
+
+	private List<?> list;
+
 	public String getErrorCode() {
 		return ErrorCode;
 	}
@@ -33,8 +36,6 @@ public class BaseObjectVo implements Serializable {
 	public void setErrorCode(String errorCode) {
 		ErrorCode = errorCode;
 	}
-
-	
 
 	public String getOrderby() {
 		return orderby;
@@ -76,6 +77,20 @@ public class BaseObjectVo implements Serializable {
 		this.list = list;
 	}
 
+	public String getSqlState() {
+		return SqlState;
+	}
 
+	public void setSqlState(String sqlState) {
+		SqlState = sqlState;
+	}
+
+	public String getErrorSolve() {
+		return ErrorSolve;
+	}
+
+	public void setErrorSolve(String errorSolve) {
+		ErrorSolve = errorSolve;
+	}
 
 }
