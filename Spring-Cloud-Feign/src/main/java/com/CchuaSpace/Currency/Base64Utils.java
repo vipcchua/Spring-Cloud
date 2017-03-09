@@ -141,7 +141,7 @@ public class Base64Utils {
             out.flush();
         }
         out.close();
-        in.close();
+        in.close(); 
     }
     
     

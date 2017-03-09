@@ -53,7 +53,7 @@ public class CommodityInfoSql {
 				WHERE("commodity_info.commodity_id = #{commodityId}");
 			}
 		}.toString();
-	}
+	} 
 
 	public String UpdCommodityInfoByNumber(final CommodityInfo commodityInfo) {
 		return new SQL() {

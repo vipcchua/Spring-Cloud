@@ -1,15 +1,5 @@
 package com.CchuaSpace.Controller;
 
-/*
- * ****************<--*---Code information---*-->**************
- * 	
- *		Author: Cchua
- *		GitHub: https://github.com/vipcchua
- *		Blog  : weibo.com/vipcchua
- * 
- * 
- * ************************************************************/
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,14 +41,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.CchuaSpace.Application;
 import com.CchuaSpace.Currency.AesUtils;
 import com.CchuaSpace.Currency.RSAUtils;
+import com.CchuaSpace.Mapper.CommodityCatalogMapper;
+import com.CchuaSpace.Mapper.CommodityInfoMapper;
 import com.CchuaSpace.Model.CommodityCatalog;
 import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Service.CommodityCatalogClient;
-import com.CchuaSpace.Service.CommodityInfoClient;
-import com.CchuaSpace.Service.TableUserClient;
+import com.CchuaSpace.Model.OrderInfo;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
@@ -80,57 +70,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * http://localhost:8080//hhh?name=d62&age=23
+ */
+@Controller
 @RestController
-@RequestMapping(value = "/Catalog")
-@Api(value = "商品信息表", description = "用户信息的相关操作")
+@RequestMapping(value = "/Relatives")
+@Api(value = "目录所对应的商品", description = "商品目录列表 community_relatives")
 
-public class CommodityCatalogController {
-	@Autowired
-	CommodityCatalogClient commodityCatalogClient;
+public class CommunityRelativesController {
 
-	/*--------------- -----<----*查询*---->--- ----------------------*/
-
-	@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> SelectCatalog(@RequestBody String SelectCommodityByNumber,
-			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.SelectCatalog(SelectCommodityByNumber);
-		return user;
-	}
-
-	/*--------------- -----<----*删除*---->--- ----------------------*/
-
-	@RequestMapping(value = "/DeleteCatalog", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalog(@RequestBody String SelectCommodityByNumber,
-			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.DeleteCatalog(SelectCommodityByNumber);
-		return user;
-
-	}
-
-	@RequestMapping(value = "/DeleteCatalogById", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> DeleteCatalogById(@RequestBody String SelectCommodityByNumber,
-			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.DeleteCatalogById(SelectCommodityByNumber);
-		return user;
-
-	}
-
-	/*--------------- -----<----*增加*---->--- ----------------------*/
-
-	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
-	public ResponseEntity<List<CommodityCatalog>> InsertCommodityInfo(@RequestBody String SelectCommodityByNumber,
-			Model model) {
-		ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.InsertCommodityInfo(SelectCommodityByNumber);
-		return user;
-	}
-
-	/*--------------- -----<----*修改*---->--- ----------------------*/
-
-	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
-				public ResponseEntity<List<CommodityCatalog>> UpdateCatalog(@RequestBody String SelectCommodityByNumber, Model model) {		
-		      	ResponseEntity<List<CommodityCatalog>> user = commodityCatalogClient.UpdateCatalog(SelectCommodityByNumber);
-		    	return user;
-		    	}
 
 	private String uuid() {
 		String uuid = UUID.randomUUID().toString();

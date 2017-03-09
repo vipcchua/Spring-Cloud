@@ -2,7 +2,7 @@ package com.CchuaSpace.Model;
 
 public class CommunityRelatives {
 
-	private String catalogId;
+	private String cId;
 	
 	private String parentsId;
 	
@@ -10,13 +10,7 @@ public class CommunityRelatives {
 	
 	private int depth;
 
-	public String getCatalogId() {
-		return catalogId;
-	}
 
-	public void setCatalogId(String catalogId) {
-		this.catalogId = catalogId;
-	}
 
 	public String getParentsId() {
 		return parentsId;
@@ -40,6 +34,14 @@ public class CommunityRelatives {
 
 	public void setDepth(int depth) {
 		this.depth = depth;
+	}
+
+	public String getcId() {
+		return cId;
+	}
+
+	public void setcId(String cId) {
+		this.cId = cId;
 	}
 	
 	

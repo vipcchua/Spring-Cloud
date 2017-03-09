@@ -14,8 +14,10 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -31,6 +33,11 @@ import com.CchuaSpace.Model.TableUser;
 
 @EnableDiscoveryClient
 @SpringBootApplication
+
+
+@ServletComponentScan
+
+/*@ComponentScan(basePackages={"com.CchuaSpace.Pojo"})*/
 @EnableConfigurationProperties({ CchuaProperties.class, CchuaProperties.class })
 public class Application {
 	private static Logger logger = Logger.getLogger(Application.class);
@@ -43,6 +50,11 @@ public class Application {
 	public DataSource dataSource() {
 		return new org.apache.tomcat.jdbc.pool.DataSource();
 	}
+	/*Spring Boot普通类调用bean*/
+	 @Bean
+     public SpringUtil springUtil(){
+		 return new SpringUtil();
+		 }
 
 	@Bean
 	public SqlSessionFactory sqlSessionFactoryBean() throws Exception {

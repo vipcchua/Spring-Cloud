@@ -21,6 +21,7 @@ import java.util.UUID;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +59,9 @@ import com.CchuaSpace.Currency.RSAUtils;
 import com.CchuaSpace.Mapper.CommodityInfoMapper;
 
 import com.CchuaSpace.Model.CommodityInfo;
-
+import com.CchuaSpace.Pojo.CommodityInfoVo;
+import com.CchuaSpace.Pojo.PaginationVo;
+import com.CchuaSpace.Service.CommodityInfoService;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
@@ -84,10 +88,12 @@ import io.swagger.annotations.ApiResponses;
  */
 @Controller
 @RestController
-@RequestMapping(value = "/Commodit")
-@Api(value = "商品信息表", description = "用户信息的相关操作")
 
-public class CommodityInfoController {
+@RequestMapping(value = "/Commodit")
+@Api(value = "商品信息表", description = "商品信息列表commodity_info")
+
+
+public class CommodityInfoController   {
 
 	private static SqlSessionFactory sqlSessionFactory;
 	/* private Logger logger = Logger.getLogger(TableInfoController.class); */
@@ -97,12 +103,14 @@ public class CommodityInfoController {
 	@Autowired
 	private DiscoveryClient client;
 
-	@Autowired
-	private CommodityInfoMapper commodityInfoMapper;
-
 	@Resource
 	private Application computeServiceApplication;
 
+
+
+
+	@Autowired
+	private CommodityInfoService commodityInfoBusiness;
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 	@ApiOperation(value = "使用商品编号查询商品详细信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
@@ -114,28 +122,28 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/SelectCommodityByNumber", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityInfo, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityByNumber(json.get(0).getCommodityNumber());
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
+	public ResponseEntity<PaginationVo> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
+		
+		PaginationVo user = commodityInfoBusiness.SelectCommodityByNumber(CommodityInfo, model);
 
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+	
 		return data;
 
 	}
 
 	@ApiOperation(value = "使用商品iD查询商品详细信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+	@ApiResponses(					{ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
 	@RequestMapping(value = "/SelectCommodityById", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityByID(json.get(0).getCommodityId());
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
-
+	public ResponseEntity<PaginationVo> SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
+	
+		PaginationVo user = commodityInfoBusiness.SelectCommodityByID(CommodityByID, model);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -147,11 +155,9 @@ public class CommodityInfoController {
 	@ResponseBody
 
 	public ResponseEntity<List<CommodityInfo>> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
+		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
+				.SelectCommodityInfo(CommodityByID, model);
 		return data;
-
 	}
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
@@ -162,21 +168,13 @@ public class CommodityInfoController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品Id", required = true, dataType = "varchar"), })
 
-	@RequestMapping("/DeleteCommodityByNumber")
+	@RequestMapping(value = "/DeleteCommodityByNumber", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<CommodityInfo>> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
 			Model model) {
-		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityByNumber, CommodityInfo.class);
 
-		int tostate = commodityInfoMapper.DeleteCommodityByNumber(json.get(0).getCommodityNumber());
-
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(json, HttpStatus.OK);
-
+		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
+				.DeleteCommodityByNumber(DeleteCommodityByNumber, model);
 		return data;
 
 	}
@@ -186,20 +184,13 @@ public class CommodityInfoController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
-	@RequestMapping("/DeleteCommodityById")
+	@RequestMapping(value = "/DeleteCommodityById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<CommodityInfo>> DeleteCommodityById(@RequestBody String DeleteCommodityById,
 			Model model) {
-		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityById, CommodityInfo.class);
 
-		int tostate = commodityInfoMapper.DeleteCommodityById(json.get(0).getCommodityId());
-		if (tostate != 0)
-			json.get(0).setSqlstate("Success");
-		else
-			json.get(0).setSqlstate("ERROR");
-
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(json, HttpStatus.OK);
-
+		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
+				.DeleteCommodityById(DeleteCommodityById, model);
 		return data;
 
 	}
@@ -215,11 +206,8 @@ public class CommodityInfoController {
 	public ResponseEntity<List<CommodityInfo>> InsertCommodityInfo(@RequestBody String InsertCommodityInfo,
 			Model model) {
 
-		List<CommodityInfo> json = JSON.parseArray(InsertCommodityInfo, CommodityInfo.class);
-		json.get(0).setCommodityId(uuid());
-		List<CommodityInfo> user = commodityInfoMapper.InsertCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
-
+		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
+				.InsertCommodityInfo(InsertCommodityInfo, model);
 		return data;
 
 	}
@@ -234,10 +222,9 @@ public class CommodityInfoController {
 	@ResponseBody
 
 	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoById(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
 
+		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
+				.UpdCommodityInfoById(CommodityByID, model);
 		return data;
 
 	}
@@ -251,10 +238,9 @@ public class CommodityInfoController {
 
 	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
 			Model model) {
-		List<CommodityInfo> json = JSON.parseArray(UpdCommodityInfoByNumber, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoByNumber(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
 
+		ResponseEntity<List<com.CchuaSpace.Model.CommodityInfo>> data = commodityInfoBusiness
+				.UpdCommodityInfoById(UpdCommodityInfoByNumber, model);
 		return data;
 
 	}

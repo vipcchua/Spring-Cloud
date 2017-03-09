@@ -88,7 +88,7 @@ import io.swagger.annotations.ApiResponses;
  */
 @Controller
 @RestController
-@Api(value = "用户信息表", description = "用户信息的相关操作")
+@Api(value = "用户信息表", description = "用户信息的相关操作 table_user")
 
 public class TableUserController {
 	
@@ -233,7 +233,7 @@ public class TableUserController {
 	@ApiOperation(value = "用户身份修改用户信息", notes = "以用户身份修改用户信息", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping("/UpdateUser")
+	@RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<List<TableUser>> UpdateUser(@RequestBody String UserInsert, Model model) {
 		List<TableUser> json = JSON.parseArray(UserInsert, TableUser.class);
@@ -269,7 +269,7 @@ public class TableUserController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
 	
-	@RequestMapping("/Selectalluser")
+	@RequestMapping(value = "/Selectalluser", method = RequestMethod.POST)
 	@ResponseBody	
 	public List<TableUser> alluser(@RequestBody String selectmodeid, Model model) {
    
@@ -286,7 +286,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 		@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping("/SelectalluserNumber")
+	@RequestMapping(value = "/SelectalluserNumber", method = RequestMethod.POST)
 	@ResponseBody
 	public List<TableUser> alluserNumber() {
 		List<TableUser> user = tableUserMapper.alluserNumber(); 
@@ -309,7 +309,7 @@ public class TableUserController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
 	/* 在用 */
-	@RequestMapping("/Selectallusers")
+	@RequestMapping(value = "/Selectallusers", method = RequestMethod.POST)
 	@ResponseBody
 	public List<TableUser> allusers() {
 
@@ -355,7 +355,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping("/UserInsert")
+	@RequestMapping(value = "/UserInsert", method = RequestMethod.POST)
 	@ResponseBody
 
 	public List<TableUser> UserInsert(@RequestBody String UserInsert, Model model) {
@@ -439,7 +439,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping("/AdminUpdateUser")
+	@RequestMapping(value = "/AdminUpdateUser", method = RequestMethod.POST)
 	@ResponseBody
 
 	public List<TableUser> AdminUpdateUser(@RequestBody String UserInsert, Model model) throws UnsupportedEncodingException {
@@ -502,7 +502,7 @@ public class TableUserController {
 	@ApiOperation(value = "用户身份修改密码", notes = "以用户身份修改个人密码，需要个人原密码，需加密Post", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping("/Modifypassword")
+	@RequestMapping(value = "/Modifypassword", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject Modifypassword(@RequestBody String UserInsert, Model model) {
 

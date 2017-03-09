@@ -1,6 +1,6 @@
-package com.CchuaSpace.Model;
+package com.CchuaSpace.Pojo;
 
-public class CommodityCatalog {
+public class CommodityCatalogVo {
     /**
     * id
     */

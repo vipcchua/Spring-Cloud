@@ -1,6 +1,5 @@
 package com.CchuaSpace.Controller;
 
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,10 +44,11 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.CchuaSpace.Application;
 import com.CchuaSpace.Currency.AesUtils;
 import com.CchuaSpace.Currency.RSAUtils;
+import com.CchuaSpace.Mapper.CommodityCatalogMapper;
 import com.CchuaSpace.Mapper.CommodityInfoMapper;
-
+import com.CchuaSpace.Model.CommodityCatalog;
 import com.CchuaSpace.Model.CommodityInfo;
-
+import com.CchuaSpace.Model.OrderInfo;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
@@ -75,8 +75,8 @@ import io.swagger.annotations.ApiResponses;
  */
 @Controller
 @RestController
-@RequestMapping(value = "/Commodit")
-@Api(value = "商品信息表", description = "用户信息的相关操作")
+@RequestMapping(value = "/Catalog")
+@Api(value = "目录列表的相关操作", description = "目录列表 commodity_catalog")
 
 public class CommodityCatalogController {
 
@@ -89,127 +89,105 @@ public class CommodityCatalogController {
 	private DiscoveryClient client;
 
 	@Autowired
-	private CommodityInfoMapper commodityInfoMapper;
+	private CommodityCatalogMapper commodityCatalogMapper;
 
 	@Resource
 	private Application computeServiceApplication;
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
-
-	@ApiOperation(value = "使用商品编号查询商品详细信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
+	@ApiOperation(value = "查询目录", notes = "传入深度 父亲ID 查询该深度的目录信息 如果是首层 父亲Id请使用0", response = CommodityCatalog.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar"), })
+			@ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "depth", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/SelectCommodityByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityInfo, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityByNumber(json.get(0).getCommodityNumber());
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
+	public ResponseEntity<List<CommodityCatalog>> SelectCatalog(@RequestBody String CommodityInfo, Model model) {
+		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
+		List<CommodityCatalog> user = commodityCatalogMapper.SelectCatalog(json.get(0));
+		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(user, HttpStatus.OK);
 
-		return data;
-
-	}
-
-	@ApiOperation(value = "使用商品iD查询商品详细信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
-	@RequestMapping(value = "/SelectCommodityById", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityByID(json.get(0).getCommodityId());
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
-
-		return data;
-
-	}
-
-	@ApiOperation(value = "动态查询商品信息", notes = "本接口为动态查询商品信息", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping(value = "/SelectCommodityInfo", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<List<CommodityInfo>> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.SelectCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
 		return data;
 
 	}
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-	@ApiOperation(value = "使用商品编号删除商品详细信息", notes = "使用商品编号删除商品详细信息，本接口只能传商编号", response = CommodityInfo.class)
+	@ApiOperation(value = "使用3种条件使用目录中的一项", notes = "删除", response = CommodityCatalog.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品Id", required = true, dataType = "varchar"), })
+			@ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "nodeName", value = "请输入对应参数", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "depth", value = "请输入对应参数", required = true, dataType = "varchar")
 
-	@RequestMapping("/DeleteCommodityByNumber")
+	})
+
+	@RequestMapping(value = "/DeleteCatalog", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<List<CommodityInfo>> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
-			Model model) {
-		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityByNumber, CommodityInfo.class);
 
-		int tostate = commodityInfoMapper.DeleteCommodityByNumber(json.get(0).getCommodityNumber());
+	public ResponseEntity<List<CommodityCatalog>> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
+		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
+		int tostate = commodityCatalogMapper.DeleteCatalog(json.get(0));
 
 		if (tostate != 0)
 			json.get(0).setSqlstate("Success");
 		else
 			json.get(0).setSqlstate("ERROR");
 
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(json, HttpStatus.OK);
+		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(json, HttpStatus.OK);
 
 		return data;
 
 	}
 
-	@ApiOperation(value = "使用商品id删除商品详细信息", notes = "使用商品Id删除商品详细信息，本接口只能传商编号", response = CommodityInfo.class)
+	@ApiOperation(value = "直接使用Id删除目录中的一项", notes = "删除", response = CommodityCatalog.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
-	@RequestMapping("/DeleteCommodityById")
-	@ResponseBody
-	public ResponseEntity<List<CommodityInfo>> DeleteCommodityById(@RequestBody String DeleteCommodityById,
-			Model model) {
-		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityById, CommodityInfo.class);
+			@ApiImplicitParam(name = "catalog_id", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-		int tostate = commodityInfoMapper.DeleteCommodityById(json.get(0).getCommodityId());
+	@RequestMapping(value = "/DeleteCatalogById", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<List<CommodityCatalog>> DeleteCatalogById(@RequestBody String CommodityInfo, Model model) {
+		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
+		int tostate = commodityCatalogMapper.DeleteCatalog(json.get(0));
+
 		if (tostate != 0)
 			json.get(0).setSqlstate("Success");
 		else
 			json.get(0).setSqlstate("ERROR");
 
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(json, HttpStatus.OK);
+		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(json, HttpStatus.OK);
 
 		return data;
 
 	}
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
-	@ApiOperation(value = "增加商品详细信息", notes = "增加商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
+
+	@ApiOperation(value = "新增目录信息", notes = "新增目录信息", response = CommodityCatalog.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "parentsId", value = "请输入对应信息", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "nodeName", value = "输入对应信息", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "depth", value = "输入对应信息", required = true, dataType = "varchar")
+
+	})
 
 	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> InsertCommodityInfo(@RequestBody String InsertCommodityInfo,
-			Model model) {
-
-		List<CommodityInfo> json = JSON.parseArray(InsertCommodityInfo, CommodityInfo.class);
-		json.get(0).setCommodityId(uuid());
-		List<CommodityInfo> user = commodityInfoMapper.InsertCommodityInfo(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
+	public ResponseEntity<List<CommodityCatalog>> InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
+		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
+		json.get(0).setCatalogId(uuid());
+		List<CommodityCatalog> user = commodityCatalogMapper.InsertCommodityInfo(json.get(0));
+		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(user, HttpStatus.OK);
 
 		return data;
 
@@ -217,34 +195,28 @@ public class CommodityCatalogController {
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
-	@ApiOperation(value = "使用商品iD修改商品详细信息", notes = "使用商品Id修改商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
+	@ApiOperation(value = "修改目录名称", notes = "修改目录名称", response = CommodityCatalog.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "catalogId", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "nodeName", value = "请输入商品编码", required = true, dataType = "varchar")
 
-	@RequestMapping(value = "/UpdCommodityInfoById", method = RequestMethod.POST)
+	})
+
+	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoById(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
+	public ResponseEntity<List<CommodityCatalog>> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
+		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
+		int tostate = commodityCatalogMapper.UpdateCatalog(json.get(0));
 
-		return data;
+		if (tostate != 0)
+			json.get(0).setSqlstate("Success");
+		else
+			json.get(0).setSqlstate("ERROR");
 
-	}
-
-	@ApiOperation(value = "使用商品编号修改商品详细信息", notes = "使用商品编号修改商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-
-	@RequestMapping(value = "/UpdCommodityInfoByNumber", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<List<CommodityInfo>> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
-			Model model) {
-		List<CommodityInfo> json = JSON.parseArray(UpdCommodityInfoByNumber, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoByNumber(json.get(0));
-		ResponseEntity<List<CommodityInfo>> data = new ResponseEntity<List<CommodityInfo>>(user, HttpStatus.OK);
+		ResponseEntity<List<CommodityCatalog>> data = new ResponseEntity<List<CommodityCatalog>>(json, HttpStatus.OK);
 
 		return data;
 

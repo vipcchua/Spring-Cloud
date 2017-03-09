@@ -25,6 +25,11 @@ public class CommodityCatalog {
     * 深度
     */
     private Integer depth;
+    
+    private String Sqlstate;
+    
+    
+    
 
     public String getCatalogId() {
         return catalogId;
@@ -65,4 +70,12 @@ public class CommodityCatalog {
     public void setDepth(Integer depth) {
         this.depth = depth;
     }
+
+	public String getSqlstate() {
+		return Sqlstate;
+	}
+
+	public void setSqlstate(String sqlstate) {
+		Sqlstate = sqlstate;
+	}
 }

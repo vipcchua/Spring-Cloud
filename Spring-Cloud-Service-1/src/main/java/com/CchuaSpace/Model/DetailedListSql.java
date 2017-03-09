@@ -35,7 +35,7 @@ public class DetailedListSql {
 					WHERE("detailed_list.commodity_number = #{commodityNumber}");
 				}
 			
-		
+		   
 			}
 		}.toString();
 	}
