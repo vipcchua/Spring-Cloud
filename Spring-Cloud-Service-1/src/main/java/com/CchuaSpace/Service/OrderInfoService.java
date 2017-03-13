@@ -1,9 +1,11 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,14 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Mapper.OrderInfoMapper;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.OrderInfo;
-import com.CchuaSpace.Pojo.CommodityCatalogVo;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
-import com.CchuaSpace.Pojo.PaginationVo;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.OrderCommodityMapper;
+import com.cchuaspace.mapper.OrderInfoMapper;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.model.OrderCommodity;
+import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoVo;
+import com.cchuaspace.pojo.OrderInfoVo;
+import com.cchuaspace.pojo.PaginationVo;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -48,14 +55,45 @@ public class OrderInfoService {
 	private OrderInfoMapper orderInfoMapper;
 
 	@Autowired
+	private OrderCommodityMapper orderCommodityMapper;
+
+	@Autowired
 	private PaginationVo paginationVo;
+
+	@Autowired
+	private OrderInfoVo orderInfoVo;
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 	public PaginationVo SelectByNumber(@RequestBody String CommodityInfo, Model model) {
-		List<OrderInfo> json = JSON.parseArray(CommodityInfo, OrderInfo.class);
-		List<OrderInfo> user = orderInfoMapper.SelectByNumber(json.get(0).getUserId(), json.get(0).getOrderNumber());
-		paginationVo.setDataResult(user);
+
+		OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
+
+		OrderInfo infodata = orderInfoMapper.SelectByNumber(json.getUserId(), json.getOrderNumber());
+
+		List<OrderCommodity> user = orderCommodityMapper.SelectByNumber(infodata.getOrderNumber());
+
+		/* BeanUtils对部分属性不支持null的情况？？？？ */
+		/* BeanUtils.copyProperties(orderInfoVo, infodata); */
+
+
+			try {
+				PropertyUtils.copyProperties(orderInfoVo, infodata);
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+		orderInfoVo.setDataResultObj(user);
+
+		paginationVo.setDataResultObj(orderInfoVo);
 		return paginationVo;
 
 	}
@@ -63,29 +101,32 @@ public class OrderInfoService {
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<OrderInfo> json = JSON.parseArray(CommodityInfo, OrderInfo.class);
-		int tostate = orderInfoMapper.DeleteNumber(json.get(0).getOrderNumber(), json.get(0).getUserId());
+		OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
+
+		int tostate = orderInfoMapper.DeleteNumber(json.getOrderNumber(), json.getUserId());
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteByOrderId(@RequestBody String CommodityInfo, Model model) {
-		List<OrderInfo> json = JSON.parseArray(CommodityInfo, OrderInfo.class);
-		int tostate = orderInfoMapper.DeleteorderId(json.get(0).getOrderId(), json.get(0).getUserId());
+
+		OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
+
+		int tostate = orderInfoMapper.DeleteorderId(json.getOrderId(), json.getUserId());
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
