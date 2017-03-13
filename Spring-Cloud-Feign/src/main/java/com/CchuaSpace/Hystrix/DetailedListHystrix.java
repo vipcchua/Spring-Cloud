@@ -1,4 +1,4 @@
-package com.CchuaSpace.Hystrix;
+package com.cchuaspace.hystrix;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.CchuaSpace.Model.DetailedList;
-import com.CchuaSpace.Model.PaginationVo;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Service.ComputeClient;
-import com.CchuaSpace.Service.DetailedListClient;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.model.PaginationVo;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.service.ComputeClient;
+import com.cchuaspace.service.DetailedListClient;
 
 @Component
 public class DetailedListHystrix implements DetailedListClient {

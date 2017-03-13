@@ -1,4 +1,4 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Pojo.CommodityCatalogVo;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
-import com.CchuaSpace.Pojo.PaginationVo;
 import com.alibaba.fastjson.JSON;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoVo;
+import com.cchuaspace.pojo.PaginationVo;
 
 /*
  * ****************<--*---Code information---*-->**************

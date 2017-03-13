@@ -1,4 +1,4 @@
-package com.CchuaSpace.Pojo;
+package com.cchuaspace.pojo;
 
 public class OrderCommodityVo {
     private String orderDetailedid;

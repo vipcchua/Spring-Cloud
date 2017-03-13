@@ -1,4 +1,4 @@
-package com.CchuaSpace;
+package com.cchuaspace;
 
 import javax.servlet.MultipartConfigElement;
 import javax.sql.DataSource;
@@ -28,7 +28,7 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.CchuaSpace.Model.TableUser;
+import com.cchuaspace.model.TableUser;
 
 
 @EnableDiscoveryClient

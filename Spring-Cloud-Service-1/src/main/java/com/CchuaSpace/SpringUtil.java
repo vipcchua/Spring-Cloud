@@ -1,4 +1,4 @@
-package com.CchuaSpace;
+package com.cchuaspace;
 
 import org.springframework.beans.BeansException;
 

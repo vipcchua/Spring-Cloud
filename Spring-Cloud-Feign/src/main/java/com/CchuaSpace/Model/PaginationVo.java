@@ -1,4 +1,4 @@
-package com.CchuaSpace.Model;
+package com.cchuaspace.model;
 
 import java.util.List;
 
@@ -33,15 +33,29 @@ public class PaginationVo extends BaseObjectVo implements java.io.Serializable {
 		this.list = list;
 	}
 
-	private List<?> DataResult;
+	private List<?> DataResultList;
 
-	public List<?> getDataResult() {
-		return DataResult;
+	public List<?> getDataResultList() {
+		return DataResultList;
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setDataResult(List<?> dataResult) {
-		this.DataResult = dataResult;
+	public void setDataResultList(List<?> dataResultList) {
+		this.DataResultList = dataResultList;
 	}
+
+	public Object getDataResultObj() {
+		return DataResultObj;
+	}
+
+	public void setDataResultObj(Object dataResultObj) {
+		this.DataResultObj = dataResultObj;
+	}
+
+	private Object DataResultObj;
+
+
+
+
 
 }

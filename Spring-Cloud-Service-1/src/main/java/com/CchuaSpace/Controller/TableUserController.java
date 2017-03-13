@@ -1,4 +1,4 @@
-package com.CchuaSpace.Controller;
+package com.cchuaspace.controller;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -51,16 +51,16 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.CchuaSpace.Application;
-import com.CchuaSpace.Currency.AesUtils;
-import com.CchuaSpace.Currency.RSAUtils;
-import com.CchuaSpace.Mapper.TableUserMapper;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Pojo.PaginationVo;
-import com.CchuaSpace.Service.TableUserService;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
+import com.cchuaspace.Application;
+import com.cchuaspace.currency.AesUtils;
+import com.cchuaspace.currency.RSAUtils;
+import com.cchuaspace.mapper.TableUserMapper;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.pojo.PaginationVo;
+import com.cchuaspace.service.TableUserService;
 import com.mysql.cj.core.exceptions.PasswordExpiredException;
 
 import groovy.lang.IntRange;
@@ -353,11 +353,11 @@ public class TableUserController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@RequestMapping(value = "/Modifypassword", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<JSONObject> Modifypassword(@RequestBody String UserInsert, Model model) {
+	public ResponseEntity<PaginationVo> Modifypassword(@RequestBody String UserInsert, Model model) {
 
-		JSONObject user = tableUserService.Modifypassword(UserInsert, model);
+		PaginationVo user = tableUserService.Modifypassword(UserInsert, model);
 
-		ResponseEntity<JSONObject> data = new ResponseEntity<JSONObject>(user, HttpStatus.OK);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
 		return data;
 

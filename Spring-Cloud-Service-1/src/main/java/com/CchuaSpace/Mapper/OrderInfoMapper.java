@@ -1,4 +1,4 @@
-package com.CchuaSpace.Mapper;
+package com.cchuaspace.mapper;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -17,12 +17,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.*;
 
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.CommodityInfoSql;
-import com.CchuaSpace.Model.DetailedList;
-import com.CchuaSpace.Model.OrderInfo;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Model.TableUserSql;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.CommodityInfoSql;
+import com.cchuaspace.model.CommunityRelatives;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.model.TableUserSql;
 
 
 
@@ -32,6 +33,8 @@ import com.CchuaSpace.Model.TableUserSql;
 @Mapper
 
 public interface OrderInfoMapper {
+	
+	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 
 	
@@ -42,12 +45,14 @@ public interface OrderInfoMapper {
 			+ " WHERE order_info.order_number = #{orderNumber}"
 			+ " AND order_commodity.order_number = #{orderNumber}"
 			+ " AND order_info.user_id = #{userId}")
-	List<OrderInfo> SelectByNumber(@Param("userId") String userId,@Param("orderNumber") String orderNumber);
+	List<OrderInfo> SelectByNumberssss(@Param("userId") String userId,@Param("orderNumber") String orderNumber);
 	
 	
 	
-	/*--------------- -----<----*查询*---->--- ----------------------*/
-		
+	@Select("Select * from order_info WHERE order_info.order_number = #{orderNumber} AND order_info.order_number = #{orderNumber}")
+	OrderInfo SelectByNumber(@Param("userId") String userId,@Param("orderNumber") String orderNumber);
+	
+
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
@@ -62,6 +67,16 @@ public interface OrderInfoMapper {
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
+	
+	@Update("UPDATE order_info SET community_relatives.parents_id = #{parentsId} "
+			+ "Where community_relatives.commodity_number = #{commodityNumber}"
+			)
+	int sds(CommunityRelatives communityRelatives);
+	
+	
+	
+	
+	
 
 	
 }

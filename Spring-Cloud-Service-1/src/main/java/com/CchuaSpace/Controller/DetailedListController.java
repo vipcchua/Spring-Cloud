@@ -1,4 +1,4 @@
-package com.CchuaSpace.Controller;
+package com.cchuaspace.controller;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -36,18 +36,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.CchuaSpace.Application;
-import com.CchuaSpace.Currency.AesUtils;
-import com.CchuaSpace.Currency.RSAUtils;
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Mapper.DetailedListMapper;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.DetailedList;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Pojo.PaginationVo;
-import com.CchuaSpace.Service.CommodityInfoService;
-import com.CchuaSpace.Service.DetailedListService;
 import com.alibaba.fastjson.JSON;
+import com.cchuaspace.Application;
+import com.cchuaspace.currency.AesUtils;
+import com.cchuaspace.currency.RSAUtils;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.DetailedListMapper;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.pojo.PaginationVo;
+import com.cchuaspace.service.CommodityInfoService;
+import com.cchuaspace.service.DetailedListService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

@@ -1,4 +1,4 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Mapper.DetailedListMapper;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.DetailedList;
-import com.CchuaSpace.Pojo.CommodityCatalogVo;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
-import com.CchuaSpace.Pojo.PaginationVo;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.DetailedListMapper;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoVo;
+import com.cchuaspace.pojo.PaginationVo;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -45,19 +46,21 @@ public class DetailedListService {
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 	public PaginationVo SelectDetailedListByUserId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		List<DetailedList> data = detailedListMapper.SelectDetailedListByUserId(json.get(0).getUserId());
 
-		paginationVo.setDataResult(data);
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+		List<DetailedList> data = detailedListMapper.SelectDetailedListByUserId(json.getUserId());
+
+		paginationVo.setDataResultList(data);
 		return paginationVo;
 
 	}
 
 	public PaginationVo SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		List<DetailedList> data = detailedListMapper.SelectDetailedListByDetailedId(json.get(0).getDetailedId());
 
-		paginationVo.setDataResult(data);
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+		List<DetailedList> data = detailedListMapper.SelectDetailedListByDetailedId(json.getDetailedId());
+
+		paginationVo.setDataResultList(data);
 		return paginationVo;
 
 	}
@@ -65,9 +68,9 @@ public class DetailedListService {
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteByCommodity(json.get(0).getDetailedId(),
-				json.get(0).getCommodityNumber());
+
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+		int tostate = detailedListMapper.DeleteByCommodity(json.getDetailedId(), json.getCommodityNumber());
 
 		if (tostate != 0)
 			if (tostate != 0)
@@ -75,65 +78,70 @@ public class DetailedListService {
 			else
 				paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteBydetailedId(json.get(0).getUserId(), json.get(0).getDetailedId());
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+
+		int tostate = detailedListMapper.DeleteBydetailedId(json.getUserId(), json.getDetailedId());
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteCommodity(json.get(0));
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+
+		int tostate = detailedListMapper.DeleteCommodity(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteAlldetailed(json.get(0).getUserId());
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+
+		int tostate = detailedListMapper.DeleteAlldetailed(json.getUserId());
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 	}
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	public PaginationVo InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		json.get(0).setDetailedId(uuid());
-		int tostate = detailedListMapper.InsertDetailedList(json.get(0));
+
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+
+		json.setDetailedId(uuid());
+		int tostate = detailedListMapper.InsertDetailedList(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
@@ -141,30 +149,32 @@ public class DetailedListService {
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
 	public PaginationVo UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
 
-		int tostate = detailedListMapper.UpdateCommodityByUserId(json.get(0));
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+
+		int tostate = detailedListMapper.UpdateCommodityByUserId(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
 
 	public PaginationVo UpdateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
-		List<DetailedList> json = JSON.parseArray(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.UpdateCommodityBydetailedId(json.get(0));
+
+		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+		int tostate = detailedListMapper.UpdateCommodityBydetailedId(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}

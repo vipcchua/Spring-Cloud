@@ -1,4 +1,4 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -6,19 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/*
-@FeignClient("Server-Service")
-public interface ComputeClient {
-
-    @RequestMapping(method = RequestMethod.GET, value = "/add")
-    Integer add(@RequestParam(value = "a") Integer a, @RequestParam(value = "b") Integer b);
-
-}
-compute-service
-*/
-
-import com.CchuaSpace.Hystrix.TableUserClientHystrix;
-import com.CchuaSpace.Model.PaginationVo;
+import com.cchuaspace.hystrix.TableUserClientHystrix;
+import com.cchuaspace.model.PaginationVo;
 
 @FeignClient(value = "Server-Service", fallback = TableUserClientHystrix.class)
 public interface TableUserClient {

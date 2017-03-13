@@ -1,9 +1,9 @@
-package com.CchuaSpace.Controller;
+package com.cchuaspace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.CchuaSpace.Service.ComputeClient;
+import com.cchuaspace.service.ComputeClient;
 
 public class HtmlStart {
 

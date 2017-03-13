@@ -1,4 +1,4 @@
-package com.CchuaSpace.Model;
+package com.cchuaspace.model;
 
 public class DetailedList {
     private String userId;

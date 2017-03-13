@@ -1,4 +1,4 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Pojo.CommodityCatalogVo;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
-import com.CchuaSpace.Pojo.PaginationVo;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.model.CommodityCatalog;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoVo;
+import com.cchuaspace.pojo.PaginationVo;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -43,11 +45,12 @@ public class CommodityInfoService {
 
 	public PaginationVo SelectCommodityByNumber(String commodityInfo, Model model) {
 
-		List<CommodityInfo> json = JSON.parseArray(commodityInfo, CommodityInfo.class);
+		
+		CommodityInfo json = JSONObject.parseObject(commodityInfo,CommodityInfo.class);
+		
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByNumber(json.getCommodityNumber());
 
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByNumber(json.get(0).getCommodityNumber());
-
-		paginationVo.setDataResult(data);
+		paginationVo.setDataResultList(data);
 
 		return paginationVo;
 
@@ -69,42 +72,45 @@ public class CommodityInfoService {
 
 	public PaginationVo SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
 
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(json.get(0).getCommodityId());
-		paginationVo.setDataResult(data);
+	
+		CommodityInfo json = JSONObject.parseObject(CommodityByID,CommodityInfo.class);
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(json.getCommodityId());
+		paginationVo.setDataResultList(data);
 		return paginationVo;
 	}
 
 	public PaginationVo SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
 
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json.get(0));
-		paginationVo.setDataResult(data);
+		CommodityInfo json = JSONObject.parseObject(CommodityByID,CommodityInfo.class);
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json);
+		paginationVo.setDataResultList(data);
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityByNumber, CommodityInfo.class);
+		CommodityInfo json = JSONObject.parseObject(DeleteCommodityByNumber,CommodityInfo.class);
 
-		int tostate = commodityInfoMapper.DeleteCommodityByNumber(json.get(0).getCommodityNumber());
+		int tostate = commodityInfoMapper.DeleteCommodityByNumber(json.getCommodityNumber());
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json.get(0));
+		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json);
 
-		paginationVo.setDataResult(data);
+		paginationVo.setDataResultList(data);
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(DeleteCommodityById, CommodityInfo.class);
 
-		int tostate = commodityInfoMapper.DeleteCommodityById(json.get(0).getCommodityId());
+
+		CommodityInfo json = JSONObject.parseObject(DeleteCommodityById,CommodityInfo.class);
+
+		int tostate = commodityInfoMapper.DeleteCommodityById(json.getCommodityId());
 
 		if (tostate != 0)
 			/* json.get(0).setSqlstate("Success"); */
@@ -112,36 +118,42 @@ public class CommodityInfoService {
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 		return paginationVo;
 
 	}
 
 	public PaginationVo InsertCommodityInfo(@RequestBody String InsertCommodityInfo, Model model) {
 
-		List<CommodityInfo> json = JSON.parseArray(InsertCommodityInfo, CommodityInfo.class);
-		json.get(0).setCommodityId(uuid());
-		List<CommodityInfo> user = commodityInfoMapper.InsertCommodityInfo(json.get(0));
 
-		paginationVo.setDataResult(user);
+		CommodityInfo json = JSONObject.parseObject(InsertCommodityInfo,CommodityInfo.class);
+
+		json.setCommodityId(uuid());
+		List<CommodityInfo> user = commodityInfoMapper.InsertCommodityInfo(json);
+
+		paginationVo.setDataResultList(user);
 		return paginationVo;
 
 	}
 
 	public PaginationVo UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoById(json.get(0));
 
-		paginationVo.setDataResult(user);
+		CommodityInfo json = JSONObject.parseObject(CommodityByID,CommodityInfo.class);
+	
+		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoById(json);
+
+		paginationVo.setDataResultList(user);
 		return paginationVo;
 
 	}
 
 	public PaginationVo UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber, Model model) {
-		List<CommodityInfo> json = JSON.parseArray(UpdCommodityInfoByNumber, CommodityInfo.class);
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoByNumber(json.get(0));
+		
+		CommodityInfo json = JSONObject.parseObject(UpdCommodityInfoByNumber,CommodityInfo.class);
+		
+		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoByNumber(json);
 
-		paginationVo.setDataResult(user);
+		paginationVo.setDataResultList(user);
 		return paginationVo;
 
 	}

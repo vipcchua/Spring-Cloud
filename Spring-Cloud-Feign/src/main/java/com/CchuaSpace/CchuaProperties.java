@@ -1,4 +1,4 @@
-package com.CchuaSpace;
+package com.cchuaspace;
 
 /*
  * 

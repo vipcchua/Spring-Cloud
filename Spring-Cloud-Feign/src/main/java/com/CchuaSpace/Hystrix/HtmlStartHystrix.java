@@ -1,9 +1,9 @@
-package com.CchuaSpace.Hystrix;
+package com.cchuaspace.hystrix;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.CchuaSpace.Service.HtmlStartClient;
+import com.cchuaspace.service.HtmlStartClient;
 
 
 

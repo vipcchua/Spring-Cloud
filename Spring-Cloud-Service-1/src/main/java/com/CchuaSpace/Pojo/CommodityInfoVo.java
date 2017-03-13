@@ -1,4 +1,6 @@
-package com.CchuaSpace.Pojo;
+package com.cchuaspace.pojo;
+
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -59,6 +61,37 @@ public class CommodityInfoVo extends BaseObjectVo{
      private String sqlstate;
      
      private String commodityModel;
+     
+     
+     
+     
+ 	private List<?> DataResultList;
+
+ 	public List<?> getDataResultList() {
+ 		return DataResultList;
+ 	}
+
+ 	@SuppressWarnings("unchecked")
+ 	public void setDataResultList(List<?> dataResultList) {
+ 		this.DataResultList = dataResultList;
+ 	}
+ 	private Object DataResultObj;
+ 	public Object getDataResultObj() {
+ 		return DataResultObj;
+ 	}
+
+ 	@SuppressWarnings("unchecked")
+ 	public void setDataResultObj(Object dataResultObj) {
+ 		this.DataResultObj = dataResultObj;
+ 	}
+
+
+     
+     
+     
+     
+     
+     
      
 
 

@@ -1,4 +1,4 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,16 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.CchuaSpace.Currency.AesUtils;
-import com.CchuaSpace.Currency.RSAUtils;
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Mapper.TableUserMapper;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Pojo.CommodityCatalogVo;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
-import com.CchuaSpace.Pojo.PaginationVo;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.currency.AesUtils;
+import com.cchuaspace.currency.RSAUtils;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.TableUserMapper;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoVo;
+import com.cchuaspace.pojo.PaginationVo;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -85,9 +86,11 @@ public class TableUserService {
 
 	@RequestMapping(value = "/SelectuserID", method = RequestMethod.POST)
 	public PaginationVo SelectuserID(@RequestBody String UserInfo, Model model) {
-		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
-		List<TableUser> user = tableUserMapper.SelectuserID(json.get(0).getId());
-		paginationVo.setDataResult(json);
+
+		TableUser json = JSONObject.parseObject(UserInfo, TableUser.class);
+
+		List<TableUser> user = tableUserMapper.SelectuserID(json.getId());
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
@@ -103,10 +106,12 @@ public class TableUserService {
 	@ResponseBody
 
 	public PaginationVo SelectUsername(@RequestBody String UserInfo, Model model) {
-		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
-		List<TableUser> data = tableUserMapper.SelectUsername(json.get(0).getUsername());
 
-		paginationVo.setDataResult(data);
+		TableUser json = JSONObject.parseObject(UserInfo, TableUser.class);
+
+		List<TableUser> data = tableUserMapper.SelectUsername(json.getUsername());
+
+		paginationVo.setDataResultObj(data);
 
 		return paginationVo;
 
@@ -122,10 +127,11 @@ public class TableUserService {
 	@RequestMapping(value = "/UserInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public PaginationVo Loginusers(@RequestBody String UserInfo, Model model) {
-		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
 
-		List<TableUser> data = tableUserMapper.UserInfo(json.get(0).getUsername());
-		paginationVo.setDataResult(data);
+		TableUser json = JSONObject.parseObject(UserInfo, TableUser.class);
+
+		List<TableUser> data = tableUserMapper.UserInfo(json.getUsername());
+		paginationVo.setDataResultObj(data);
 
 		return paginationVo;
 
@@ -139,10 +145,10 @@ public class TableUserService {
 	@ResponseBody
 	public PaginationVo SelectUserCondition(@RequestBody String UserInfo, Model model) {
 
-		List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
+		TableUser json = JSONObject.parseObject(UserInfo, TableUser.class);
 
-		List<TableUser> data = tableUserMapper.SelectUserCondition(json.get(0));
-		paginationVo.setDataResult(data);
+		List<TableUser> data = tableUserMapper.SelectUserCondition(json);
+		paginationVo.setDataResultObj(data);
 
 		return paginationVo;
 	}
@@ -153,16 +159,17 @@ public class TableUserService {
 	@RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
 	@ResponseBody
 	public PaginationVo UpdateUser(@RequestBody String UserInsert, Model model) {
-		List<TableUser> data = JSON.parseArray(UserInsert, TableUser.class);
 
-		int tostate = tableUserMapper.UpdateUser(data.get(0));
+		TableUser json = JSONObject.parseObject(UserInsert, TableUser.class);
+
+		int tostate = tableUserMapper.UpdateUser(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(data);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 	}
@@ -176,10 +183,11 @@ public class TableUserService {
 	@ResponseBody
 	public PaginationVo alluser(@RequestBody String selectmodeid, Model model) {
 
-		List<TableUser> json = JSON.parseArray(selectmodeid, TableUser.class);
-		List<TableUser> data = tableUserMapper.alluser(json.get(0).getPage(), json.get(0).getPageRow());
+		TableUser json = JSONObject.parseObject(selectmodeid, TableUser.class);
 
-		paginationVo.setDataResult(data);
+		List<TableUser> data = tableUserMapper.alluser(json.getPage(), json.getPageRow());
+
+		paginationVo.setDataResultObj(data);
 
 		return paginationVo;
 
@@ -193,7 +201,8 @@ public class TableUserService {
 	@ResponseBody
 	public PaginationVo alluserNumber() {
 		List<TableUser> data = tableUserMapper.alluserNumber();
-		paginationVo.setDataResult(data);
+
+		paginationVo.setDataResultObj(data);
 
 		return paginationVo;
 	}
@@ -212,7 +221,7 @@ public class TableUserService {
 
 		List<TableUser> data = tableUserMapper.allusers();
 		logger.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId());
-		paginationVo.setDataResult(data);
+		paginationVo.setDataResultObj(data);
 
 		return paginationVo;
 
@@ -228,12 +237,12 @@ public class TableUserService {
 
 	public PaginationVo UserInsert(@RequestBody String UserInsert, Model model) {
 
-		List<TableUser> json = JSON.parseArray(UserInsert, TableUser.class);
+		TableUser json = JSONObject.parseObject(UserInsert, TableUser.class);
 
-		json.get(0).setId(uuid());
+		json.setId(uuid());
 
-		String rsausername = json.get(0).getUsername().toString();
-		String rsapassword = json.get(0).getPassword().toString();
+		String rsausername = json.getUsername().toString();
+		String rsapassword = json.getPassword().toString();
 		try {
 			rsausername = AesUtils.aesDecrypt(rsausername, "abcdefgabcdefghi");
 			rsapassword = AesUtils.aesDecrypt(rsapassword, "abcdefgabcdefghi");
@@ -247,18 +256,24 @@ public class TableUserService {
 
 		rsapassword = RSAUtils.decryptBase64(rsapassword);
 
-		JSONObject usernameobj = new JSONObject(rsausername.toString()); // 在这里转换。
-		JSONObject passwordobj = new JSONObject(rsapassword.toString()); // 在这里转换。
+		/*
+		 * JSONObject usernameobj = JSONObject(rsausername.toString()); //
+		 * 在这里转换。 JSONObject passwordobj = JSONObject(rsapassword.toString());
+		 * // 在这里转换。
+		 */
+
+		JSONObject usernameobj = JSONObject.parseObject(rsausername.toString());
+		JSONObject passwordobj = JSONObject.parseObject(rsausername.toString());
 
 		rsausername = usernameobj.get("username").toString();
 		rsapassword = passwordobj.get("password").toString();
 
-		json.get(0).setUsername(rsausername);
-		json.get(0).setPassword(rsapassword);
+		json.setUsername(rsausername);
+		json.setPassword(rsapassword);
 
-		tableUserMapper.UserInsert(json.get(0));
+		tableUserMapper.UserInsert(json);
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
@@ -275,8 +290,13 @@ public class TableUserService {
 	@RequestMapping(value = "/DeleteUserid", method = RequestMethod.POST)
 	@ResponseBody
 	public String DeleteUserid(@RequestBody String Dmouldinfo) {
-		List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
-		int Dmouldinfos = tableUserMapper.DeleteUserid(json.get(0).getId());
+		/*
+		 * List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
+		 */
+
+		TableUser json = JSONObject.parseObject(Dmouldinfo, TableUser.class);
+
+		int Dmouldinfos = tableUserMapper.DeleteUserid(json.getId());
 		if (Dmouldinfos == 1)
 			return "Success";
 		else
@@ -294,15 +314,21 @@ public class TableUserService {
 	@RequestMapping(value = "/DeleteUserName", method = RequestMethod.POST)
 	@ResponseBody
 	public PaginationVo DeleteUserName(@RequestBody String Dmouldinfo) {
-		List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
-		int Dmouldinfos = tableUserMapper.DeleteUserName(json.get(0).getUsername());
+
+		/*
+		 * List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
+		 */
+
+		TableUser json = JSONObject.parseObject(Dmouldinfo, TableUser.class);
+
+		int Dmouldinfos = tableUserMapper.DeleteUserName(json.getUsername());
 
 		if (Dmouldinfos != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
@@ -323,11 +349,14 @@ public class TableUserService {
 
 		String decodeStr = URLDecoder.decode(UserInsert.toString(), "UTF-8");
 
-		List<TableUser> json = JSON.parseArray(decodeStr, TableUser.class);
+		/*
+		 * List<TableUser> json = JSON.parseArray(decodeStr, TableUser.class);
+		 */
+		TableUser json = JSONObject.parseObject(decodeStr, TableUser.class);
 
-		String rsausername = json.get(0).getUsername().toString();
-		String rsapassword = json.get(0).getPassword().toString();
-		String rsanewpassword = json.get(0).getNewpassword().toString();
+		String rsausername = json.getUsername().toString();
+		String rsapassword = json.getPassword().toString();
+		String rsanewpassword = json.getNewpassword().toString();
 
 		try {
 			rsausername = AesUtils.aesDecrypt(rsausername, "abcdefgabcdefghi");
@@ -343,22 +372,27 @@ public class TableUserService {
 
 		rsapassword = RSAUtils.decryptBase64(rsapassword);
 		rsanewpassword = RSAUtils.decryptBase64(rsanewpassword);
-
-		JSONObject usernameobj = new JSONObject(rsausername.toString()); // 在这里转换。
-		JSONObject passwordobj = new JSONObject(rsapassword.toString()); // 在这里转换。
-		JSONObject newpasswordobj = new JSONObject(rsanewpassword.toString()); // 在这里转换。
+		/*
+		 * JSONObject usernameobj = new JSONObject(rsausername.toString()); //
+		 * 在这里转换。 JSONObject passwordobj = new
+		 * JSONObject(rsapassword.toString()); // 在这里转换。 JSONObject
+		 * newpasswordobj = new JSONObject(rsanewpassword.toString()); // 在这里转换。
+		 */
+		JSONObject usernameobj = JSONObject.parseObject(rsausername.toString());
+		JSONObject passwordobj = JSONObject.parseObject(rsapassword.toString());
+		JSONObject newpasswordobj = JSONObject.parseObject(rsanewpassword.toString());
 
 		rsausername = usernameobj.get("username").toString();
 		rsapassword = passwordobj.get("password").toString();
 		rsanewpassword = newpasswordobj.get("newpassword").toString();
 
-		json.get(0).setUsername(rsausername);
-		json.get(0).setPassword(rsapassword);
-		json.get(0).setNewpassword(rsapassword);
+		json.setUsername(rsausername);
+		json.setPassword(rsapassword);
+		json.setNewpassword(rsapassword);
 
-		tableUserMapper.AdminUpdateUser(json.get(0));
+		tableUserMapper.AdminUpdateUser(json);
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
@@ -369,13 +403,17 @@ public class TableUserService {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@RequestMapping(value = "/Modifypassword", method = RequestMethod.POST)
 	@ResponseBody
-	public JSONObject Modifypassword(@RequestBody String UserInsert, Model model) {
+	public PaginationVo Modifypassword(@RequestBody String UserInsert, Model model) {
 
-		List<TableUser> json = JSON.parseArray(UserInsert, TableUser.class);
+		/*
+		 * List<TableUser> json = JSON.parseArray(UserInsert, TableUser.class);
+		 */
 
-		String rsausername = json.get(0).getUsername().toString();
-		String rsapassword = json.get(0).getPassword().toString();
-		String rsanewpassword = json.get(0).getNewpassword().toString();
+		TableUser json = JSONObject.parseObject(UserInsert, TableUser.class);
+
+		String rsausername = json.getUsername().toString();
+		String rsapassword = json.getPassword().toString();
+		String rsanewpassword = json.getNewpassword().toString();
 		try {
 			rsausername = AesUtils.aesDecrypt(rsausername, "abcdefgabcdefghi");
 			rsapassword = AesUtils.aesDecrypt(rsapassword, "abcdefgabcdefghi");
@@ -389,42 +427,52 @@ public class TableUserService {
 		rsapassword = RSAUtils.decryptBase64(rsapassword);
 		rsanewpassword = RSAUtils.decryptBase64(rsanewpassword);
 
-		JSONObject usernameobj = new JSONObject(rsausername.toString()); // 在这里转换。
-		JSONObject passwordobj = new JSONObject(rsapassword.toString()); // 在这里转换。
-		JSONObject newpasswordobj = new JSONObject(rsanewpassword.toString()); // 在这里转换。
+		/*
+		 * JSONObject usernameobj = new JSONObject(rsausername.toString()); //
+		 * 在这里转换。 JSONObject passwordobj = new
+		 * JSONObject(rsapassword.toString()); // 在这里转换。 JSONObject
+		 * newpasswordobj = new JSONObject(rsanewpassword.toString()); // 在这里转换。
+		 */
+
+		JSONObject usernameobj = JSONObject.parseObject(rsausername.toString());
+		JSONObject passwordobj = JSONObject.parseObject(rsapassword.toString());
+		JSONObject newpasswordobj = JSONObject.parseObject(rsanewpassword.toString());
 
 		rsausername = usernameobj.get("username").toString();
 		rsapassword = passwordobj.get("password").toString();
 		rsanewpassword = newpasswordobj.get("newpassword").toString();
 
-		json.get(0).setUsername(rsausername);
-		json.get(0).setPassword(rsapassword);
+		json.setUsername(rsausername);
+		json.setPassword(rsapassword);
 
-		List<TableUser> olduserpassword = tableUserMapper.SelectUserpassword(json.get(0).getId());
+		List<TableUser> olduserpassword = tableUserMapper.SelectUserpassword(json.getId());
 
 		JSONObject ModifyPassword = new JSONObject();
 
 		if (olduserpassword != null && olduserpassword.size() > 0) {
 			if (rsapassword.equals(olduserpassword.get(0).getPassword())) {
 
-				tableUserMapper.userudpassword(json.get(0));
+				tableUserMapper.userudpassword(json);
 
-				ModifyPassword.put("Modify_Password", "Success");
-				return ModifyPassword;
+				/*ModifyPassword.put("Modify_Password", "Success");
+				return ModifyPassword;*/
+				paginationVo.setSqlState("Success");
+				
 
 			} else {
 
-				ModifyPassword.put("Modify_Password", "Error");
-				return ModifyPassword;
-
+				/*ModifyPassword.put("Modify_Password", "Error");
+				return ModifyPassword;*/
+				paginationVo.setSqlState("Error");
 			}
 
 		} else {
 
-			ModifyPassword.put("Modify_Password", "Error");
-			return ModifyPassword;
-
+		/*	ModifyPassword.put("Modify_Password", "Error");
+			return ModifyPassword;*/
+			paginationVo.setSqlState("Error");
 		}
+		return paginationVo;
 
 	}
 

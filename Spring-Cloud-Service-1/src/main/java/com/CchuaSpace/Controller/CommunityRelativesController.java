@@ -1,4 +1,4 @@
-package com.CchuaSpace.Controller;
+package com.cchuaspace.controller;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,17 +41,20 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.CchuaSpace.Application;
-import com.CchuaSpace.Currency.AesUtils;
-import com.CchuaSpace.Currency.RSAUtils;
-import com.CchuaSpace.Mapper.CommodityCatalogMapper;
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Model.CommodityCatalog;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.OrderInfo;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
+import com.cchuaspace.Application;
+import com.cchuaspace.currency.AesUtils;
+import com.cchuaspace.currency.RSAUtils;
+import com.cchuaspace.mapper.CommodityCatalogMapper;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.model.CommodityCatalog;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.pojo.PaginationVo;
+import com.cchuaspace.service.CommunityRelativesService;
+import com.cchuaspace.service.OrderInfoService;
 import com.mysql.cj.core.exceptions.PasswordExpiredException;
 
 import groovy.lang.IntRange;
@@ -80,6 +83,94 @@ import io.swagger.annotations.ApiResponses;
 
 public class CommunityRelativesController {
 
+	@Autowired
+	private CommunityRelativesService communityRelativesService;
+
+	/*--------------- -----<----*查询*---->--- ----------------------*/
+
+	@ApiOperation(value = "查询该分类下的商品", notes = "查询该分类下的商品", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "depth", value = "请输入商品编码", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/SelectClassifyProduct", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
+
+		PaginationVo user = communityRelativesService.SelectClassifyProduct(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+
+	/*--------------- -----<----*删除*---->--- ----------------------*/
+	@ApiOperation(value = "刪除分類下的指定商品", notes = "刪除分類下的指定商品", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/DeleteByNumber", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> DeleteByNumber(@RequestBody String CommodityInfo, Model model) {
+
+		PaginationVo user = communityRelativesService.DeleteByNumber(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+
+	/*--------------- -----<----*增加*---->--- ----------------------*/
+	@ApiOperation(value = "增加商品到某分类下", notes = "增加商品到某分类下", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "catalogId", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/InsertRelativesr", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> InsertRelativesr(@RequestBody String CommodityInfo, Model model) {
+
+		PaginationVo user = communityRelativesService.InsertRelativesr(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+
+	/*--------------- -----<----*修改*---->--- ----------------------*/
+	@ApiOperation(value = "修改某个商品的分类所属", notes = "修改某个商品的分类所属", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
+
+		PaginationVo user = communityRelativesService.UpdateCatalog(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
 
 	private String uuid() {
 		String uuid = UUID.randomUUID().toString();

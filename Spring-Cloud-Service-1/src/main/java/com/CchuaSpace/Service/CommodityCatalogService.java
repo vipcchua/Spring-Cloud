@@ -1,9 +1,11 @@
-package com.CchuaSpace.Service;
+package com.cchuaspace.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,14 +15,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.CchuaSpace.Mapper.CommodityCatalogMapper;
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Model.CommodityCatalog;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Pojo.CommodityCatalogVo;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
-import com.CchuaSpace.Pojo.PaginationVo;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.mapper.CommodityCatalogMapper;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.CommunityRelativesMapper;
+import com.cchuaspace.model.CommodityCatalog;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.CommunityRelatives;
+import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoVo;
+import com.cchuaspace.pojo.PaginationVo;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -37,49 +42,123 @@ public class CommodityCatalogService {
 
 	@Autowired
 	private CommodityCatalogMapper commodityCatalogMapper;
+	
+	@Autowired
+	private CommunityRelativesMapper  communityRelativesMapper;
 
 	@Autowired
 	private PaginationVo paginationVo;
+	
+	@Autowired
+	private CommodityCatalogVo commodityCatalogVo;
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 	public PaginationVo SelectCatalog(@RequestBody String commodityInfo, Model model) {
 
-		List<CommodityCatalog> json = JSON.parseArray(commodityInfo, CommodityCatalog.class);
+		/*
+		 * List<CommodityCatalog> json = JSON.parseObject(commodityInfo,
+		 * CommodityCatalog.class);
+		 */
 
-		List<CommodityCatalog> data = commodityCatalogMapper.SelectCatalog(json.get(0));
+		CommodityCatalog json = JSONObject.parseObject(commodityInfo, CommodityCatalog.class);
 
-		paginationVo.setDataResult(data);
+		List<CommodityCatalog> data = commodityCatalogMapper.SelectCatalog(json);
+		
+
+	/*	SelectByparentsId*/
+
+
+		
+		
+		
+		
+		paginationVo.setDataResultList(data);
 
 		return paginationVo;
 
 	}
+	
+	
+	public PaginationVo SelectClassifyProduct(@RequestBody String commodityInfo, Model model) {
+
+		/*
+		 * List<CommodityCatalog> json = JSON.parseObject(commodityInfo,
+		 * CommodityCatalog.class);
+		 */
+
+		CommodityCatalog json = JSONObject.parseObject(commodityInfo, CommodityCatalog.class);
+
+		List<CommodityCatalog> data = commodityCatalogMapper.SelectCatalog(json);
+
+		
+		CommunityRelatives asdsa = communityRelativesMapper.SelectByparentsIds(data.get(0).getParentsId());
+		
+		
+		
+		try {
+			PropertyUtils.copyProperties(commodityCatalogVo, data);
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		commodityCatalogVo.getDataResultList().get(0);
+		
+		
+/*		commodityCatalogVo.setDataResultList(data);*/
+		
+		
+		/*paginationVo.setDataResultList(data);*/
+
+		return paginationVo;
+
+	}
+	
+	
+	
+
+	
+	
+	
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 	public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		int tostate = commodityCatalogMapper.DeleteCatalog(json.get(0));
+		/*
+		 * List<CommodityCatalog> json = JSON.parseArray(CommodityInfo,
+		 * CommodityCatalog.class);
+		 */
+		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
+
+		int tostate = commodityCatalogMapper.DeleteCatalog(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
 	}
 
 	public PaginationVo DeleteCatalogById(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		int tostate = commodityCatalogMapper.DeleteCatalog(json.get(0));
+
+		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
+
+		int tostate = commodityCatalogMapper.DeleteCatalogById(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
@@ -88,10 +167,12 @@ public class CommodityCatalogService {
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	public PaginationVo InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		json.get(0).setCatalogId(uuid());
-		List<CommodityCatalog> user = commodityCatalogMapper.InsertCommodityInfo(json.get(0));
-		paginationVo.setDataResult(json);
+
+		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
+
+		json.setCatalogId(uuid());
+		List<CommodityCatalog> user = commodityCatalogMapper.InsertCommodityInfo(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 
@@ -99,15 +180,17 @@ public class CommodityCatalogService {
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 	public PaginationVo UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
-		List<CommodityCatalog> json = JSON.parseArray(CommodityInfo, CommodityCatalog.class);
-		int tostate = commodityCatalogMapper.UpdateCatalog(json.get(0));
+
+		CommodityCatalog json = JSONObject.parseObject(CommodityInfo,CommodityCatalog.class);
+		
+		int tostate = commodityCatalogMapper.UpdateCatalog(json);
 
 		if (tostate != 0)
 			paginationVo.setSqlState("Success");
 		else
 			paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResult(json);
+		paginationVo.setDataResultObj(json);
 
 		return paginationVo;
 

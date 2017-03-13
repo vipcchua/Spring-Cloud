@@ -1,4 +1,4 @@
-package com.CchuaSpace.Mapper;
+package com.cchuaspace.mapper;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -17,11 +17,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.*;
 
-
-import com.CchuaSpace.Model.DetailedList;
-import com.CchuaSpace.Model.DetailedListSql;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Model.TableUserSql;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.model.DetailedListSql;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.model.TableUserSql;
 
 
 

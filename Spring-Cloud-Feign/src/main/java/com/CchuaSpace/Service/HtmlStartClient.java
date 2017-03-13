@@ -1,4 +1,4 @@
- package com.CchuaSpace.Service;
+ package com.cchuaspace.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +15,8 @@ public interface ComputeClient {
 compute-service
 */
 
-import com.CchuaSpace.Hystrix.ComputeClientHystrix;
-import com.CchuaSpace.Hystrix.HtmlStartHystrix;
+import com.cchuaspace.hystrix.ComputeClientHystrix;
+import com.cchuaspace.hystrix.HtmlStartHystrix;
 
 
 @FeignClient(value = "Server-Service", fallback = HtmlStartHystrix.class)

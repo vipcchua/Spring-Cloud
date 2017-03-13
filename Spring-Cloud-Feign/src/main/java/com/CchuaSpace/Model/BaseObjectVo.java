@@ -1,4 +1,4 @@
-package com.CchuaSpace.Model;
+package com.cchuaspace.model;
 
 import java.io.Serializable;
 import java.util.List;

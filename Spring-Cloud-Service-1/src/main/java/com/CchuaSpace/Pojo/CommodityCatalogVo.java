@@ -1,5 +1,10 @@
-package com.CchuaSpace.Pojo;
+package com.cchuaspace.pojo;
 
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class CommodityCatalogVo {
     /**
     * id
@@ -27,6 +32,31 @@ public class CommodityCatalogVo {
     private Integer depth;
     
     private String Sqlstate;
+    
+    
+	private List<?> DataResultList;
+
+	public List<?> getDataResultList() {
+		return DataResultList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setDataResultList(List<?> dataResultList) {
+		this.DataResultList = dataResultList;
+	}
+
+	public Object getDataResultObj() {
+		return DataResultObj;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setDataResultObj(Object dataResultObj) {
+		this.DataResultObj = dataResultObj;
+	}
+
+	private Object DataResultObj;
+    
+    
     
     
     

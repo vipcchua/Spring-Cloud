@@ -1,4 +1,4 @@
-package com.CchuaSpace.Mapper;
+package com.cchuaspace.mapper;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.*;
 
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.CommodityInfoSql;
-import com.CchuaSpace.Model.TableUser;
-import com.CchuaSpace.Model.TableUserSql;
-import com.CchuaSpace.Pojo.CommodityInfoVo;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.CommodityInfoSql;
+import com.cchuaspace.model.TableUser;
+import com.cchuaspace.model.TableUserSql;
+import com.cchuaspace.pojo.CommodityInfoVo;
 
 
 
@@ -36,6 +36,10 @@ public interface CommodityInfoMapper {
 	@Select("SELECT * FROM commodity_info where commodity_number = #{commodityNumber}")
 	List<CommodityInfo> SelectCommodityByNumber (@Param("commodityNumber") int commodityNumber);
 
+	@Select("SELECT * FROM commodity_info where commodity_number = #{commodityNumber}")
+	CommodityInfo SelectCommodityByNumberObj (@Param("commodityNumber") int commodityNumber);
+	
+	
 	
 	@Select("SELECT * FROM commodity_info where commodity_id = #{commodityId}")
 	List<CommodityInfo> SelectCommodityByID (@Param("commodityId") String commodityId);

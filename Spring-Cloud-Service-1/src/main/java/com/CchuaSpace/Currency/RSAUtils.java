@@ -1,4 +1,4 @@
-package com.CchuaSpace.Currency;
+package com.cchuaspace.currency;
 
 
 

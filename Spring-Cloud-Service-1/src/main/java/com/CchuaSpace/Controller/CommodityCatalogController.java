@@ -1,4 +1,4 @@
-package com.CchuaSpace.Controller;
+package com.cchuaspace.controller;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,19 +41,19 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.CchuaSpace.Application;
-import com.CchuaSpace.Currency.AesUtils;
-import com.CchuaSpace.Currency.RSAUtils;
-import com.CchuaSpace.Mapper.CommodityCatalogMapper;
-import com.CchuaSpace.Mapper.CommodityInfoMapper;
-import com.CchuaSpace.Model.CommodityCatalog;
-import com.CchuaSpace.Model.CommodityInfo;
-import com.CchuaSpace.Model.OrderInfo;
-import com.CchuaSpace.Pojo.PaginationVo;
-import com.CchuaSpace.Service.CommodityCatalogService;
 import com.alibaba.fastjson.JSON;
 
 import com.alibaba.fastjson.JSONStreamAware;
+import com.cchuaspace.Application;
+import com.cchuaspace.currency.AesUtils;
+import com.cchuaspace.currency.RSAUtils;
+import com.cchuaspace.mapper.CommodityCatalogMapper;
+import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.model.CommodityCatalog;
+import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.pojo.PaginationVo;
+import com.cchuaspace.service.CommodityCatalogService;
 import com.mysql.cj.core.exceptions.PasswordExpiredException;
 
 import groovy.lang.IntRange;
@@ -154,7 +154,7 @@ public class CommodityCatalogController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "catalog_id", value = "请输入对应参数", required = true, dataType = "varchar"), })
+			@ApiImplicitParam(name = "catalogId", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
 	@RequestMapping(value = "/DeleteCatalogById", method = RequestMethod.POST)
 	@ResponseBody
@@ -184,7 +184,7 @@ public class CommodityCatalogController {
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
-		
+
 		PaginationVo user = commodityCatalogService.InsertCommodityInfo(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -207,14 +207,9 @@ public class CommodityCatalogController {
 
 	public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
 
-	
-		
 		PaginationVo user = commodityCatalogService.UpdateCatalog(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
-		
-		
-		
 
 	}
 

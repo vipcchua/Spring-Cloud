@@ -1,4 +1,4 @@
-package com.CchuaSpace.Pojo;
+package com.cchuaspace.pojo;
 
 import java.io.Serializable;
 import java.util.List;

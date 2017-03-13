@@ -1,4 +1,4 @@
- package com.CchuaSpace.Service;
+ package com.cchuaspace.service;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ public interface ComputeClient {
 compute-service
 */
 
-import com.CchuaSpace.Hystrix.ComputeClientHystrix;
-import com.CchuaSpace.Model.PaginationVo;
-import com.CchuaSpace.Model.TableUser;
+import com.cchuaspace.hystrix.ComputeClientHystrix;
+import com.cchuaspace.model.PaginationVo;
+import com.cchuaspace.model.TableUser;
 
 
 @FeignClient(value = "Server-Service", fallback = ComputeClientHystrix.class)

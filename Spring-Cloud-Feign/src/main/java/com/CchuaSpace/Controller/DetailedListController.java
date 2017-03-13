@@ -1,4 +1,4 @@
-package com.CchuaSpace.Controller;
+package com.cchuaspace.controller;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -30,13 +30,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.CchuaSpace.Currency.AesUtils;
-import com.CchuaSpace.Currency.RSAUtils;
-import com.CchuaSpace.Model.DetailedList;
-import com.CchuaSpace.Model.PaginationVo;
-import com.CchuaSpace.Service.CommodityInfoClient;
-import com.CchuaSpace.Service.DetailedListClient;
-import com.CchuaSpace.Service.TableUserClient;
+import com.cchuaspace.currency.AesUtils;
+import com.cchuaspace.currency.RSAUtils;
+import com.cchuaspace.model.DetailedList;
+import com.cchuaspace.model.PaginationVo;
+import com.cchuaspace.service.CommodityInfoClient;
+import com.cchuaspace.service.DetailedListClient;
+import com.cchuaspace.service.TableUserClient;
 
 import io.swagger.annotations.Api;
 
