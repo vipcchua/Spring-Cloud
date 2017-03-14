@@ -28,34 +28,27 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-
-
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
 
-@MapperScan("com.CchuaSpace.Mapper")
+@MapperScan("com.cchuaspace.Mapper")
 
 @EnableConfigurationProperties({ CchuaProperties.class, CchuaProperties.class })
 
 public class FeignApplication {
 
 	private static Logger logger = Logger.getLogger(FeignApplication.class);
-	
+
 	@Autowired
 	CchuaProperties CchuaProperties;
-	
-	
 
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DataSource dataSource() {
 		return new org.apache.tomcat.jdbc.pool.DataSource();
 	}
-	
-	
-	
-	
+
 	@Bean
 	public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -63,8 +56,8 @@ public class FeignApplication {
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
 		sqlSessionFactoryBean.setTypeAliases(new Class[] {
-				
-				/*	*  TableUser.class*/
+
+				/* * TableUser.class */
 
 		});
 		sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(
@@ -76,11 +69,7 @@ public class FeignApplication {
 		 */
 		return sqlSessionFactoryBean.getObject();
 	}
-	
-	
-	
-	
-	
+
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
@@ -93,16 +82,13 @@ public class FeignApplication {
 		corsConfiguration.addAllowedMethod("*"); // 3
 		return corsConfiguration;
 	}
-	
-	
-	
+
 	@Bean
 	public CorsFilter corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", buildConfig()); // 4
 		return new CorsFilter(source);
 	}
-
 
 	@Configuration
 	public class MvcConfiguration extends WebMvcConfigurerAdapter {
@@ -134,19 +120,19 @@ public class FeignApplication {
 			}
 		};
 	}
-	
 
-	public static void main(String[] args) {	logger.info("Author:Cchua\n");
-	logger.info("GitHub:https://github.com/vipcchua\n");
-	logger.info("Blog:weibo.com/vipcchua\n");
-	/*后台版本号*/
-	logger.info("Backstage Versions:3.5\n");
-	logger.info("Backstage updateTime:2017年1月4日10:16:10\n");
-	/*代码版信息 */
-	logger.info("Code Versions:4.6.8\n");
-	logger.info("EndUpdate:2017年1月10日15:14:27\n");
-	
-	logger.info("Welcome to use this System");
+	public static void main(String[] args) {
+		logger.info("Author:Cchua\n");
+		logger.info("GitHub:https://github.com/vipcchua\n");
+		logger.info("Blog:weibo.com/vipcchua\n");
+		/* 后台版本号 */
+		logger.info("Backstage Versions:3.5\n");
+		logger.info("Backstage updateTime:2017年1月4日10:16:10\n");
+		/* 代码版信息 */
+		logger.info("Code Versions:4.6.8\n");
+		logger.info("EndUpdate:2017年1月10日15:14:27\n");
+
+		logger.info("Welcome to use this System");
 		SpringApplication.run(FeignApplication.class, args);
 	}
 

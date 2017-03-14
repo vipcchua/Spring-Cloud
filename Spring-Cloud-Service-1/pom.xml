@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 
-	<groupId>com.CchuaSpace</groupId>
+	<groupId>com.cchuaspace</groupId>
 	<artifactId>Spring-Cloud-Service-1</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>

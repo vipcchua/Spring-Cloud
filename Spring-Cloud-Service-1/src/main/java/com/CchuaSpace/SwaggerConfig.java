@@ -39,7 +39,7 @@ public class SwaggerConfig {
                 .forCodeGeneration(true)  
                 .pathMapping("/")            
                 .select()  
-                .apis(RequestHandlerSelectors.basePackage("com.CchuaSpace.Controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.cchuaSpace.Controller"))
                 .paths(paths())  
                 .build()  
                 .apiInfo(apiInfo())  

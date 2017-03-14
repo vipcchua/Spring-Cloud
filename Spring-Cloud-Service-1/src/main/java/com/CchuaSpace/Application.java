@@ -30,14 +30,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.cchuaspace.model.TableUser;
 
-
 @EnableDiscoveryClient
 @SpringBootApplication
 
-
 @ServletComponentScan
 
-/*@ComponentScan(basePackages={"com.CchuaSpace.Pojo"})*/
+/* @ComponentScan(basePackages={"com.CchuaSpace.Pojo"}) */
 @EnableConfigurationProperties({ CchuaProperties.class, CchuaProperties.class })
 public class Application {
 	private static Logger logger = Logger.getLogger(Application.class);
@@ -50,11 +48,10 @@ public class Application {
 	public DataSource dataSource() {
 		return new org.apache.tomcat.jdbc.pool.DataSource();
 	}
-	/*Spring Boot普通类调用bean*/
-	/* @Bean
-     public SpringUtil springUtil(){
-		 return new SpringUtil();
-		 }*/
+	/* Spring Boot普通类调用bean */
+	/*
+	 * @Bean public SpringUtil springUtil(){ return new SpringUtil(); }
+	 */
 
 	@Bean
 	public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
@@ -62,8 +59,7 @@ public class Application {
 		sqlSessionFactoryBean.setDataSource(dataSource());
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-		sqlSessionFactoryBean.setTypeAliases(new Class[] { 
-				 TableUser.class
+		sqlSessionFactoryBean.setTypeAliases(new Class[] { TableUser.class
 
 		});
 		sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(
@@ -156,10 +152,7 @@ public class Application {
 			}
 		};
 	}
-	
-	
-	
-	
+
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(Application.class).web(true).run(args);
 	}

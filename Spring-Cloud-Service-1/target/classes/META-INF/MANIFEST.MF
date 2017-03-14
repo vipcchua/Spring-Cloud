@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Implementation-Title: compute-service
 Implementation-Version: 1.0.0
 Built-By: Cchua
-Implementation-Vendor-Id: com.CchuaSpace
+Implementation-Vendor-Id: com.cchuaspace
 Build-Jdk: 1.8.0_111
 Implementation-URL: http://projects.spring.io/spring-boot/Spring-Cloud
  -Service-1/

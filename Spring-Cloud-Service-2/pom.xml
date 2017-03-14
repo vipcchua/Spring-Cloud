@@ -9,7 +9,6 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>compute-service</name>
 	<description>Spring Cloud project</description>
 
 	<parent>
@@ -38,6 +37,111 @@
 	
 	
 	
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>4.3.6.RELEASE</version>
+</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>1.2.0</version>
+</dependency>
+	
+	
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.4.2</version>
+</dependency>
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.3.1</version>
+</dependency>
+	
+	
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>6.0.5</version>
+</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.24</version>
+</dependency>
+	
+	
+	
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>4.3.6.RELEASE</version>
+</dependency>
+	
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-jdbc</artifactId>
+    <version>8.5.5</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>1.2.0</version>
+</dependency>
+
+	<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.6.1</version>
+</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.5</version>
+</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.6.1</version>
+</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core</artifactId>
+    <version>4.2.1.RELEASE</version>
+</dependency>
+	
+	
+			<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-staticdocs</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/io.github.swagger2markup/swagger2markup -->
+<dependency>
+    <groupId>io.github.swagger2markup</groupId>
+    <artifactId>swagger2markup</artifactId>
+    <version>1.3.0</version>
+</dependency>
 	
 	
 	
@@ -85,7 +189,7 @@
 		
 		
 	</dependencies>
-
+	<!-- Brixton.RELEASE -->
 
 	<dependencyManagement>
 		<dependencies>
@@ -154,4 +258,5 @@
 
 
 
+	<name>compute-service</name>
 </project>
