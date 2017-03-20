@@ -24,6 +24,8 @@ public class BaseObjectVo implements Serializable {
 	private String ErrorCode;
 
 	private String ErrorSolve;
+	
+	private String Token;
 
 	private String SqlState;
 
@@ -91,6 +93,14 @@ public class BaseObjectVo implements Serializable {
 
 	public void setErrorSolve(String errorSolve) {
 		ErrorSolve = errorSolve;
+	}
+
+	public String getToken() {
+		return Token;
+	}
+
+	public void setToken(String token) {
+		Token = token;
 	}
 
 }

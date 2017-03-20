@@ -56,7 +56,9 @@ public class TableUser {
 
     private String sqlstate;
     
-
+    private String Code;
+    
+    
 
 
 	public String getSqlstate() {

@@ -1,17 +1,22 @@
 package com.cchuaspace.currency;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson.JSONObject;
 
 public class RandomValidateCode {
 	private Random random = new Random();
@@ -102,10 +107,9 @@ public class RandomValidateCode {
 		// 2：将随机生成的验证码放入session中
 		String sessionid = request.getSession().getId();
 		request.getSession().setAttribute(sessionid + key, randomString);
-		
+
 		request.getSession().setAttribute("ValidateCode", randomString);
-		
-		
+
 		System.out.println("Code:" + randomString + ",sessionid:" + sessionid);
 
 		// 总结：这两种方式都是很好，
@@ -116,10 +120,15 @@ public class RandomValidateCode {
 		try {
 			ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 			ImageIO.write(image, "png", tmp);
+			byte[] imageBytes = tmp.toByteArray();
+
+			String imageString = Base64Utils.encode(imageBytes);
 			tmp.close();
 			Integer contentLength = tmp.size();
 			response.setHeader("content-length", contentLength + "");
 			response.getOutputStream().write(tmp.toByteArray());// 将内存中的图片通过流动形式输出到客户端
+			System.out.println("Base64:" + imageString);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -130,6 +139,79 @@ public class RandomValidateCode {
 				e2.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * 生成随机图片
+	 * 
+	 * @return
+	 */
+	public CodeInfo getBase64code() {
+
+		int width = 80;// 图片宽
+		int height = 26;// 图片高
+		int lineSize = 40;// 干扰线数量
+		int stringNum = 4;// 随机产生字符数量
+
+		CodeInfo codeInfo = new CodeInfo();
+		
+		// BufferedImage类是具有缓冲区的Image类,Image类是用于描述图像信息的类
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+		Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作
+		g.fillRect(0, 0, width, height);
+		g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 18));
+		g.setColor(getRandColor(110, 133));
+		// 绘制干扰线
+		for (int i = 0; i <= lineSize; i++) {
+			drowLine(g);
+		}
+		// 绘制随机字符
+		String randomString = "";
+		for (int i = 1; i <= stringNum; i++) {
+			randomString = drowString(g, randomString, i);
+		}
+	
+		g.dispose();
+		try {
+			ByteArrayOutputStream tmp = new ByteArrayOutputStream();
+			ImageIO.write(image, "png", tmp);
+			byte[] imageBytes = tmp.toByteArray();
+
+			String imageString = Base64Utils.encode(imageBytes);
+			tmp.close();
+			System.out.println("Code:" + randomString);
+			System.out.println("Base64:" + imageString);
+			
+			
+			codeInfo.setBase64Code(imageString);
+			codeInfo.setCode(randomString);
+					
+
+			return codeInfo;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return codeInfo;
+	}
+	
+	
+	public class CodeInfo{
+		private String Code;
+		private String Base64Code;
+		public String getCode() {
+			return Code;
+		}
+		public void setCode(String code) {
+			Code = code;
+		}
+		public String getBase64Code() {
+			return Base64Code;
+		}
+		public void setBase64Code(String base64Code) {
+			Base64Code = base64Code;
+		}
+
+		
 	}
 
 }
