@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +47,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @ApiIgnore
 @Controller
+@Scope("prototype")
 public class FileUploadController {
 	@Autowired
 	CchuaProperties CchuaProperties;
@@ -88,7 +90,7 @@ public class FileUploadController {
 		return "upload successful" + filename;
 	}
 
-	@RequestMapping("/uploads")
+	@RequestMapping("/api/uploads")
 	@ResponseBody
 	public List<String> handleFileUploads(
 			/* @RequestParam("file") MultipartFile file */@RequestParam("files") MultipartFile[] files) {

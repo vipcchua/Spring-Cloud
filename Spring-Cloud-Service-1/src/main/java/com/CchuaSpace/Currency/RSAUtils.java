@@ -61,12 +61,12 @@ public class RSAUtils {
         }
     }
      
-    public static void main(String[] args) {
+ /*   public static void main(String[] args) {
         // 生成public key
         System.out.println(generateBase64PublicKey());
          
         // 解密
         System.out.println(decryptBase64("wAfY9JkoKay9SxcPIs1FcG+t6sR+wYwAs/mh9DpfcBraxzqoZdb9LyaAigzFQ0EKck9OyHL0dhv+Uxuw5hHw6CPT0B2Z0i1gwrjDUNaL1gWvqt1pDJVGrIYPLJSjs9xktFhY1jbxQgXGjyCt06Rwid5sJknw90AUO0CyQulfipg="));
-    }
+    }*/
  
 }

@@ -3,8 +3,10 @@ package com.cchuaspace.currency;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 public class CchuaTool {
@@ -19,9 +21,9 @@ public class CchuaTool {
 		String uuid = UUID.randomUUID().toString();
 		String time = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
 		String token = uuid + time.toString();
-		
+
 		token = sha1(token);
-		System.out.println("ShaToken:"+token);
+		System.out.println("ShaToken:" + token);
 		return token;
 
 	}
@@ -69,6 +71,23 @@ public class CchuaTool {
 		}
 		/* System.out.println("字符串转成日期：" + today); */
 		return dateNowStr;
+	}
+
+	public Date getDate() {
+		Date k = new Date();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long rightTime = (long) (k.getTime() + 8 * 60 * 60 * 1000); // 把当前得到的时间用date.getTime()的方法写成时间戳的形式，再加上8小时对应的毫秒数
+		String newtime = sd.format(rightTime);// 把得到的新的时间戳再次格式化成时间的格式
+
+		try {
+			k = sd.parse(newtime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return k;
+
 	}
 
 }

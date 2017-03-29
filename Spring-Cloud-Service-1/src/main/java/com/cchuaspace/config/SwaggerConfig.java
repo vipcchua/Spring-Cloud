@@ -1,4 +1,4 @@
-package com.cchuaspace;
+package com.cchuaspace.config;
 
 
 /*
@@ -35,11 +35,12 @@ public class SwaggerConfig {
     @Bean  
     public Docket adminApi(){  
         return new Docket(DocumentationType.SWAGGER_2)  
+        		.host("10.3.13.168:3331")
                 .groupName("Admin API")  
                 .forCodeGeneration(true)  
                 .pathMapping("/")            
                 .select()  
-                .apis(RequestHandlerSelectors.basePackage("com.cchuaSpace.Controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.cchuaspace"))
                 .paths(paths())  
                 .build()  
                 .apiInfo(apiInfo())  

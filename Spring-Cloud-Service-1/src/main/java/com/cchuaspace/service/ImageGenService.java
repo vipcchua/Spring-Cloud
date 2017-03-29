@@ -49,7 +49,7 @@ import com.cchuaspace.pojo.PaginationVo;
 public class ImageGenService {
 	@Autowired
 	private PaginationVo paginationVo;
-	
+
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 	/*--------------- -----<----*查询*---->--- ----------------------*/
@@ -65,27 +65,23 @@ public class ImageGenService {
 		RandomValidateCode randomValidateCode = new RandomValidateCode();
 
 		CodeInfo Code = randomValidateCode.getBase64code();
-		
-		
 
 		CchuaTool cchuaTool = new CchuaTool();
-	
+
 		String Token = cchuaTool.token();
-	
+
 		String ToCodeimg = Code.getBase64Code().toString();
 		String ToCodeText = Code.getCode();
-		System.out.println("ToCodeText:"+ToCodeText+"ToCodeimg:"+ToCodeimg);
-		
+		System.out.println("ToCodeText:" + ToCodeText + "ToCodeimg:" + ToCodeimg);
+
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("Token", Token);
 		jsonObject.put("Codeimg", ToCodeimg);
 
-		stringRedisTemplate.opsForValue().set(Token,ToCodeText);
-		
+	/*	stringRedisTemplate.opsForValue().set(Token, ToCodeText);*/
 
-		stringRedisTemplate.opsForValue().set(Token, ToCodeText, 1, TimeUnit.HOURS);
+		stringRedisTemplate.opsForValue().set(Token, ToCodeText, 2, TimeUnit.HOURS);
 
-		
 		paginationVo.setDataResultObj(jsonObject);
 
 		return paginationVo;

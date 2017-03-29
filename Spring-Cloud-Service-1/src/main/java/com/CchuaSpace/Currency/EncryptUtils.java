@@ -28,7 +28,7 @@ public class EncryptUtils {
      */  
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";  
   
-    public static void main(String[] args) throws Exception {  
+  /*  public static void main(String[] args) throws Exception {  
         String content = "我爱你";  
         System.out.println("加密前：" + content);  
   
@@ -40,7 +40,7 @@ public class EncryptUtils {
         String decrypt = aesDecrypt(encrypt, KEY);  
         System.out.println("解密后：" + decrypt);  
     }  
-      
+      */
     /** 
      * aes解密 
      * @param encrypt   内容 

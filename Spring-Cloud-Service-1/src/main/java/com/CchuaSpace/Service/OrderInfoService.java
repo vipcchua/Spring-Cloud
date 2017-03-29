@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.entity.OrderInfoExample;
 import com.cchuaspace.mapper.CommodityInfoMapper;
 import com.cchuaspace.mapper.OrderCommodityMapper;
 import com.cchuaspace.mapper.OrderInfoMapper;
@@ -51,6 +52,7 @@ import io.swagger.annotations.ApiResponses;
 
 public class OrderInfoService {
 
+	
 	@Autowired
 	private OrderInfoMapper orderInfoMapper;
 
@@ -62,10 +64,11 @@ public class OrderInfoService {
 
 	@Autowired
 	private OrderInfoVo orderInfoVo;
+	
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-	public PaginationVo SelectByNumber(@RequestBody String CommodityInfo, Model model) {
+	/*public PaginationVo SelectByNumber(@RequestBody String CommodityInfo, Model model) {
 
 		OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
 
@@ -73,8 +76,8 @@ public class OrderInfoService {
 
 		List<OrderCommodity> user = orderCommodityMapper.SelectByNumber(infodata.getOrderNumber());
 
-		/* BeanUtils对部分属性不支持null的情况？？？？ */
-		/* BeanUtils.copyProperties(orderInfoVo, infodata); */
+		// BeanUtils对部分属性不支持null的情况？？？？ 
+		// BeanUtils.copyProperties(orderInfoVo, infodata); 
 
 
 			try {
@@ -97,7 +100,22 @@ public class OrderInfoService {
 		return paginationVo;
 
 	}
+*/
+	
+	public PaginationVo SelectByNumber(@RequestBody String CommodityInfo, Model model) {
 
+		OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
+	
+		OrderInfo infodata = orderInfoMapper.SelectByNumber(json.getUserId(), json.getOrderNumber());
+
+		System.out.println(infodata);
+
+
+
+		paginationVo.setDataResultObj(infodata);
+		return paginationVo;
+
+	}
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
@@ -131,6 +149,17 @@ public class OrderInfoService {
 
 	}
 	/*--------------- -----<----*增加*---->--- ----------------------*/
+
+	public int as(String commodityInfo) {
+	
+	
+		OrderInfo json = JSONObject.parseObject(commodityInfo, OrderInfo.class);
+		int infodata = orderInfoMapper.updateByPrimaryKey(json);
+		
+		
+		
+		return infodata;
+	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 

@@ -17,6 +17,6 @@ public interface OrderCommodityMapper {
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 	@Select("Select * from order_commodity WHERE order_commodity.order_number = #{orderNumber} ")
-	List<OrderCommodity> SelectByNumber(@Param("orderNumber") String orderNumber);
+	List<OrderCommodity> SelectByNumber(@Param("orderNumber") int orderNumber);
 	
 }

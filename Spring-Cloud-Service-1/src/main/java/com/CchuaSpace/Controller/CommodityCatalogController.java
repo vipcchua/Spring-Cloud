@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -77,7 +78,8 @@ import io.swagger.annotations.ApiResponses;
  */
 @Controller
 @RestController
-@RequestMapping(value = "/Catalog")
+@Scope("prototype")
+@RequestMapping(value = "/api/catalog")
 @Api(value = "目录列表的相关操作", description = "目录列表 commodity_catalog")
 
 public class CommodityCatalogController {

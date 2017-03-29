@@ -43,7 +43,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @ApiIgnore
 @Controller
-@RequestMapping(value = "/system")
+@RequestMapping(value = "/api/system")
 public class ImageGenController {
 
 	@Autowired
@@ -87,7 +87,7 @@ public class ImageGenController {
 		return uuid();
 	}
 
-	@RequestMapping("/getverifiCode")
+	@RequestMapping("/api/system/getverifiCode")
 
 	@ResponseBody
 	public ResponseEntity<PaginationVo> imageStrings(HttpServletRequest request, HttpServletResponse response) {

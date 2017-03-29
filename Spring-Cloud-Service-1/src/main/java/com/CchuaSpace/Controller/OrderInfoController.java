@@ -59,7 +59,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @Api(value = "购物车列表", description = "订单列表 order_info")
-@RequestMapping(value = "/OrderInfo")
+@RequestMapping(value = "/api/orderinfo")
 public class OrderInfoController {
 
 	private static SqlSessionFactory sqlSessionFactory;
@@ -93,6 +93,22 @@ public class OrderInfoController {
 		return data;
 
 	}
+	
+	
+
+	
+	
+	@RequestMapping(value = "/asdfg")
+	@ResponseBody
+
+	public int as(@RequestBody String CommodityInfo) {
+
+		int user = orderInfoService.as(CommodityInfo);
+		
+		return user;
+
+	}
+	
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 	@ApiOperation(value = "使用订单Id删除订单", notes = "使用订单ID", response = OrderInfo.class)

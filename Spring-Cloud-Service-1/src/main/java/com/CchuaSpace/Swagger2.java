@@ -33,6 +33,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.cchuaspace.config.SwaggerConfig;
 
 import io.github.robwin.markup.builder.MarkupLanguage;
 import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;

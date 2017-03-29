@@ -28,11 +28,15 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 
 		// 添加拦截规则:addPathPatterns
 
+	/*
 		addInterceptor.addPathPatterns("/**");
 		// 排除拦截:excludePathPatterns
-		addInterceptor.excludePathPatterns("/system/login");
-		addInterceptor.excludePathPatterns("/system/getverifiCode");
-
+		addInterceptor.excludePathPatterns("/api/system/login");
+		addInterceptor.excludePathPatterns("/api/system/getverifiCode");
+		addInterceptor.excludePathPatterns("/api/wecaht/**");*/
+		
+		addInterceptor.excludePathPatterns("/**");
+		
 		super.addInterceptors(registry);
 	}
 

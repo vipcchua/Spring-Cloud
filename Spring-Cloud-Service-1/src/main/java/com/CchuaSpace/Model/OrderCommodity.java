@@ -18,7 +18,13 @@ public class OrderCommodity {
     */
     private Integer buyAmount;
 
+    public String getOrderDetailedid() {
+        return orderDetailedid;
+    }
 
+    public void setOrderDetailedid(String orderDetailedid) {
+        this.orderDetailedid = orderDetailedid;
+    }
 
     public Integer getOrderNumber() {
         return orderNumber;
@@ -43,12 +49,4 @@ public class OrderCommodity {
     public void setBuyAmount(Integer buyAmount) {
         this.buyAmount = buyAmount;
     }
-
-	public String getOrderDetailedid() {
-		return orderDetailedid;
-	}
-
-	public void setOrderDetailedid(String orderDetailedid) {
-		this.orderDetailedid = orderDetailedid;
-	}
 }

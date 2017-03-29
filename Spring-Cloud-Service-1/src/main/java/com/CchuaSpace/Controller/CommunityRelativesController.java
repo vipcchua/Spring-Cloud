@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -77,8 +78,9 @@ import io.swagger.annotations.ApiResponses;
  * http://localhost:8080//hhh?name=d62&age=23
  */
 @Controller
+@Scope("prototype")
 @RestController
-@RequestMapping(value = "/Relatives")
+@RequestMapping(value = "/api/relatives")
 @Api(value = "目录所对应的商品", description = "商品目录列表 community_relatives")
 
 public class CommunityRelativesController {

@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.*;
 
+import com.cchuaspace.entity.OrderInfoExample;
 import com.cchuaspace.model.CommodityInfo;
 import com.cchuaspace.model.CommodityInfoSql;
 import com.cchuaspace.model.CommunityRelatives;
@@ -50,7 +51,7 @@ public interface OrderInfoMapper {
 	
 	
 	@Select("Select * from order_info WHERE order_info.order_number = #{orderNumber} AND order_info.order_number = #{orderNumber}")
-	OrderInfo SelectByNumber(@Param("userId") String userId,@Param("orderNumber") String orderNumber);
+	OrderInfo SelectByNumber(@Param("userId") String userId,@Param("orderNumber") int orderNumber);
 	
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
@@ -58,7 +59,7 @@ public interface OrderInfoMapper {
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	@Delete("Delete FROM order_info where  order_info.order_number = #{orderNumber} AND order_info.user_id = #{userId}")
-	int DeleteNumber(@Param("orderNumber") String orderNumber, @Param("UserId") String Userid);
+	int DeleteNumber(@Param("orderNumber") int orderNumber, @Param("UserId") String Userid);
 	
 	
 	@Delete("Delete FROM order_info where order_info.order_id = #{orderId} AND order_info.user_id = #{userId}")
@@ -76,6 +77,29 @@ public interface OrderInfoMapper {
 	
 	
 	
+	
+	  int countByExample(OrderInfoExample example);
+
+	    int deleteByExample(OrderInfoExample example);
+
+	    int deleteByPrimaryKey(Integer orderNumber);
+
+	    int insert(OrderInfo record);
+
+	    int insertSelective(OrderInfo record);
+
+	    List<OrderInfo> selectByExample(OrderInfoExample example);
+
+	    OrderInfo selectByPrimaryKey(Integer orderNumber);
+
+	    int updateByExampleSelective(@Param("record") OrderInfo record, @Param("example") OrderInfoExample example);
+
+	    int updateByExample(@Param("record") OrderInfo record, @Param("example") OrderInfoExample example);
+
+	    int updateByPrimaryKeySelective(OrderInfo record);
+
+	    int updateByPrimaryKey(OrderInfo record);
+	    /*自动生成*/
 	
 
 	

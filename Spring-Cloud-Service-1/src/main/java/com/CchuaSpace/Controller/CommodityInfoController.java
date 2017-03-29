@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -87,8 +88,8 @@ import io.swagger.annotations.ApiResponses;
  */
 @Controller
 @RestController
-
-@RequestMapping(value = "/Commodit")
+@Scope("prototype")
+@RequestMapping(value = "/api/commodit")
 @Api(value = "商品信息表", description = "商品信息列表commodity_info")
 
 public class CommodityInfoController {

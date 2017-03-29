@@ -84,6 +84,7 @@ import io.swagger.annotations.ApiResponses;
  */
 @Controller
 @RestController
+@RequestMapping(value = "/api/system")
 @Api(value = "用户信息表", description = "用户信息的相关操作 table_user")
 
 public class TableUserController {

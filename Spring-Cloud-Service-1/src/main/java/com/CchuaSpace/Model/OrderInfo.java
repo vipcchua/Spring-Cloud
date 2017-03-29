@@ -1,13 +1,13 @@
-package com.cchuaspace.model;
+﻿package com.cchuaspace.model;
 
-import java.util.List;
+import java.util.Date;
 
 public class OrderInfo {
-    private String orderNumber;
-
     /**
-    * 订单ID
+    * 订单编号
     */
+    private int orderNumber;
+
     private String orderId;
 
     /**
@@ -46,6 +46,11 @@ public class OrderInfo {
     private String paymentMethod;
 
     /**
+    * 付款金额
+    */
+    private String paymentAmount;
+
+    /**
     * 付款状态
     */
     private String paymentState;
@@ -54,32 +59,56 @@ public class OrderInfo {
     * 快递编号
     */
     private String expressNumber;
-    
-    
-  
 
     /**
     * 快递商家
     */
-   
-   
-   
     private String expressBusiness;
 
+    /**
+    * 订单评论编号
+    */
     private String orderRemarks;
-    private String generateTime;
+
+    /**
+    * 订单生成时间
+    */
+    private Date generateTime;
+
+    /**
+    * 发票类型
+    */
+    private String invoiceType;
+
+    /**
+    * 发票抬头
+    */
+    private String invoiceHeader;
+
+
+   
+ 
     
-    private String Sqlstate;
+ 
     
     
     
 
     private  OrderCommodity orderCommodity;
+
+
     
     
     
-    
-    
+
+
+    public int getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setOrderNumber(int orderNumber) {
+		this.orderNumber = orderNumber;
+	}
 
 	public String getOrderId() {
         return orderId;
@@ -145,6 +174,14 @@ public class OrderInfo {
         this.paymentMethod = paymentMethod;
     }
 
+    public String getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(String paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
     public String getPaymentState() {
         return paymentState;
     }
@@ -177,23 +214,29 @@ public class OrderInfo {
         this.orderRemarks = orderRemarks;
     }
 
+    public Date getGenerateTime() {
+        return generateTime;
+    }
 
+    public void setGenerateTime(Date generateTime) {
+        this.generateTime = generateTime;
+    }
 
-	public String getOrderNumber() {
-		return orderNumber;
-	}
+    public String getInvoiceType() {
+        return invoiceType;
+    }
 
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
-	}
+    public void setInvoiceType(String invoiceType) {
+        this.invoiceType = invoiceType;
+    }
 
-	public String getGenerateTime() {
-		return generateTime;
-	}
+    public String getInvoiceHeader() {
+        return invoiceHeader;
+    }
 
-	public void setGenerateTime(String generateTime) {
-		this.generateTime = generateTime;
-	}
+    public void setInvoiceHeader(String invoiceHeader) {
+        this.invoiceHeader = invoiceHeader;
+    }
 
 	public OrderCommodity getOrderCommodity() {
 		return orderCommodity;
@@ -201,13 +244,5 @@ public class OrderInfo {
 
 	public void setOrderCommodity(OrderCommodity orderCommodity) {
 		this.orderCommodity = orderCommodity;
-	}
-
-	public String getSqlstate() {
-		return Sqlstate;
-	}
-
-	public void setSqlstate(String sqlstate) {
-		Sqlstate = sqlstate;
 	}
 }
