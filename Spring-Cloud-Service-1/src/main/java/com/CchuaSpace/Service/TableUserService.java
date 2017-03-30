@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ import io.swagger.annotations.ApiResponses;
  * 
  * ************************************************************/
 @Service
-
+@Scope("prototype")
 public class TableUserService {
 	@Autowired
 	private TableUserMapper tableUserMapper;

@@ -2,7 +2,9 @@ package com.cchuaspace.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -10,15 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -28,12 +37,16 @@ import com.cchuaspace.currency.RandomValidateCode.CodeInfo;
 import com.cchuaspace.mapper.CommodityCatalogMapper;
 import com.cchuaspace.mapper.CommodityInfoMapper;
 import com.cchuaspace.mapper.CommunityRelativesMapper;
+import com.cchuaspace.mapper.CustomerInfoMapper;
+import com.cchuaspace.mapper.DetailedListMapper;
 import com.cchuaspace.model.CommodityCatalog;
 import com.cchuaspace.model.CommodityInfo;
 import com.cchuaspace.model.CommunityRelatives;
+import com.cchuaspace.model.CustomerInfo;
 import com.cchuaspace.pojo.CommodityCatalogVo;
 import com.cchuaspace.pojo.CommodityInfoVo;
 import com.cchuaspace.pojo.PaginationVo;
+import com.cchuaspace.pojo.WechatVo;
 
 /*
  * ****************<--*---Code information---*-->**************
@@ -46,19 +59,16 @@ import com.cchuaspace.pojo.PaginationVo;
  * ************************************************************/
 @Service
 
+@Component
+
+@Scope("prototype")
 public class ImageGenService {
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
+	
 	@Autowired
 	private PaginationVo paginationVo;
 
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
-	/*--------------- -----<----*查询*---->--- ----------------------*/
-
-	/*--------------- -----<----*删除*---->--- ----------------------*/
-
-	/*--------------- -----<----*增加*---->--- ----------------------*/
-
-	/*--------------- -----<----*修改*---->--- ----------------------*/
 
 	public PaginationVo imageStrings(HttpServletRequest request, HttpServletResponse response) {
 
@@ -78,8 +88,6 @@ public class ImageGenService {
 		jsonObject.put("Token", Token);
 		jsonObject.put("Codeimg", ToCodeimg);
 
-	/*	stringRedisTemplate.opsForValue().set(Token, ToCodeText);*/
-
 		stringRedisTemplate.opsForValue().set(Token, ToCodeText, 2, TimeUnit.HOURS);
 
 		paginationVo.setDataResultObj(jsonObject);
@@ -88,11 +96,6 @@ public class ImageGenService {
 
 	}
 
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
 
-		return uuid;
-	}
 
 }

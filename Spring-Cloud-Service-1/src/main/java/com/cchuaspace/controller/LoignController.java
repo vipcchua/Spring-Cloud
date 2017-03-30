@@ -3,6 +3,7 @@ package com.cchuaspace.controller;
 import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RequestMapping(value = "/api/system")
+@Scope("prototype")
 @Api(value = "后台登陆接口", description = "后台登陆接口")
 
 public class LoignController {

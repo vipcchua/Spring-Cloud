@@ -13,6 +13,7 @@ package com.cchuaspace.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @ApiIgnore
 @Controller
+@Scope("prototype")
 @RequestMapping(value = "/api/system")
 @Api(value = "工具类接口", description = "工具类接口")
 

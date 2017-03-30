@@ -27,6 +27,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -146,6 +148,22 @@ public class Application {
 	public PlatformTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
+	
+	/*  @Bean
+	  public StringRedisTemplate redisTemplate() {
+	    StringRedisTemplate template = new StringRedisTemplate();
+	    // explicitly enable transaction support
+	    template.setEnableTransactionSupport(true);
+	    return template;
+	  }*/
+	
+	
+	/* @Bean
+	  public RedisTemplate<?, ?> redisTemplate() {
+
+	    RedisTemplate<byte[], byte[]> template = new RedisTemplate<byte[], byte[]>();
+	    return template;
+	  }*/
 
 	private CorsConfiguration buildConfig() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();

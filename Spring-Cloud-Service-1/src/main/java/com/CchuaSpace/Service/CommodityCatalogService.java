@@ -9,6 +9,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ import com.cchuaspace.pojo.PaginationVo;
  * 
  * ************************************************************/
 @Service
-
+@Scope("prototype")
 public class CommodityCatalogService {
 
 	@Autowired

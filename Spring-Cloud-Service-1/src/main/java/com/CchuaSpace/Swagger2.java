@@ -21,7 +21,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+/*import org.springframework.boot.test.SpringApplicationConfiguration;*/
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -40,7 +41,11 @@ import springfox.documentation.staticdocs.Swagger2MarkupResultHandler;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes={Application.class, SwaggerConfig.class})
+@SpringBootTest(classes={Application.class, SwaggerConfig.class})
+/*Spring Boot的SpringApplicationConfiguration注解在Spring Boot 1.4开始，被标记为Deprecated
+
+解决：替换为SpringBootTest即可*/
+
 public class Swagger2 {
 	@Autowired
     private WebApplicationContext context;

@@ -6,6 +6,7 @@ import java.net.URLDecoder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +36,7 @@ import io.swagger.annotations.ApiResponses;
  * ************************************************************/
 
 @Service
-
+@Scope("prototype")
 public class LoginService {
 
 	@Autowired
