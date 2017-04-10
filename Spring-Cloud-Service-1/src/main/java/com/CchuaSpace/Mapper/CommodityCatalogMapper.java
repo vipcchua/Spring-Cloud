@@ -21,6 +21,7 @@ import com.cchuaspace.model.CommodityInfo;
 import com.cchuaspace.model.CommodityInfoSql;
 import com.cchuaspace.model.TableUser;
 import com.cchuaspace.model.TableUserSql;
+import com.cchuaspace.pojo.CommodityCatalogVo;
 
 @Mapper
 
@@ -30,12 +31,29 @@ public interface CommodityCatalogMapper {
 	@Select("SELECT * FROM commodity_catalog where parents_id = #{parentsId}"
 			/* + " AND commodity_catalog.parents_id = #{parentsId}" */
 			+ " AND commodity_catalog.depth = #{depth}")
-	public List<CommodityCatalog> SelectCatalog(CommodityCatalog commodityCatalog);
+	public List<CommodityCatalogVo> SelectCatalogs(CommodityCatalog commodityCatalog);
 
+	
+	@Select("SELECT * FROM commodity_catalog where parents_id = #{parentsId}"
+			/* + " AND commodity_catalog.parents_id = #{parentsId}" */
+			+ " AND commodity_catalog.depth = #{depth}")
+	public List<CommodityCatalog> SelectCatalog(CommodityCatalog commodityCatalog);
+	
+	
+	
+	@Select("SELECT * FROM commodity_catalog where"
+			/* + " AND commodity_catalog.parents_id = #{parentsId}" */
+			+ " commodity_catalog.depth = #{depth}")
+	public List<CommodityCatalog> Selectdepth(@Param("depth") int depth);
+
+	
+	@Select("SELECT * FROM commodity_catalog where commodity_catalog.parents_id = #{parentsId}")
+	public List<CommodityCatalog> SelectByParents(@Param("parentsId") String parentsId);
+	
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	@InsertProvider(type = CommodityCatalogSql.class, method = "InsertCommodityCatalog")
-	public List<CommodityCatalog> InsertCommodityInfo(CommodityCatalog commodityCatalog);
+	public int InsertCommodityInfo(CommodityCatalog commodityCatalog);
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 

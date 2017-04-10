@@ -52,7 +52,7 @@ public class HtmlStartController {
 		        return "test";
 		    }
 	    
-	    @RequestMapping("/LoginSuccrss")
+	    @RequestMapping("/loginSuccrss")
 	    public String LoginSuccrss() {
 		        return "LoginSuccrss";
 		    }

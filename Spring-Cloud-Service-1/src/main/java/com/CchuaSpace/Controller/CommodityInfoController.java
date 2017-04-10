@@ -94,14 +94,6 @@ import io.swagger.annotations.ApiResponses;
 
 public class CommodityInfoController {
 
-	private static SqlSessionFactory sqlSessionFactory;
-	/* private Logger logger = Logger.getLogger(TableInfoController.class); */
-
-	private final Logger logger = Logger.getLogger(getClass());
-
-	@Autowired
-	private DiscoveryClient client;
-
 	@Resource
 	private Application computeServiceApplication;
 
@@ -113,14 +105,15 @@ public class CommodityInfoController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar"), })
+			@ApiImplicitParam(name = "commoditynumber", value = "请输入商品编码", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/SelectCommodityByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectbynumber", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> SelectCommodityByNumber(
+			@RequestParam(value = "commoditynumber", required = true) int commodityNumber) {
 
-		PaginationVo user = commodityInfoService.SelectCommodityByNumber(CommodityInfo, model);
+		PaginationVo user = commodityInfoService.SelectCommodityByNumber(commodityNumber);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -133,7 +126,7 @@ public class CommodityInfoController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
-	@RequestMapping(value = "/SelectCommodityById", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectcommoditybyid", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
@@ -144,10 +137,28 @@ public class CommodityInfoController {
 
 	}
 
+	@ApiOperation(value = "Get使用商品iD查询商品详细信息", notes = "Get使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
+
+	@RequestMapping(value = "/getcommoditybyid", method = RequestMethod.GET)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> GetSelectCommodityByID(
+			@RequestParam(value = "commodityid", required = true) String commodityId) {
+
+		PaginationVo user = commodityInfoService.GetSelectCommodityByID(commodityId);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		return data;
+
+	}
+
 	@ApiOperation(value = "动态查询商品信息", notes = "本接口为动态查询商品信息", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping(value = "/SelectCommodityInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectcommodityinfo", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
@@ -157,15 +168,44 @@ public class CommodityInfoController {
 
 	}
 
+	@ApiOperation(value = "查询所有商品信息", notes = "本接口为查询所有商品信息息", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@RequestMapping(value = "/selectall", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> SelectCommodityall() {
+		PaginationVo user = commodityInfoService.SelectCommodityall();
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		return data;
+
+	}
+
+	@ApiOperation(value = "查询所有商品信息", notes = "本接口为查询所有商品信息息", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@RequestMapping(value = "/selectallpage", method = { RequestMethod.POST, RequestMethod.GET })
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> SelectCommodityallpage(@RequestBody String data) {
+
+		PaginationVo user = commodityInfoService.SelectAllByPage(data);
+
+		ResponseEntity<PaginationVo> htmldata = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return htmldata;
+
+	}
+
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	@ApiOperation(value = "使用商品编号删除商品详细信息", notes = "使用商品编号删除商品详细信息，本接口只能传商编号", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品Id", required = true, dataType = "varchar"), })
+			@ApiImplicitParam(name = "commoditynumber", value = "请输入商品Id", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/DeleteCommodityByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletecommoditybynumber", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
 			Model model) {
@@ -180,8 +220,8 @@ public class CommodityInfoController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityId", value = "请输入商品Id", required = true, dataType = "varchar"), })
-	@RequestMapping(value = "/DeleteCommodityById", method = RequestMethod.POST)
+			@ApiImplicitParam(name = "commodityid", value = "请输入商品Id", required = true, dataType = "varchar"), })
+	@RequestMapping(value = "/deletecommoditybyid", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {
 
@@ -192,13 +232,12 @@ public class CommodityInfoController {
 
 	}
 
-	
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 	@ApiOperation(value = "增加商品详细信息", notes = "增加商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertcommodityinfo", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String InsertCommodityInfo, Model model) {
@@ -215,7 +254,7 @@ public class CommodityInfoController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/UpdCommodityInfoById", method = RequestMethod.POST)
+	@RequestMapping(value = "/updcommodityinfobyid", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
@@ -231,7 +270,7 @@ public class CommodityInfoController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/UpdCommodityInfoByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/updcommodityinfobynumber", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
@@ -241,13 +280,6 @@ public class CommodityInfoController {
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
-	}
-
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
-
-		return uuid;
 	}
 
 }

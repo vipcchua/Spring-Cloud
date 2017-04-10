@@ -86,8 +86,7 @@ public class HomepageBannerController {
 	@ApiOperation(value = "使用id删除banner", notes = "使用id删除banner", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "请输入对应参数", required = true, dataType = "varchar"), })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
 	@RequestMapping(value = "/deletebanner", method = { RequestMethod.POST })
 	@ResponseBody
@@ -100,11 +99,5 @@ public class HomepageBannerController {
 		return data;
 
 	}
-	
-	
-	
-	
-	
-	
 
 }

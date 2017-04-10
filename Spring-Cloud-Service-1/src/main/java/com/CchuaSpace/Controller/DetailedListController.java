@@ -87,7 +87,7 @@ public class DetailedListController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/SelectByUserId", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectbyuserId", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectDetailedListByUserId(@RequestBody String CommodityInfo, Model model) {
@@ -105,7 +105,7 @@ public class DetailedListController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "detailedId", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/SelectByDetailedId", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectbydetailedId", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
@@ -126,7 +126,7 @@ public class DetailedListController {
 			@ApiImplicitParam(name = "detailedId", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入对应参数", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/DeleteByCommodity", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletebycommodity", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
@@ -145,7 +145,7 @@ public class DetailedListController {
 			@ApiImplicitParam(name = "detailedId", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "userid", value = "请输入对应参数", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/DeleteBydetailedId", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletebydetailedid", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
@@ -168,7 +168,7 @@ public class DetailedListController {
 		
 	})
 
-	@RequestMapping(value = "/DeleteCommodity", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletecommodity", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
@@ -190,7 +190,7 @@ public class DetailedListController {
 
 			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/DeleteAll", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteall", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
@@ -211,7 +211,7 @@ public class DetailedListController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/InsertDetailed", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertdetailed", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
@@ -232,7 +232,7 @@ public class DetailedListController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({})
 
-	@RequestMapping(value = "/UpdateByUserId", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatebyuserid", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
@@ -250,7 +250,7 @@ public class DetailedListController {
 	@ApiOperation(value = "使用购物车Id修改购物车商品", notes = "使用购物车Id修改购物车商品", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping(value = "/UpdateByDetailedId", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatebydetailedid", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdateCommodityBydetailedId(@RequestBody String CommodityInfo,

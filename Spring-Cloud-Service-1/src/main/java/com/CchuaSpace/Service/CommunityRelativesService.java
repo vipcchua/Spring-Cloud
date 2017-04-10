@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.cchuaspace.mapper.CommodityInfoDetailsMapper;
 import com.cchuaspace.mapper.CommodityInfoMapper;
 import com.cchuaspace.mapper.CommunityRelativesMapper;
 import com.cchuaspace.mapper.OrderCommodityMapper;
 import com.cchuaspace.model.CommodityInfo;
+import com.cchuaspace.model.CommodityInfoDetails;
 import com.cchuaspace.model.CommunityRelatives;
 import com.cchuaspace.model.OrderInfo;
 import com.cchuaspace.pojo.CommodityCatalogVo;
@@ -46,6 +48,9 @@ public class CommunityRelativesService {
 	private CommodityInfoMapper commodityInfoMapper;
 
 	@Autowired
+	private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
+
+	@Autowired
 	private PaginationVo paginationVo;
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
@@ -70,15 +75,79 @@ public class CommunityRelativesService {
 
 	}
 
+	public PaginationVo selectallbyparents(String parentsId) {
+
+		List<CommunityRelatives> infodata = communityRelativesMapper.SelectByparents(parentsId);
+
+		ArrayList<CommodityInfoVo> list = new ArrayList<CommodityInfoVo>();
+
+		int shelfState = 1;
+		for (int a = 0; a < infodata.size(); a++) {
+			CommodityInfoVo datas = commodityInfoMapper
+					.SelectCommodityByNumberObjVo(infodata.get(a).getCommodityNumber());
+
+			List<CommodityInfoDetails> cinfodetails = commodityInfoDetailsMapper
+					.SelectCByNumberList(infodata.get(a).getCommodityNumber(), shelfState);
+
+			list.add(datas);
+			list.get(a).setDataResultList(cinfodetails);
+
+		}
+		paginationVo.setHtmlState("Success");
+		paginationVo.setDataResultList(list);
+		return paginationVo;
+
+	}
+	
+	
+	
+	
+	
+	public PaginationVo selectbyparsts(String parentsId,int shelfState) {
+
+		List<CommunityRelatives> infodata = communityRelativesMapper.SelectByparents(parentsId);
+
+		ArrayList<CommodityInfoVo> list = new ArrayList<CommodityInfoVo>();
+
+
+		for (int a = 0; a < infodata.size(); a++) {
+			CommodityInfoVo datas = commodityInfoMapper
+					.SelectCommodityByNumberObjVo(infodata.get(a).getCommodityNumber());
+
+			List<CommodityInfoDetails> cinfodetails = commodityInfoDetailsMapper
+					.SelectCByNumberList(infodata.get(a).getCommodityNumber(), shelfState);
+
+			list.add(datas);
+			list.get(a).setDataResultList(cinfodetails);
+
+		}
+		paginationVo.setHtmlState("Success");
+		paginationVo.setDataResultList(list);
+		return paginationVo;
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/*--------------- -----<----*删除*---->--- ----------------------*/
 	public PaginationVo DeleteByNumber(String communityRelatives, Model model) {
 		CommunityRelatives json = JSONObject.parseObject(communityRelatives, CommunityRelatives.class);
 
 		int tostate = communityRelativesMapper.DeleteCatalog(json);
 
 		if (tostate != 0)
-			paginationVo.setSqlState("Success");
+			paginationVo.setHtmlState("Success");
 		else
-			paginationVo.setSqlState("Error");
+			paginationVo.setHtmlState("Error");
 
 		paginationVo.setDataResultObj(json);
 		return paginationVo;

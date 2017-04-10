@@ -50,8 +50,6 @@ public class ImageGenController {
 
 	@Autowired
 	private PaginationVo paginationVo;
-	
-	
 
 	String Usersession;
 
@@ -63,10 +61,8 @@ public class ImageGenController {
 		Usersession = usersession;
 	}
 
-
-
 	// 登录获取验证码
-	@RequestMapping("/getSysManageLoginCodes")
+	@RequestMapping("/getsysmanagelogincodes")
 	@ResponseBody
 	public String getSysManageLoginCode(HttpServletResponse response, HttpServletRequest request) {
 		response.setContentType("image/jpeg");// 设置相应类型,告诉浏览器输出的内容为图片
@@ -84,7 +80,7 @@ public class ImageGenController {
 		return uuid();
 	}
 
-	@RequestMapping("/getverifiCode")
+	@RequestMapping("/getverificode")
 
 	@ResponseBody
 	public ResponseEntity<PaginationVo> imageStrings(HttpServletRequest request, HttpServletResponse response) {
@@ -95,28 +91,22 @@ public class ImageGenController {
 
 		// 这里我没有进行字母大小模糊的验证处理，感兴趣的你可以去试一下！
 
-		
-		
-		
 		return data;
 	}
 
-	@RequestMapping(value = "/SelectByCode")
+	@RequestMapping(value = "/selectbycode")
 	@ResponseBody
 
 	public String SelectByNumber(HttpServletRequest request, HttpServletResponse response) {
-	
-		
+
 		String data = request.getHeader("Token");
-		
-	System.out.println(data);
-	
+
+		System.out.println(data);
+
 		return data;
 
 	}
-	
-	
-	
+
 	@RequestMapping(value = "/checkimagecode")
 	@ResponseBody
 	public String checkTcode(HttpServletRequest request, HttpServletResponse response) {
@@ -149,7 +139,7 @@ public class ImageGenController {
 
 	// 验证码验证
 
-	@RequestMapping("/verifiCode")
+	@RequestMapping("/verificode")
 	@ResponseBody
 	public String validateCode(HttpServletRequest request, @RequestBody String validateCode) {
 
@@ -174,11 +164,6 @@ public class ImageGenController {
 
 	}
 
-
-	
-	
-	
-	
 	private String uuid() {
 		String uuid = UUID.randomUUID().toString();
 		System.out.println(uuid);

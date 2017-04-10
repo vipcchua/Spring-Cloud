@@ -91,7 +91,7 @@ public class TableUserService {
 		TableUser json = JSONObject.parseObject(UserInfo, TableUser.class);
 
 		List<TableUser> user = tableUserMapper.SelectuserID(json.getId());
-		paginationVo.setDataResultObj(json);
+		paginationVo.setDataResultObj(user);
 
 		return paginationVo;
 

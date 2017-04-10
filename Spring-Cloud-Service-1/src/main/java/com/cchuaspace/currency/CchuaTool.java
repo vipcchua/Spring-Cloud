@@ -6,9 +6,13 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CchuaTool {
 	public String uuid() {
 		String uuid = UUID.randomUUID().toString();
@@ -26,6 +30,35 @@ public class CchuaTool {
 		System.out.println("ShaToken:" + token);
 		return token;
 
+	}
+
+	public int getOrderNumber(int info, int zf) {
+		int OrderNumber;
+
+		long time = System.currentTimeMillis();
+
+		int nowTimeStamp = new Long(time).intValue();
+
+		OrderNumber = info + zf + nowTimeStamp + getrandomNumber(10000000, 1000000) + getrandomNumber(1000, 9999);
+		return OrderNumber;
+
+	}
+
+	public String getCommodityNumber(String classify) {
+		String CommodityNumber;
+		String time = new SimpleDateFormat("HHmmssSSS").format(new Date());
+		CommodityNumber = classify + time + getrandomNumber(100, 999);
+		return CommodityNumber;
+
+	}
+
+	public int getrandomNumber(int min, int max) {
+		/*
+		 * int max = 10000000; int min = 1000000;
+		 */
+		Random random = new Random();
+		int s = random.nextInt(max) % (max - min + 1) + min;
+		return s;
 	}
 
 	public static String sha1(String text) {

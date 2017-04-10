@@ -1,141 +1,160 @@
 package com.cchuaspace.model;
 
-public class CommodityInfo{
-	/**
-	 * 
-	 */
 
-	/**
-	 * 商品编号
-	 */
-	private Integer commodityNumber;
+public class CommodityInfo {
+    /**
+    * 商品编号
+    */
+    private int commodityNumber;
 
-	private String commodityId;
+    /**
+    * 商品Id
+    */
+    private String commodityId;
 
-	/**
-	 * 商品品牌
-	 */
-	private String commodityBrand;
+    /**
+    * 商品品牌
+    */
+    private String commodityBrand;
 
-	/**
-	 * 商品名称
-	 */
-	private String commodityName;
+    /**
+    * 商品名称
+    */
+    private String commodityName;
 
-	/**
-	 * 商品价格
-	 */
-	private String commodityPrice;
+    /**
+    * 产品型号
+    */
+    private String commodityModel;
 
-	/**
-	 * 商品产地
-	 */
-	private String commodityOrigin;
+    /**
+    * 条形码
+    */
+    private String barCode;
 
-	/**
-	 * 商品重量
-	 */
-	private String commodityWeigh;
+    /**
+    * 商品产地
+    */
+    private String commodityOrigin;
 
-	/**
-	 * 商品剩余数量
-	 */
-	private Integer commoditySurplus;
+    /**
+    * 商品重量
+    */
+    private String commodityWeigh;
 
-	/**
-	 * 商品图片
-	 */
-	private Integer commodityPhoto;
+    /**
+    * 产品重量的单位
+    */
+    private String commodityUnit;
 
-	private String sqlstate;
+    /**
+    * 商品图片
+    */
+    private String commodityPhoto;
 
-	private String commodityModel;
+    /**
+    * 产品适用范围
+    */
+    private String commodityApply;
 
-	public String getSqlstate() {
-		return sqlstate;
-	}
+    /**
+    * 商品概述
+    */
+    private String commoditySummary;
 
-	public void setSqlstate(String sqlstate) {
-		this.sqlstate = sqlstate;
-	}
+    public Integer getCommodityNumber() {
+        return commodityNumber;
+    }
 
-	public Integer getCommodityPhoto() {
-		return commodityPhoto;
-	}
+    public void setCommodityNumber(Integer commodityNumber) {
+        this.commodityNumber = commodityNumber;
+    }
 
-	public void setCommodityPhoto(Integer commodityPhoto) {
-		this.commodityPhoto = commodityPhoto;
-	}
+    public String getCommodityId() {
+        return commodityId;
+    }
 
-	public Integer getCommodityNumber() {
-		return commodityNumber;
-	}
+    public void setCommodityId(String commodityId) {
+        this.commodityId = commodityId;
+    }
 
-	public void setCommodityNumber(Integer commodityNumber) {
-		this.commodityNumber = commodityNumber;
-	}
+    public String getCommodityBrand() {
+        return commodityBrand;
+    }
 
-	public String getCommodityId() {
-		return commodityId;
-	}
+    public void setCommodityBrand(String commodityBrand) {
+        this.commodityBrand = commodityBrand;
+    }
 
-	public void setCommodityId(String commodityId) {
-		this.commodityId = commodityId;
-	}
+    public String getCommodityName() {
+        return commodityName;
+    }
 
-	public String getCommodityBrand() {
-		return commodityBrand;
-	}
+    public void setCommodityName(String commodityName) {
+        this.commodityName = commodityName;
+    }
 
-	public void setCommodityBrand(String commodityBrand) {
-		this.commodityBrand = commodityBrand;
-	}
+    public String getCommodityModel() {
+        return commodityModel;
+    }
 
-	public String getCommodityName() {
-		return commodityName;
-	}
+    public void setCommodityModel(String commodityModel) {
+        this.commodityModel = commodityModel;
+    }
 
-	public void setCommodityName(String commodityName) {
-		this.commodityName = commodityName;
-	}
+    public String getBarCode() {
+        return barCode;
+    }
 
-	public String getCommodityPrice() {
-		return commodityPrice;
-	}
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
 
-	public void setCommodityPrice(String commodityPrice) {
-		this.commodityPrice = commodityPrice;
-	}
+    public String getCommodityOrigin() {
+        return commodityOrigin;
+    }
 
-	public String getCommodityOrigin() {
-		return commodityOrigin;
-	}
+    public void setCommodityOrigin(String commodityOrigin) {
+        this.commodityOrigin = commodityOrigin;
+    }
 
-	public void setCommodityOrigin(String commodityOrigin) {
-		this.commodityOrigin = commodityOrigin;
-	}
+    public String getCommodityWeigh() {
+        return commodityWeigh;
+    }
 
-	public String getCommodityWeigh() {
-		return commodityWeigh;
-	}
+    public void setCommodityWeigh(String commodityWeigh) {
+        this.commodityWeigh = commodityWeigh;
+    }
 
-	public void setCommodityWeigh(String commodityWeigh) {
-		this.commodityWeigh = commodityWeigh;
-	}
+    public String getCommodityUnit() {
+        return commodityUnit;
+    }
 
-	public Integer getCommoditySurplus() {
-		return commoditySurplus;
-	}
+    public void setCommodityUnit(String commodityUnit) {
+        this.commodityUnit = commodityUnit;
+    }
 
-	public void setCommoditySurplus(Integer commoditySurplus) {
-		this.commoditySurplus = commoditySurplus;
-	}
+    public String getCommodityPhoto() {
+        return commodityPhoto;
+    }
 
-	public String getCommodityModel() {
-		return commodityModel;
-	}
+    public void setCommodityPhoto(String commodityPhoto) {
+        this.commodityPhoto = commodityPhoto;
+    }
 
-	public void setCommodityModel(String commodityModel) {
-		this.commodityModel = commodityModel;
-	}
+    public String getCommodityApply() {
+        return commodityApply;
+    }
+
+    public void setCommodityApply(String commodityApply) {
+        this.commodityApply = commodityApply;
+    }
+
+    public String getCommoditySummary() {
+        return commoditySummary;
+    }
+
+    public void setCommoditySummary(String commoditySummary) {
+        this.commoditySummary = commoditySummary;
+    }
 }

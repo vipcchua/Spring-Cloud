@@ -84,14 +84,6 @@ import io.swagger.annotations.ApiResponses;
 
 public class CommodityCatalogController {
 
-	private static SqlSessionFactory sqlSessionFactory;
-	/* private Logger logger = Logger.getLogger(TableInfoController.class); */
-
-	private final Logger logger = Logger.getLogger(getClass());
-
-	@Autowired
-	private DiscoveryClient client;
-
 	@Autowired
 	private CommodityCatalogService commodityCatalogService;
 
@@ -106,24 +98,32 @@ public class CommodityCatalogController {
 			@ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "depth", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/SelectCatalog", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectcatalog", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectCatalog(@RequestBody String CommodityInfo, Model model) {
-		/*
-		 * List<CommodityCatalog> json = JSON.parseArray(CommodityInfo,
-		 * CommodityCatalog.class); List<CommodityCatalog> user =
-		 * commodityCatalogMapper.SelectCatalog(json.get(0));
-		 */
 
 		PaginationVo user = commodityCatalogService.SelectCatalog(CommodityInfo, model);
+
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
-		/*
-		 * ResponseEntity<List<CommodityCatalog>> data = new
-		 * ResponseEntity<List<CommodityCatalog>>(user, HttpStatus.OK);
-		 */
+		return data;
 
+	}
+
+	@ApiOperation(value = "查询深度所有信息", notes = "传入深度查询该深度所有数据", response = CommodityCatalog.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+
+			@ApiImplicitParam(name = "depth", value = "请输入对应参数", required = true, dataType = "varchar"), })
+
+	@RequestMapping(value = "/selectcatalog", method = RequestMethod.GET)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> Selectdepth(@RequestParam(value = "depth", required = true) int depth) {
+		PaginationVo user = commodityCatalogService.Selectdepth(depth);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
@@ -140,7 +140,7 @@ public class CommodityCatalogController {
 
 	})
 
-	@RequestMapping(value = "/DeleteCatalog", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletecatalog", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
@@ -158,7 +158,7 @@ public class CommodityCatalogController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "catalogId", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/DeleteCatalogById", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletecatalogbyId", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteCatalogById(@RequestBody String CommodityInfo, Model model) {
@@ -182,7 +182,7 @@ public class CommodityCatalogController {
 
 	})
 
-	@RequestMapping(value = "/InsertCommodityInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertcommodityinfo", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
@@ -204,7 +204,7 @@ public class CommodityCatalogController {
 
 	})
 
-	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatecatalog", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {

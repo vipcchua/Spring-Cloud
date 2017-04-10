@@ -97,12 +97,55 @@ public class CommunityRelativesController {
 			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "depth", value = "请输入商品编码", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/SelectClassifyProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectclassifyproduct", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
 
 		PaginationVo user = communityRelativesService.SelectClassifyProduct(CommodityInfo, model);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+
+	@ApiOperation(value = "查询该分类下的商品", notes = "查询该分类下正在销售的商品", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "depth", value = "请输入商品编码", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/selectallbyparents", method = RequestMethod.GET)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> selectallbyparents(
+			@RequestParam(value = "parentsId", required = true) String parentsId) {
+
+		PaginationVo user = communityRelativesService.selectallbyparents(parentsId);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+
+	@ApiOperation(value = "查询该分类下的商品", notes = "查询该分类下正在销售的商品", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "parentsid", value = "请输入商品父亲id", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "shelfstate", value = "请输入商品状态", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/selectbyparsts", method = RequestMethod.GET)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> selectbyparsts(
+			@RequestParam(value = "parentsid", required = true) String parentsId
+			,@RequestParam(value = "shelfstate", required = true) int shelfState) {
+
+		PaginationVo user = communityRelativesService.selectbyparsts(parentsId,shelfState);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -118,7 +161,7 @@ public class CommunityRelativesController {
 			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/DeleteByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletebynumber", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteByNumber(@RequestBody String CommodityInfo, Model model) {
@@ -140,7 +183,7 @@ public class CommunityRelativesController {
 			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/InsertRelativesr", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertrelativesr", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> InsertRelativesr(@RequestBody String CommodityInfo, Model model) {
@@ -161,7 +204,7 @@ public class CommunityRelativesController {
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/UpdateCatalog", method = RequestMethod.POST)
+	@RequestMapping(value = "/updatecatalog", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {

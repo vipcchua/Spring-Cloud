@@ -127,7 +127,7 @@ public class TableUserController {
 	 * System.out.println(user); return user; }
 	 */
 
-	@RequestMapping(value = "/SelectuserID", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectuserid", method = RequestMethod.POST)
 	public ResponseEntity<PaginationVo> SelectuserID(@RequestBody String UserInfo, Model model) {
 
 		/*
@@ -153,7 +153,7 @@ public class TableUserController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "UserName", value = "请输入制定信息", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/SelectUsername", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectusername", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectUsername(@RequestBody String UserInfo, Model model) {
@@ -173,7 +173,7 @@ public class TableUserController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "UserName", value = "请输入制定信息", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/UserInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> Loginusers(@RequestBody String UserInfo, Model model) {
 
@@ -189,7 +189,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/SelectUserCondition", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectusercondition", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> SelectUserCondition(@RequestBody String UserInfo, Model model) {
 
@@ -204,7 +204,7 @@ public class TableUserController {
 	@ApiOperation(value = "用户身份修改用户信息", notes = "以用户身份修改用户信息", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> UpdateUser(@RequestBody String UserInsert, Model model) {
 
@@ -221,7 +221,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/Selectalluser", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectalluser", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> alluser(@RequestBody String selectmodeid, Model model) {
 
@@ -237,7 +237,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/SelectalluserNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectallusermnumber", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> alluserNumber() {
 
@@ -255,7 +255,7 @@ public class TableUserController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
 	/* 在用 */
-	@RequestMapping(value = "/Selectallusers", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectallusers", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> allusers() {
 
@@ -293,7 +293,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	/* 在用 */
-	@RequestMapping(value = "/DeleteUserid", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteuserid", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> DeleteUserid(@RequestBody String Dmouldinfo) {
 
@@ -312,7 +312,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	/* 在用 */
-	@RequestMapping(value = "/DeleteUserName", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteusername", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> DeleteUserName(@RequestBody String Dmouldinfo) {
 		/*
@@ -337,7 +337,7 @@ public class TableUserController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/AdminUpdateUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/adminupdateuser", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> AdminUpdateUser(@RequestBody String UserInsert, Model model)
@@ -354,7 +354,7 @@ public class TableUserController {
 	@ApiOperation(value = "用户身份修改密码", notes = "以用户身份修改个人密码，需要个人原密码，需加密Post", response = TableUser.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@RequestMapping(value = "/Modifypassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/modifypassword", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<PaginationVo> Modifypassword(@RequestBody String UserInsert, Model model) {
 

@@ -65,10 +65,9 @@ import com.cchuaspace.pojo.WechatVo;
 public class ImageGenService {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
-	
+
 	@Autowired
 	private PaginationVo paginationVo;
-
 
 	public PaginationVo imageStrings(HttpServletRequest request, HttpServletResponse response) {
 
@@ -88,14 +87,12 @@ public class ImageGenService {
 		jsonObject.put("Token", Token);
 		jsonObject.put("Codeimg", ToCodeimg);
 
-		stringRedisTemplate.opsForValue().set(Token, ToCodeText, 2, TimeUnit.HOURS);
+		stringRedisTemplate.opsForValue().set(Token, ToCodeText, 2, TimeUnit.MINUTES);
 
 		paginationVo.setDataResultObj(jsonObject);
 
 		return paginationVo;
 
 	}
-
-
 
 }

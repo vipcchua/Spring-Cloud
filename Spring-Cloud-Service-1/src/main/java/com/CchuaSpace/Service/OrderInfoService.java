@@ -69,7 +69,7 @@ public class OrderInfoService {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-	/*public PaginationVo SelectByNumber(@RequestBody String CommodityInfo, Model model) {
+	public PaginationVo SelectByNumbers(@RequestBody String CommodityInfo, Model model) {
 
 		OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
 
@@ -101,7 +101,7 @@ public class OrderInfoService {
 		return paginationVo;
 
 	}
-*/
+
 	
 	public PaginationVo SelectByNumber(@RequestBody String CommodityInfo, Model model) {
 

@@ -23,9 +23,12 @@ public class BaseObjectVo implements Serializable {
 
 	private int page;
 
-	private int pageRow;
+	private int pagerow;
 
-	private String Sorting;
+
+	private String tosort;
+	
+	private String sorting;
 
 	private String ErrorCode;
 
@@ -39,14 +42,7 @@ public class BaseObjectVo implements Serializable {
 	
 	private String HtmlState;
 
-	
-	public String getErrorCode() {
-		return ErrorCode;
-	}
-
-	public void setErrorCode(String errorCode) {
-		ErrorCode = errorCode;
-	}
+	private String classifySon;
 
 	public String getOrderby() {
 		return orderby;
@@ -64,36 +60,36 @@ public class BaseObjectVo implements Serializable {
 		this.page = page;
 	}
 
-	public int getPageRow() {
-		return pageRow;
+	public int getPagerow() {
+		return pagerow;
 	}
 
-	public void setPageRow(int pageRow) {
-		this.pageRow = pageRow;
+	public void setPagerow(int pagerow) {
+		this.pagerow = pagerow;
+	}
+
+	public String getTosort() {
+		return tosort;
+	}
+
+	public void setTosort(String tosort) {
+		this.tosort = tosort;
 	}
 
 	public String getSorting() {
-		return Sorting;
+		return sorting;
 	}
 
 	public void setSorting(String sorting) {
-		Sorting = sorting;
+		this.sorting = sorting;
 	}
 
-	public List<?> getList() {
-		return list;
+	public String getErrorCode() {
+		return ErrorCode;
 	}
 
-	public void setList(List<?> list) {
-		this.list = list;
-	}
-
-	public String getSqlState() {
-		return SqlState;
-	}
-
-	public void setSqlState(String sqlState) {
-		SqlState = sqlState;
+	public void setErrorCode(String errorCode) {
+		ErrorCode = errorCode;
 	}
 
 	public String getErrorSolve() {
@@ -112,6 +108,22 @@ public class BaseObjectVo implements Serializable {
 		Token = token;
 	}
 
+	public String getSqlState() {
+		return SqlState;
+	}
+
+	public void setSqlState(String sqlState) {
+		SqlState = sqlState;
+	}
+
+
+	public List<?> getList() {
+		return list;
+	}
+
+	public void setList(List<?> list) {
+		this.list = list;
+	}
 	public String getHtmlState() {
 		return HtmlState;
 	}
@@ -119,5 +131,17 @@ public class BaseObjectVo implements Serializable {
 	public void setHtmlState(String htmlState) {
 		HtmlState = htmlState;
 	}
+
+	public String getClassifySon() {
+		return classifySon;
+	}
+
+	public void setClassifySon(String classifySon) {
+		this.classifySon = classifySon;
+	}
+	
+	
+	
+
 
 }

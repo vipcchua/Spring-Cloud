@@ -31,9 +31,22 @@ public class CommodityCatalogVo {
     */
     private Integer depth;
     
+    
+    
     private String Sqlstate;
     
+    private String classifySon;
     
+    
+    
+	public String getClassifySon() {
+		return classifySon;
+	}
+
+	public void setClassifySon(String classifySon) {
+		this.classifySon = classifySon;
+	}
+
 	private List<?> DataResultList;
 
 	public List<?> getDataResultList() {

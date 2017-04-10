@@ -2,70 +2,129 @@ package com.cchuaspace.pojo;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
+@Component
 public class CommodityInfoVo extends BaseObjectVo{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -2670901258346630100L;
 
-	/**
-	 * 
-	 */
-	
-	/**
-    * 商品编号
-    */
-    private Integer commodityNumber;
+	  /**
+	    * 商品编号
+	    */
+	    private int commodityNumber;
 
-    private String commodityId;
+	    /**
+	    * 商品Id
+	    */
+	    private String commodityId;
 
-    /**
-    * 商品品牌
-    */
-    private String commodityBrand;
+	    /**
+	    * 商品品牌
+	    */
+	    private String commodityBrand;
 
-    /**
-    * 商品名称
-    */
-    private String commodityName;
+	    /**
+	    * 商品名称
+	    */
+	    private String commodityName;
 
-    /**
-    * 商品价格
-    */
-    private String commodityPrice;
+	    /**
+	    * 产品型号
+	    */
+	    private String commodityModel;
 
-    /**
-    * 商品产地
-    */
-    private String commodityOrigin;
+	    /**
+	    * 条形码
+	    */
+	    private String barCode;
 
-    /**
-    * 商品重量
-    */
-    private String commodityWeigh;
+	    /**
+	    * 商品产地
+	    */
+	    private String commodityOrigin;
 
-    /**
-    * 商品剩余数量
-    */
-    private Integer commoditySurplus;
+	    /**
+	    * 商品重量
+	    */
+	    private String commodityWeigh;
 
-    /**
-     * 商品图片
-     */
-     private Integer  commodityPhoto; 
+	    /**
+	    * 产品重量的单位
+	    */
+	    private String commodityUnit;
+
+	    /**
+	    * 商品图片
+	    */
+	    private String commodityPhoto;
+
+	    /**
+	    * 产品适用范围
+	    */
+	    private String commodityApply;
+
+	    /**
+	    * 商品概述
+	    */
+	    private String commoditySummary;
+
     
    
      private String sqlstate;
-     
-     private String commodityModel;
-     
+    
      
      
      
- 	private List<?> DataResultList;
+     
+ 	public String getBarCode() {
+		return barCode;
+	}
+
+	public void setBarCode(String barCode) {
+		this.barCode = barCode;
+	}
+
+	public String getCommodityUnit() {
+		return commodityUnit;
+	}
+
+	public void setCommodityUnit(String commodityUnit) {
+		this.commodityUnit = commodityUnit;
+	}
+
+	public String getCommodityPhoto() {
+		return commodityPhoto;
+	}
+
+	public void setCommodityPhoto(String commodityPhoto) {
+		this.commodityPhoto = commodityPhoto;
+	}
+
+	public String getCommodityApply() {
+		return commodityApply;
+	}
+
+	public void setCommodityApply(String commodityApply) {
+		this.commodityApply = commodityApply;
+	}
+
+	public String getCommoditySummary() {
+		return commoditySummary;
+	}
+
+	public void setCommoditySummary(String commoditySummary) {
+		this.commoditySummary = commoditySummary;
+	}
+
+	public void setCommodityNumber(int commodityNumber) {
+		this.commodityNumber = commodityNumber;
+	}
+	private List<?> DataResultList;
 
  	public List<?> getDataResultList() {
  		return DataResultList;
@@ -105,13 +164,6 @@ public class CommodityInfoVo extends BaseObjectVo{
 
     
     
-    public Integer getCommodityPhoto() {
-		return commodityPhoto;
-	}
-
-	public void setCommodityPhoto(Integer commodityPhoto) {
-		this.commodityPhoto = commodityPhoto;
-	}
 
 	public Integer getCommodityNumber() {
         return commodityNumber;
@@ -145,13 +197,6 @@ public class CommodityInfoVo extends BaseObjectVo{
         this.commodityName = commodityName;
     }
 
-    public String getCommodityPrice() {
-        return commodityPrice;
-    }
-
-    public void setCommodityPrice(String commodityPrice) {
-        this.commodityPrice = commodityPrice;
-    }
 
     public String getCommodityOrigin() {
         return commodityOrigin;
@@ -169,13 +214,6 @@ public class CommodityInfoVo extends BaseObjectVo{
         this.commodityWeigh = commodityWeigh;
     }
 
-    public Integer getCommoditySurplus() {
-        return commoditySurplus;
-    }
-
-    public void setCommoditySurplus(Integer commoditySurplus) {
-        this.commoditySurplus = commoditySurplus;
-    }
 
 	public String getCommodityModel() {
 		return commodityModel;

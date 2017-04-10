@@ -43,6 +43,14 @@ public interface CommunityRelativesMapper {
 	/* + " AND commodity_catalog.parents_id = #{parentsId}" */
 
 	public CommunityRelatives SelectByparentsIds(@Param("parentsId") String parentsId);
+	
+	
+	@Select("SELECT * FROM community_relatives where parents_id = #{parentsId} ")
+	/* + " AND commodity_catalog.parents_id = #{parentsId}" */
+
+	public List<CommunityRelatives> SelectByparents(@Param("parentsId") String parentsId);
+	
+	
 
 	@Select("SELECT * FROM community_relatives where commodity_number = #{commodityNumber}")
 	/* + " AND commodity_catalog.parents_id = #{parentsId}" */

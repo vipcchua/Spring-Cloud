@@ -85,7 +85,7 @@ public class OrderInfoController {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "orderNumber", value = "请输入对应参数", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/SelectByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectbynumber", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> SelectByNumber(@RequestBody String CommodityInfo, Model model) {
@@ -120,7 +120,7 @@ public class OrderInfoController {
 			@ApiImplicitParam(name = "OrderNumber", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/DeleteByNumber", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletebynumber", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
@@ -137,7 +137,7 @@ public class OrderInfoController {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "OrderId", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/DeleteById", method = RequestMethod.POST)
+	@RequestMapping(value = "/deletebyid", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> DeleteByOrderId(@RequestBody String CommodityInfo, Model model) {

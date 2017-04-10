@@ -36,7 +36,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 public class SecurityController {
 
-	@RequestMapping("/VerifySuccess")
+	@RequestMapping("/verifysuccess")
 	@ResponseBody
 	public JSONObject VerifySuccess() {
 		JSONObject Succress = new JSONObject();
@@ -45,7 +45,7 @@ public class SecurityController {
 
 	}
 
-	@RequestMapping("/VerifyFailure")
+	@RequestMapping("/berifyfailure")
 	@ResponseBody
 	public JSONObject VerifyFailure() {
 		JSONObject Error = new JSONObject();
@@ -54,7 +54,7 @@ public class SecurityController {
 
 	}
 
-	@RequestMapping("/LogoutSuccess")
+	@RequestMapping("/logoutsuccess")
 	@ResponseBody
 	public JSONObject LogoutSuccess() {
 		JSONObject LogoutSuccess = new JSONObject();
@@ -83,7 +83,7 @@ public class SecurityController {
 
 	}
 
-	@RequestMapping("/Rsa")
+	@RequestMapping("/rsa")
 	@ResponseBody
 	public JSONObject getRSAPublicKey() {
 		JSONObject result = new JSONObject();
