@@ -13,6 +13,7 @@ import java.util.List;
  * 
  * ************************************************************/
 
+import com.cchuaspace.pojo.CommodityInfoVo;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.cchuaspace.pojo.PaginationVo;
@@ -248,7 +249,7 @@ public class CommodityInfoSql {
 
 		String SelectCommodityInfo = new SQL() {
 			{
-				SELECT("*");
+				SELECT("*", "(SELECT COUNT(*) FROM commodity_info) AS 'DataTotal'");
 				FROM("commodity_info");
 
 				if (paginationVo.getSorting() != null) {
@@ -286,9 +287,9 @@ public class CommodityInfoSql {
 
 		/*
 		 * if (paginationVo.getSorting() != null) {
-		 * 
+		 *
 		 * String Sorting = paginationVo.getSorting();
-		 * 
+		 *
 		 * if (Sorting.toLowerCase().equals("commodity_id") ||
 		 * Sorting.toLowerCase().equals("commodity_number") ||
 		 * Sorting.toLowerCase().equals("commodity_brand") ||
@@ -305,7 +306,7 @@ public class CommodityInfoSql {
 		 * " ORDER BY " + paginationVo.getSorting(); SelectCommodityInfo =
 		 * SelectCommodityInfo + order; } else {
 		 * System.out.println("黑客,你妈妈喊你回家吃饭"); }
-		 * 
+		 *
 		 * }
 		 */
 
@@ -325,5 +326,154 @@ public class CommodityInfoSql {
 		return SelectCommodityInfo;
 
 	}
+
+
+
+	public String SelectCondition(final CommodityInfoVo commodityInfoVo) {
+
+		String SelectCommodityInfo = new SQL() {
+			{
+				SELECT("*");
+				FROM("commodity_info");
+
+				if (commodityInfoVo.getCommodityName()!=null){
+
+					WHERE("commodity_info.commodity_name like CONCAT('%',#{commodityName},'%')");
+				}
+
+				if (commodityInfoVo.getCommodityModel()!=null){
+					WHERE("commodity_info.commodity_model like CONCAT('%',#{commodityModel},'%')");
+				}
+
+				if (commodityInfoVo.getCommodityBrand()!=null){
+					WHERE("commodity_info.commodity_brand like CONCAT('%',#{commodityBrand},'%')");
+			}
+
+				if (commodityInfoVo.getCommodityNumber()!=0){
+					WHERE("commodity_info.commodity_number = #{commodityNumber}");
+				}
+
+				if (commodityInfoVo.getCommodityOrigin()!=null){
+					WHERE("commodity_info.commodity_origin like CONCAT('%',#{commodityOrigin},'%')");
+				}
+
+				if (commodityInfoVo.getSorting() != null) {
+					String Sorting = commodityInfoVo.getSorting();
+
+					if (Sorting.toLowerCase().equals("commodity_id") || Sorting.toLowerCase().equals("commodity_number")
+							|| Sorting.toLowerCase().equals("commodity_brand")
+							|| Sorting.toLowerCase().equals("commodity_name")
+							|| Sorting.toLowerCase().equals("commodity_model")
+							|| Sorting.toLowerCase().equals("bar_code")
+							|| Sorting.toLowerCase().equals("commodity_origin")
+							|| Sorting.toLowerCase().equals("commodity_weigh")
+							|| Sorting.toLowerCase().equals("commodity_unit")
+							|| Sorting.toLowerCase().equals("commodity_photo")
+							|| Sorting.toLowerCase().equals("commodity_apply")
+							|| Sorting.toLowerCase().equals("commodity_summary")
+							|| Sorting.toLowerCase().equals("home_photo")) {
+						ORDER_BY(commodityInfoVo.getSorting());
+					} else {
+						System.out.println("黑客,你妈妈喊你回家吃饭");
+					}
+				}
+			}
+		}.toString();
+
+
+		String sort = commodityInfoVo.getTosort();
+
+		if (sort.toLowerCase().equals("desc") || sort.toLowerCase().equals("asc")) {
+			String tosort = " " + commodityInfoVo.getTosort();
+			SelectCommodityInfo = SelectCommodityInfo + tosort;
+		} else {
+			System.out.println("黑客,你妈妈喊你回家吃饭");
+		}
+
+		String page = " limit #{page},#{pagerow}";
+
+		SelectCommodityInfo = SelectCommodityInfo + page;
+
+		return SelectCommodityInfo;
+
+	}
+
+
+
+
+
+	public String SelectConditionCount(final CommodityInfoVo commodityInfoVo) {
+
+		String SelectCommodityInfo = new SQL() {
+			{
+				SELECT("COUNT(*) AS DataTotal");
+				FROM("commodity_info");
+
+				if (commodityInfoVo.getCommodityName()!=null){
+
+					WHERE("commodity_info.commodity_name like CONCAT('%',#{commodityName},'%')");
+				}
+
+				if (commodityInfoVo.getCommodityModel()!=null){
+					WHERE("commodity_info.commodity_model like CONCAT('%',#{commodityModel},'%')");
+				}
+
+				if (commodityInfoVo.getCommodityBrand()!=null){
+					WHERE("commodity_info.commodity_brand like CONCAT('%',#{commodityBrand},'%')");
+				}
+
+				if (commodityInfoVo.getCommodityNumber()!=0){
+					WHERE("commodity_info.commodity_number = #{commodityNumber}");
+				}
+
+				if (commodityInfoVo.getCommodityOrigin()!=null){
+					WHERE("commodity_info.commodity_origin like CONCAT('%',#{commodityOrigin},'%')");
+				}
+
+				if (commodityInfoVo.getSorting() != null) {
+					String Sorting = commodityInfoVo.getSorting();
+
+					if (Sorting.toLowerCase().equals("commodity_id") || Sorting.toLowerCase().equals("commodity_number")
+							|| Sorting.toLowerCase().equals("commodity_brand")
+							|| Sorting.toLowerCase().equals("commodity_name")
+							|| Sorting.toLowerCase().equals("commodity_model")
+							|| Sorting.toLowerCase().equals("bar_code")
+							|| Sorting.toLowerCase().equals("commodity_origin")
+							|| Sorting.toLowerCase().equals("commodity_weigh")
+							|| Sorting.toLowerCase().equals("commodity_unit")
+							|| Sorting.toLowerCase().equals("commodity_photo")
+							|| Sorting.toLowerCase().equals("commodity_apply")
+							|| Sorting.toLowerCase().equals("commodity_summary")
+							|| Sorting.toLowerCase().equals("home_photo")) {
+						ORDER_BY(commodityInfoVo.getSorting());
+					} else {
+						System.out.println("黑客,你妈妈喊你回家吃饭");
+					}
+				}
+			}
+		}.toString();
+
+
+		String sort = commodityInfoVo.getTosort();
+
+
+
+		return SelectCommodityInfo;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -34,6 +34,15 @@ public class DetailedListSql {
 				if (detailedList.getCommodityNumber()!= null) {
 					WHERE("detailed_list.commodity_number = #{commodityNumber}");
 				}
+				
+				if (detailedList.getAddPrice()!= null) {
+					WHERE("detailed_list.add_price = #{addPrice}");
+				}
+				
+				if (detailedList.getAddTime()!= null) {
+					WHERE("detailed_list.add_time = #{addTime}");
+				}
+			
 			
 		   
 			}
@@ -53,27 +62,33 @@ public class DetailedListSql {
 
 		return new SQL() {
 			{
-				INSERT_INTO("commodity_info");
+				INSERT_INTO("detailed_list");
 
 				if (detailedList.getDetailedId() != null) {
-					VALUES("commodity_info.detailed_id ", "#{detailedId}");
+					VALUES("detailed_list.detailed_id ", "#{detailedId}");
 				}					
 				
 				if (detailedList.getUserId() != null) {
-					VALUES("commodity_info.user_id ", "#{userId}");
+					VALUES("detailed_list.user_id", "#{userId}");
 				}
 				
 				if (detailedList.getCommodityNumber() != null) {
-					VALUES("commodity_info.commodity_number ", "#{commodityNumber}");
+					VALUES("detailed_list.commodity_number", "#{commodityNumber}");
 				}
 				
 				if (detailedList.getNeedNumber()!= null) {
-					VALUES("commodity_info.need_number ", "#{needNumber}");
+					VALUES("detailed_list.need_number", "#{needNumber}");
 				}
 				
 			
-				
+				if (detailedList.getAddPrice()!= null) {
+					VALUES("detailed_list.add_price", "#{addPrice}");
+				}
 		
+				if (detailedList.getAddTime()!= null) {
+					VALUES("detailed_list.add_time ", " #{addTime}");
+				}
+				
 
 			}
 		}.toString();

@@ -43,6 +43,29 @@ public class BaseObjectVo implements Serializable {
 	private String HtmlState;
 
 	private String classifySon;
+	
+	private double paginalNumber;
+	
+	private double dataTotal;
+	
+	
+	private int parentsId;
+
+	public double getDataTotal() {
+		return dataTotal;
+	}
+
+	public void setDataTotal(double dataTotal) {
+		this.dataTotal = dataTotal;
+	}
+
+	public int getParentsId() {
+		return parentsId;
+	}
+
+	public void setParentsId(int parentsId) {
+		this.parentsId = parentsId;
+	}
 
 	public String getOrderby() {
 		return orderby;
@@ -139,9 +162,16 @@ public class BaseObjectVo implements Serializable {
 	public void setClassifySon(String classifySon) {
 		this.classifySon = classifySon;
 	}
-	
-	
-	
+
+	public double getPaginalNumber() {
+		return paginalNumber;
+	}
+
+	public void setPaginalNumber(double paginalNumber) {
+		this.paginalNumber = paginalNumber;
+	}
+
+
 
 
 }

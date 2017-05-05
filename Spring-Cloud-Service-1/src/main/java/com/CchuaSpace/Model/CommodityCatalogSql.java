@@ -25,7 +25,7 @@ public class CommodityCatalogSql {
 				VALUES("commodity_catalog.catalog_id ", " #{catalogId}");
 				VALUES("commodity_catalog.parents_id ", " #{parentsId}");
 				VALUES("commodity_catalog.node_name ", " #{nodeName}");
-				VALUES("commodity_catalog.depth ", " #{depth}");
+			
 				if (commodityCatalog.getCommodityNumber() != null) {
 					VALUES("commodity_catalog.commodityNumber ", " #{commodityNumber}");
 				}

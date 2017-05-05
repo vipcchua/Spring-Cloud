@@ -90,138 +90,43 @@ public class CommunityRelativesController {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-	@ApiOperation(value = "查询该分类下的商品", notes = "查询该分类下的商品", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "depth", value = "请输入商品编码", required = true, dataType = "varchar") })
 
-	@RequestMapping(value = "/selectclassifyproduct", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> SelectCommodityByNumber(@RequestBody String CommodityInfo, Model model) {
-
-		PaginationVo user = communityRelativesService.SelectClassifyProduct(CommodityInfo, model);
-
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
+	
+	
 
 	@ApiOperation(value = "查询该分类下的商品", notes = "查询该分类下正在销售的商品", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "depth", value = "请输入商品编码", required = true, dataType = "varchar") })
+	
+			 })
 
-	@RequestMapping(value = "/selectallbyparents", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectallbyparents", method = RequestMethod.POST)
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> selectallbyparents(
-			@RequestParam(value = "parentsId", required = true) String parentsId) {
+			@RequestBody String paginationVo) {
 
-		PaginationVo user = communityRelativesService.selectallbyparents(parentsId);
-
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
-
-	@ApiOperation(value = "查询该分类下的商品", notes = "查询该分类下正在销售的商品", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "parentsid", value = "请输入商品父亲id", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "shelfstate", value = "请输入商品状态", required = true, dataType = "varchar") })
-
-	@RequestMapping(value = "/selectbyparsts", method = RequestMethod.GET)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> selectbyparsts(
-			@RequestParam(value = "parentsid", required = true) String parentsId
-			,@RequestParam(value = "shelfstate", required = true) int shelfState) {
-
-		PaginationVo user = communityRelativesService.selectbyparsts(parentsId,shelfState);
+		PaginationVo user = communityRelativesService.selectallbyparents(paginationVo);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
 		return data;
 
 	}
+
+
+
+
+
+
+	
+
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
-	@ApiOperation(value = "刪除分類下的指定商品", notes = "刪除分類下的指定商品", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar") })
-
-	@RequestMapping(value = "/deletebynumber", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> DeleteByNumber(@RequestBody String CommodityInfo, Model model) {
-
-		PaginationVo user = communityRelativesService.DeleteByNumber(CommodityInfo, model);
-
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
-
+	
 	/*--------------- -----<----*增加*---->--- ----------------------*/
-	@ApiOperation(value = "增加商品到某分类下", notes = "增加商品到某分类下", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "catalogId", value = "请输入商品编码", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar") })
-
-	@RequestMapping(value = "/insertrelativesr", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> InsertRelativesr(@RequestBody String CommodityInfo, Model model) {
-
-		PaginationVo user = communityRelativesService.InsertRelativesr(CommodityInfo, model);
-
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
-	@ApiOperation(value = "修改某个商品的分类所属", notes = "修改某个商品的分类所属", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityNumber", value = "请输入商品编码", required = true, dataType = "varchar"),
-			@ApiImplicitParam(name = "parentsId", value = "请输入商品编码", required = true, dataType = "varchar") })
-
-	@RequestMapping(value = "/updatecatalog", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
-
-		PaginationVo user = communityRelativesService.UpdateCatalog(CommodityInfo, model);
-
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
-
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
-
-		return uuid;
-	}
 
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -95,22 +96,9 @@ public class OrderInfoController {
 		return data;
 
 	}
-	
-	
 
-	
-	
-	@RequestMapping(value = "/asdfg")
-	@ResponseBody
 
-	public int as(@RequestBody String CommodityInfo) {
 
-		int user = orderInfoService.as(CommodityInfo);
-		
-		return user;
-
-	}
-	
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 	@ApiOperation(value = "使用订单Id删除订单", notes = "使用订单ID", response = OrderInfo.class)
@@ -148,6 +136,26 @@ public class OrderInfoController {
 
 	}
 	/*--------------- -----<----*增加*---->--- ----------------------*/
+
+	@ApiOperation(value = "生成订单", notes = "使用各种信息生成一张新的订单", response = OrderInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+
+	@RequestMapping(value = "/generateorder", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> NewOrder(@RequestBody String CommodityInfo,HttpServletRequest request) {
+
+		PaginationVo user = orderInfoService.NewOrder(CommodityInfo,request);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		return data;
+
+	}
+
+
+
+
+
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 

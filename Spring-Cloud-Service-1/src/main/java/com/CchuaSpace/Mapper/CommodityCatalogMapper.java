@@ -29,27 +29,34 @@ public interface CommodityCatalogMapper {
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 	@Select("SELECT * FROM commodity_catalog where parents_id = #{parentsId}"
-			/* + " AND commodity_catalog.parents_id = #{parentsId}" */
-			+ " AND commodity_catalog.depth = #{depth}")
+
+	)
 	public List<CommodityCatalogVo> SelectCatalogs(CommodityCatalog commodityCatalog);
 
 	
 	@Select("SELECT * FROM commodity_catalog where parents_id = #{parentsId}"
 			/* + " AND commodity_catalog.parents_id = #{parentsId}" */
-			+ " AND commodity_catalog.depth = #{depth}")
+		)
 	public List<CommodityCatalog> SelectCatalog(CommodityCatalog commodityCatalog);
 	
 	
-	
-	@Select("SELECT * FROM commodity_catalog where"
-			/* + " AND commodity_catalog.parents_id = #{parentsId}" */
-			+ " commodity_catalog.depth = #{depth}")
-	public List<CommodityCatalog> Selectdepth(@Param("depth") int depth);
 
 	
 	@Select("SELECT * FROM commodity_catalog where commodity_catalog.parents_id = #{parentsId}")
 	public List<CommodityCatalog> SelectByParents(@Param("parentsId") String parentsId);
-	
+
+
+	@Select("SELECT * FROM commodity_catalog")
+	public List<CommodityCatalog> selectallcatalog();
+
+
+
+
+
+
+
+
+
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	@InsertProvider(type = CommodityCatalogSql.class, method = "InsertCommodityCatalog")
@@ -57,7 +64,7 @@ public interface CommodityCatalogMapper {
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-	@Delete("Delete FROM commodity_catalog where parents_id = #{parentsId}" + " AND commodity_catalog.depth = #{depth}"
+	@Delete("Delete FROM commodity_catalog where parents_id = #{parentsId}}"
 			+ " And commodity_catalog.node_name = #{nodeName}")
 	int DeleteCatalog(CommodityCatalog commodityCatalog);
 

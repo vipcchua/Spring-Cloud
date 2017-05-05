@@ -1,29 +1,43 @@
 package com.cchuaspace.model;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
 public class DetailedList {
-    private String userId;
+	/**
+	 * 购物车ID
+	 */
+	private String detailedId;
 
-    private Integer commodityNumber;
+	/**
+	 * 用户ID
+	 */
+	private String userId;
 
-    private Integer needNumber;
+	/**
+	 * 商品编号
+	 */
+	private Integer commodityNumber;
 
-    private String detailedId;
-    
-    private String Sqlstate;
-    
-    
-    
-    
+	/**
+	 * 需求数量
+	 */
+	private Integer needNumber;
+
+	/**
+	 * 加入购物车时候的价格
+	 */
+	private BigDecimal addPrice;
+
+	private Date addTime;
 
 
-
-
-	public String getSqlstate() {
-		return Sqlstate;
+	public Date getAddTime() {
+		return addTime;
 	}
 
-	public void setSqlstate(String sqlstate) {
-		Sqlstate = sqlstate;
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}
 
 	public String getDetailedId() {
@@ -35,16 +49,14 @@ public class DetailedList {
 	}
 
 	public String getUserId() {
-        return userId;
-    }
+		return userId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-
-
-    public Integer getCommodityNumber() {
+	public Integer getCommodityNumber() {
 		return commodityNumber;
 	}
 
@@ -53,10 +65,18 @@ public class DetailedList {
 	}
 
 	public Integer getNeedNumber() {
-        return needNumber;
-    }
+		return needNumber;
+	}
 
-    public void setNeedNumber(Integer needNumber) {
-        this.needNumber = needNumber;
-    }
+	public void setNeedNumber(Integer needNumber) {
+		this.needNumber = needNumber;
+	}
+
+	public BigDecimal getAddPrice() {
+		return addPrice;
+	}
+
+	public void setAddPrice(BigDecimal addPrice) {
+		this.addPrice = addPrice;
+	}
 }

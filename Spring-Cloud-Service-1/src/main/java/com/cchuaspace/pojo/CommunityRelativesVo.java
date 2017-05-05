@@ -6,11 +6,42 @@ public class CommunityRelativesVo {
 
 	private String cId;
 	
-	private String parentsId;
+	private int parentsId;
 	
 	private int commodityNumber;
 	
-	private int depth;
+	private String tosort;
+
+	private int pagerow;
+	private int page;
+
+	public CommunityRelativesVo() {
+	}
+
+	public int getPagerow() {
+		return pagerow;
+	}
+
+	public void setPagerow(int pagerow) {
+		this.pagerow = pagerow;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public String getTosort() {
+		return tosort;
+	}
+
+	public void setTosort(String tosort) {
+		this.tosort = tosort;
+	}
+
 	private List<?> DataResultList;
 
 	public List<?> getDataResultList() {
@@ -34,13 +65,6 @@ public class CommunityRelativesVo {
 	}
 
 
-	public String getParentsId() {
-		return parentsId;
-	}
-
-	public void setParentsId(String parentsId) {
-		this.parentsId = parentsId;
-	}
 
 	public int getCommodityNumber() {
 		return commodityNumber;
@@ -50,13 +74,7 @@ public class CommunityRelativesVo {
 		this.commodityNumber = commodityNumber;
 	}
 
-	public int getDepth() {
-		return depth;
-	}
 
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
 
 	public String getcId() {
 		return cId;
@@ -65,9 +83,15 @@ public class CommunityRelativesVo {
 	public void setcId(String cId) {
 		this.cId = cId;
 	}
-	
-	
-	
-	
-	
+
+	public int getParentsId() {
+		return parentsId;
+	}
+
+	public void setParentsId(int parentsId) {
+		this.parentsId = parentsId;
+	}
+
+
+
 }

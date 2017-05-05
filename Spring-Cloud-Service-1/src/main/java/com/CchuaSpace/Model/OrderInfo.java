@@ -1,116 +1,123 @@
-﻿package com.cchuaspace.model;
+package com.cchuaspace.model;
 
 import java.util.Date;
 
 public class OrderInfo {
     /**
-    * 订单编号
-    */
-    private int orderNumber;
+     * 订单编号
+     */
+    private Integer orderNumber;
 
     private String orderId;
 
     /**
-    * 用户id
-    */
+     * 用户id
+     */
     private String userId;
 
     /**
-    * 订单收货地址
-    */
+     * 微信用户的openId
+     */
+    private String openid;
+
+    /**
+     * 订单收货地址
+     */
     private String orderAddress;
 
     /**
-    * 联系人名称
-    */
+     * 联系人名称
+     */
     private String contactName;
 
     /**
-    * 联系人名称手机号码
-    */
+     * 联系人名称手机号码
+     */
     private String contactPhone;
 
     /**
-    * 固定电话
-    */
+     * 固定电话
+     */
     private String contactTelephone;
 
     /**
-    * 订单存活状态
-    */
+     * 订单存活状态
+     */
     private String orderState;
 
     /**
-    * 付款方式
-    */
+     * 付款方式
+     */
     private String paymentMethod;
 
     /**
-    * 付款金额
-    */
-    private String paymentAmount;
+     * 付款金额
+     */
+    private Integer paymentAmount;
 
     /**
-    * 付款状态
-    */
+     * 付款状态 Unfinished 未完成（待付款） Abnormal异常 Success 成功
+     */
     private String paymentState;
 
     /**
-    * 快递编号
-    */
+     * 快递编号
+     */
     private String expressNumber;
 
     /**
-    * 快递商家
-    */
+     * 快递商家
+     */
     private String expressBusiness;
 
     /**
-    * 订单评论编号
-    */
+     * 订单评论编号
+     */
     private String orderRemarks;
 
     /**
-    * 订单生成时间
-    */
+     * 订单生成时间
+     */
     private Date generateTime;
 
     /**
-    * 发票类型
-    */
+     * 发票类型
+     */
     private String invoiceType;
 
     /**
-    * 发票抬头
-    */
+     * 发票抬头
+     */
     private String invoiceHeader;
 
+    /**
+     * 取货点编码
+     */
+    private Integer deliveryNumber;
 
-   
- 
-    
- 
-    
-    
-    
+    private String orderMachineIp;
 
-    private  OrderCommodity orderCommodity;
+    /**
+     * 微信支付-自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
+     */
+    private String deviceInfo;
 
+    /**
+     * 微信的交易类型
+     */
+    private String tradeType;
 
-    
-    
-    
+    private String wechatPayResult;
 
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
 
-    public int getOrderNumber() {
-		return orderNumber;
-	}
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
-	public void setOrderNumber(int orderNumber) {
-		this.orderNumber = orderNumber;
-	}
-
-	public String getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
@@ -124,6 +131,14 @@ public class OrderInfo {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public String getOrderAddress() {
@@ -174,11 +189,11 @@ public class OrderInfo {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getPaymentAmount() {
+    public Integer getPaymentAmount() {
         return paymentAmount;
     }
 
-    public void setPaymentAmount(String paymentAmount) {
+    public void setPaymentAmount(Integer paymentAmount) {
         this.paymentAmount = paymentAmount;
     }
 
@@ -238,11 +253,43 @@ public class OrderInfo {
         this.invoiceHeader = invoiceHeader;
     }
 
-	public OrderCommodity getOrderCommodity() {
-		return orderCommodity;
-	}
+    public Integer getDeliveryNumber() {
+        return deliveryNumber;
+    }
 
-	public void setOrderCommodity(OrderCommodity orderCommodity) {
-		this.orderCommodity = orderCommodity;
-	}
+    public void setDeliveryNumber(Integer deliveryNumber) {
+        this.deliveryNumber = deliveryNumber;
+    }
+
+    public String getOrderMachineIp() {
+        return orderMachineIp;
+    }
+
+    public void setOrderMachineIp(String orderMachineIp) {
+        this.orderMachineIp = orderMachineIp;
+    }
+
+    public String getDeviceInfo() {
+        return deviceInfo;
+    }
+
+    public void setDeviceInfo(String deviceInfo) {
+        this.deviceInfo = deviceInfo;
+    }
+
+    public String getTradeType() {
+        return tradeType;
+    }
+
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
+    }
+
+    public String getWechatPayResult() {
+        return wechatPayResult;
+    }
+
+    public void setWechatPayResult(String wechatPayResult) {
+        this.wechatPayResult = wechatPayResult;
+    }
 }

@@ -89,7 +89,7 @@ import io.swagger.annotations.ApiResponses;
 @Controller
 @RestController
 @Scope("prototype")
-@RequestMapping(value = "/api/commodit")
+@RequestMapping(value = "/api/commodity")
 @Api(value = "商品信息表", description = "商品信息列表commodity_info")
 
 public class CommodityInfoController {
@@ -199,87 +199,6 @@ public class CommodityInfoController {
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-	@ApiOperation(value = "使用商品编号删除商品详细信息", notes = "使用商品编号删除商品详细信息，本接口只能传商编号", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commoditynumber", value = "请输入商品Id", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/deletecommoditybynumber", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<PaginationVo> DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber,
-			Model model) {
-
-		PaginationVo user = commodityInfoService.DeleteCommodityByNumber(DeleteCommodityByNumber, model);
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-		return data;
-
-	}
-
-	@ApiOperation(value = "使用商品id删除商品详细信息", notes = "使用商品Id删除商品详细信息，本接口只能传商编号", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "commodityid", value = "请输入商品Id", required = true, dataType = "varchar"), })
-	@RequestMapping(value = "/deletecommoditybyid", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity<PaginationVo> DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {
-
-		PaginationVo user = commodityInfoService.DeleteCommodityById(DeleteCommodityById, model);
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
-
-	/*--------------- -----<----*增加*---->--- ----------------------*/
-	@ApiOperation(value = "增加商品详细信息", notes = "增加商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-
-	@RequestMapping(value = "/insertcommodityinfo", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> InsertCommodityInfo(@RequestBody String InsertCommodityInfo, Model model) {
-
-		PaginationVo user = commodityInfoService.InsertCommodityInfo(InsertCommodityInfo, model);
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-		return data;
-
-	}
-
-	/*--------------- -----<----*修改*---->--- ----------------------*/
-
-	@ApiOperation(value = "使用商品iD修改商品详细信息", notes = "使用商品Id修改商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-
-	@RequestMapping(value = "/updcommodityinfobyid", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
-
-		PaginationVo user = commodityInfoService.UpdCommodityInfoById(CommodityByID, model);
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-
-		return data;
-
-	}
-
-	@ApiOperation(value = "使用商品编号修改商品详细信息", notes = "使用商品编号修改商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-
-	@RequestMapping(value = "/updcommodityinfobynumber", method = RequestMethod.POST)
-	@ResponseBody
-
-	public ResponseEntity<PaginationVo> UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber,
-			Model model) {
-
-		PaginationVo user = commodityInfoService.UpdCommodityInfoByNumber(UpdCommodityInfoByNumber, model);
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
-		return data;
-
-	}
 
 }

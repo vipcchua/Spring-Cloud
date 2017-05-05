@@ -7,68 +7,63 @@ public class CommodityInfoDetails {
     private String id;
 
     /**
-    * 商品編號
-    */
+     * 商品編號
+     */
     private Integer commodityNumber;
 
     private String commodityId;
 
     /**
-    * 上市日期
-    */
+     * 上市日期
+     */
     private Date listingDate;
 
     /**
-    * 页面上显示的现价(此价格为priceb表的当天现价)
-    */
-    private BigDecimal presentPrice;
+     * 现价（单位为分）
+     */
+    private Integer presentPrice;
 
     /**
-    * 页面上显示原价（为了达到营销效果制造制造出来的原价）
-    */
+     * 页面上显示原价（为了达到营销效果制造制造出来的原价）
+     */
     private BigDecimal originalPrice;
 
     /**
-    * 进货价(此字段報廢)
-    */
-    private BigDecimal buyingPrice;
-
-    /**
-    * 是否在架上 0未上架 1上架且开售  2上架未开售 3上架预售 4上架后缺货 5上架后下级状态
-    */
+     * 是否在架上 0未上架 1上架且开售  2上架未开售 3上架预售 4上架后缺货 5上架后下级状态
+     */
     private Integer shelfState;
 
     /**
-    * 商品描述
-    */
+     * 商品描述
+     */
     private String describe;
 
     /**
-    * 商品标题
-    */
-    private String title;
+     * 小标题
+     */
+    private String smallTitle;
 
     /**
-    * 小标题
-    */
-    private String smaillTitle;
-
-    /**
-    * 赠品的商品number
-    */
+     * 赠品的商品number
+     */
     private Integer giftNumber;
 
     /**
-    * 商品介绍的url
-    */
+     * 商品介绍的url
+     */
     private String introduceUrl;
 
     private String introducePhoto;
 
     /**
-    * 销售方式的单位
-    */
+     * 销售方式的单位
+     */
     private String saleUnit;
+
+    /**
+     * 商品标题
+     */
+    private String title;
 
     public String getId() {
         return id;
@@ -102,11 +97,11 @@ public class CommodityInfoDetails {
         this.listingDate = listingDate;
     }
 
-    public BigDecimal getPresentPrice() {
+    public Integer getPresentPrice() {
         return presentPrice;
     }
 
-    public void setPresentPrice(BigDecimal presentPrice) {
+    public void setPresentPrice(Integer presentPrice) {
         this.presentPrice = presentPrice;
     }
 
@@ -116,14 +111,6 @@ public class CommodityInfoDetails {
 
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
-    }
-
-    public BigDecimal getBuyingPrice() {
-        return buyingPrice;
-    }
-
-    public void setBuyingPrice(BigDecimal buyingPrice) {
-        this.buyingPrice = buyingPrice;
     }
 
     public Integer getShelfState() {
@@ -142,20 +129,12 @@ public class CommodityInfoDetails {
         this.describe = describe;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSmallTitle() {
+        return smallTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSmaillTitle() {
-        return smaillTitle;
-    }
-
-    public void setSmaillTitle(String smaillTitle) {
-        this.smaillTitle = smaillTitle;
+    public void setSmallTitle(String smallTitle) {
+        this.smallTitle = smallTitle;
     }
 
     public Integer getGiftNumber() {
@@ -188,5 +167,13 @@ public class CommodityInfoDetails {
 
     public void setSaleUnit(String saleUnit) {
         this.saleUnit = saleUnit;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

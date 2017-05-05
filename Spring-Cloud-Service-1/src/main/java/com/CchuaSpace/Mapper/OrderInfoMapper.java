@@ -34,7 +34,27 @@ import com.cchuaspace.model.TableUserSql;
 @Mapper
 
 public interface OrderInfoMapper {
-	
+	int countByExample(OrderInfoExample example);
+
+	int deleteByExample(OrderInfoExample example);
+
+	int deleteByPrimaryKey(Integer orderNumber);
+
+	int insert(OrderInfo record);
+
+	int insertSelective(OrderInfo record);
+
+	List<OrderInfo> selectByExample(OrderInfoExample example);
+
+	OrderInfo selectByPrimaryKey(Integer orderNumber);
+
+	int updateByExampleSelective(@Param("record") OrderInfo record, @Param("example") OrderInfoExample example);
+
+	int updateByExample(@Param("record") OrderInfo record, @Param("example") OrderInfoExample example);
+
+	int updateByPrimaryKeySelective(OrderInfo record);
+
+	int updateByPrimaryKey(OrderInfo record);
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
 
@@ -52,7 +72,16 @@ public interface OrderInfoMapper {
 	
 	@Select("Select * from order_info WHERE order_info.order_number = #{orderNumber} AND order_info.order_number = #{orderNumber}")
 	OrderInfo SelectByNumber(@Param("userId") String userId,@Param("orderNumber") int orderNumber);
-	
+
+	@Select("Select * from order_info WHERE order_info.openid = #{openid} AND order_info.order_number = #{orderNumber}")
+	OrderInfo SelectByOpenid(@Param("openid") String openid,@Param("orderNumber") int orderNumber);
+
+
+	@Select("SELECT * from order_info WHERE order_number = #{orderNumber} AND openid = #{openid}")
+	OrderInfo SelectAllInfoByNumber(@Param("orderNumber") int orderNumber,@Param("openid") String openid);
+
+
+
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
@@ -68,39 +97,44 @@ public interface OrderInfoMapper {
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
+	@Update("UPDATE order_info SET order_info.payment_state = #{paymentState}," +
+			"order_info.wechat_pay_result = #{wechatPayResult}," +
+			"order_info.transaction_id = #{transactionId} " +
+			"where order_info.order_number = #{orderNumber}")
+	int UpdatePaymentState(@Param("orderNumber") int orderNumber ,
+						   @Param("paymentState") String paymentState,
+						   @Param("wechatPayResult")String wechatPayResult,
+						   @Param("transactionId")String transactionId);
+
+
+	@Update("UPDATE order_info SET order_info.payment_state = #{paymentState}," +
+
+			"where order_info.order_number = #{orderNumber}")
+	int UpdatePaymentStateBYclose(@Param("orderNumber") int orderNumber ,
+						   @Param("paymentState") String paymentState
+						  );
+
+
+
+	@Update("UPDATE order_info SET order_info.payment_state = #{paymentState}," +
+			"order_info.wechat_pay_result = #{wechatPayResult}" +
+
+			"where order_info.order_number = #{orderNumber}")
+	int UpdatePayInfo(@Param("orderNumber") int orderNumber ,
+						   @Param("paymentState") String paymentState,
+						   @Param("wechatPayResult")String wechatPayResult
+						);
+
+
+
+
+
+
 	
 	@Update("UPDATE order_info SET community_relatives.parents_id = #{parentsId} "
-			+ "Where community_relatives.commodity_number = #{commodityNumber}"
-			)
+			+ "Where community_relatives.commodity_number = #{commodityNumber}")
 	int sds(CommunityRelatives communityRelatives);
-	
-	
-	
-	
-	
-	  int countByExample(OrderInfoExample example);
 
-	    int deleteByExample(OrderInfoExample example);
 
-	    int deleteByPrimaryKey(Integer orderNumber);
 
-	    int insert(OrderInfo record);
-
-	    int insertSelective(OrderInfo record);
-
-	    List<OrderInfo> selectByExample(OrderInfoExample example);
-
-	    OrderInfo selectByPrimaryKey(Integer orderNumber);
-
-	    int updateByExampleSelective(@Param("record") OrderInfo record, @Param("example") OrderInfoExample example);
-
-	    int updateByExample(@Param("record") OrderInfo record, @Param("example") OrderInfoExample example);
-
-	    int updateByPrimaryKeySelective(OrderInfo record);
-
-	    int updateByPrimaryKey(OrderInfo record);
-	    /*自动生成*/
-	
-
-	
 }

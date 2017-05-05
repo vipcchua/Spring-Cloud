@@ -85,14 +85,17 @@ public class DetailedListController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"), })
+			@ApiImplicitParam(name = "userid", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/selectbyuserId", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectbyuserId", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectDetailedListByUserId(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> SelectDetailedListByUserId(
+			@RequestParam(value = "userid", required = true) String userid
 
-		PaginationVo user = detailedListService.SelectDetailedListByUserId(CommodityInfo, model);
+	) {
+
+		PaginationVo user = detailedListService.SelectDetailedListByUserId(userid);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -150,8 +153,6 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
-		
-		
 		PaginationVo user = detailedListService.DeleteBydetailedId(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
@@ -165,7 +166,7 @@ public class DetailedListController {
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "commodityNumber", value = "请输入对应参数", required = true, dataType = "varchar"),
 			@ApiImplicitParam(name = "userid", value = "请输入对应参数", required = true, dataType = "varchar"),
-		
+
 	})
 
 	@RequestMapping(value = "/deletecommodity", method = RequestMethod.POST)
@@ -173,13 +174,10 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		
 		PaginationVo user = detailedListService.DeleteCommodity(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
-		
-		
 
 	}
 
@@ -195,13 +193,10 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
 
-		
-		
 		PaginationVo user = detailedListService.DeleteAlldetailed(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
-		
 
 	}
 
@@ -216,8 +211,6 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
 
-		
-		
 		PaginationVo user = detailedListService.InsertDetailedListInfo(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
@@ -236,14 +229,11 @@ public class DetailedListController {
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
-	
-		
+
 		PaginationVo user = detailedListService.UpdateCommodityByUserId(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
-		
-		
 
 	}
 
@@ -253,13 +243,11 @@ public class DetailedListController {
 	@RequestMapping(value = "/updatebydetailedid", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> UpdateCommodityBydetailedId(@RequestBody String CommodityInfo,
-			Model model) {
+	public ResponseEntity<PaginationVo> UpdateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
 		PaginationVo user = detailedListService.UpdateCommodityBydetailedId(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
-		
 
 	}
 

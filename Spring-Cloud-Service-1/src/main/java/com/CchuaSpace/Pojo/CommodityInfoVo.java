@@ -75,7 +75,7 @@ public class CommodityInfoVo extends BaseObjectVo{
 
     
    
-     private String sqlstate;
+     private double DataTotal;
     
      
      
@@ -145,25 +145,27 @@ public class CommodityInfoVo extends BaseObjectVo{
  	}
 
 
+ 	private List<CommodityInfoDetailsVo> commodityInfoDetailsVo;
+     
+ 	
      
      
      
      
-     
-     
-     
-
-
- 	public String getSqlstate() {
- 		return sqlstate;
- 	}
-
- 	public void setSqlstate(String sqlstate) {
- 		this.sqlstate = sqlstate;
- 	}
 
     
     
+
+
+
+
+	public double getDataTotal() {
+		return DataTotal;
+	}
+
+	public void setDataTotal(double dataTotal) {
+		DataTotal = dataTotal;
+	}
 
 	public Integer getCommodityNumber() {
         return commodityNumber;
@@ -221,5 +223,13 @@ public class CommodityInfoVo extends BaseObjectVo{
 
 	public void setCommodityModel(String commodityModel) {
 		this.commodityModel = commodityModel;
+	}
+
+	public List<CommodityInfoDetailsVo> getCommodityInfoDetailsVo() {
+		return commodityInfoDetailsVo;
+	}
+
+	public void setCommodityInfoDetailsVo(List<CommodityInfoDetailsVo> commodityInfoDetailsVo) {
+		this.commodityInfoDetailsVo = commodityInfoDetailsVo;
 	}
 }

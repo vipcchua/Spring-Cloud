@@ -4,19 +4,24 @@ public class OrderCommodity {
     private String orderDetailedid;
 
     /**
-    * 订单编号
-    */
+     * 订单编号
+     */
     private Integer orderNumber;
 
     /**
-    * 商品编号
-    */
-    private String commodityNumber;
+     * 商品编号
+     */
+    private Integer commodityNumber;
 
     /**
-    * 购买数量
-    */
+     * 购买数量
+     */
     private Integer buyAmount;
+
+    /**
+     * 購買價格
+     */
+    private Integer commodityPrice;
 
     public String getOrderDetailedid() {
         return orderDetailedid;
@@ -34,11 +39,11 @@ public class OrderCommodity {
         this.orderNumber = orderNumber;
     }
 
-    public String getCommodityNumber() {
+    public Integer getCommodityNumber() {
         return commodityNumber;
     }
 
-    public void setCommodityNumber(String commodityNumber) {
+    public void setCommodityNumber(Integer commodityNumber) {
         this.commodityNumber = commodityNumber;
     }
 
@@ -48,5 +53,13 @@ public class OrderCommodity {
 
     public void setBuyAmount(Integer buyAmount) {
         this.buyAmount = buyAmount;
+    }
+
+    public Integer getCommodityPrice() {
+        return commodityPrice;
+    }
+
+    public void setCommodityPrice(Integer commodityPrice) {
+        this.commodityPrice = commodityPrice;
     }
 }

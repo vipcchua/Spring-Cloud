@@ -24,10 +24,15 @@ import com.cchuaspace.currency.CchuaTool;
 import com.cchuaspace.mapper.CommodityCatalogMapper;
 import com.cchuaspace.mapper.CommodityInfoDetailsMapper;
 import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.CommunityRelativesMapper;
+import com.cchuaspace.mapper.SysCommodityPriceMapper;
 import com.cchuaspace.model.CommodityCatalog;
 import com.cchuaspace.model.CommodityInfo;
 import com.cchuaspace.model.CommodityInfoDetails;
+import com.cchuaspace.model.CommunityRelatives;
+import com.cchuaspace.model.SysCommodityPrice;
 import com.cchuaspace.pojo.CommodityCatalogVo;
+import com.cchuaspace.pojo.CommodityInfoDetailsVo;
 import com.cchuaspace.pojo.CommodityInfoVo;
 import com.cchuaspace.pojo.PaginationVo;
 
@@ -45,44 +50,65 @@ import com.cchuaspace.pojo.PaginationVo;
 @Scope("prototype")
 public class CommodityInfoService {
 
-	@Autowired
-	private CommodityInfoMapper commodityInfoMapper;
+    @Autowired
+    private CommodityInfoMapper commodityInfoMapper;
 
-	@Autowired
-	private CommodityCatalogMapper commodityCatalogMapper;
-	
+    @Autowired
+    private CommodityCatalogMapper commodityCatalogMapper;
 
-	@Autowired
-	private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
+    @Autowired
+    private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
 
+    @Autowired
+    private CommunityRelativesMapper communityRelativesMapper;
 
-	@Autowired
-	private PaginationVo paginationVo;
+    @Autowired
+    private SysCommodityPriceMapper sysCommodityPriceMapper;
 
-	@Autowired
-	private CchuaTool cchuaTool;
-	/* @Qualifier("PaginationVo") */
+    @Autowired
+    private PaginationVo paginationVo;
+
+    @Autowired
+    private CchuaTool cchuaTool;
+    /* @Qualifier("PaginationVo") */
 	/* @Component */
 
-	public PaginationVo SelectCommodityByNumber(int commodityNumber) {
+    public PaginationVo SelectCommodityByNumber(int commodityNumber) {
 
 		/*
 		 * CommodityInfo json =
 		 * JSONObject.parseObject(commodityInfo,CommodityInfo.class);
 		 */
 
-		List<CommodityInfoVo> data = commodityInfoMapper.SelectCommodityByNumberVo(commodityNumber);
+        List<CommodityInfoVo> data = commodityInfoMapper.SelectCommodityByNumberVo(commodityNumber);
 
+        try {
+            CommodityInfoDetailsVo datas = commodityInfoDetailsMapper
+                    .SelectCByNumberObjVo(data.get(0).getCommodityNumber());
 
-		CommodityInfoDetails datas=commodityInfoDetailsMapper.SelectCByNumberObj(data.get(0).getCommodityNumber());
-	
-		data.get(0).setDataResultObj(datas);
-		
+            try {
+                SysCommodityPrice dataResultObj = sysCommodityPriceMapper
+                        .SelectNewByNumber(data.get(0).getCommodityNumber());
 
-		paginationVo.setDataResultList(data);
-		paginationVo.setHtmlState("Success");
+                datas.setDataResultObj(dataResultObj);
+            } catch (Exception e) {
+                JSONObject dataerror = new JSONObject();
+                dataerror.put("Price", "Error-该商品未定价");
+                datas.setDataResultObj(dataerror);
+            }
 
-		return paginationVo;
+            data.get(0).setDataResultObj(datas);
+
+        } catch (Exception e) {
+            JSONObject dataerror = new JSONObject();
+            dataerror.put("DetailsInfo", "Error-该商品未有详细信息");
+            data.get(0).setDataResultObj(dataerror);
+        }
+
+        paginationVo.setDataResultList(data);
+        paginationVo.setHtmlState("Success");
+
+        return paginationVo;
 
 		/*
 		 * 相当于 PaginationVo resultPr=new PaginationVo();
@@ -98,173 +124,50 @@ public class CommodityInfoService {
 		 * CommodityInfoVo.class);
 		 */
 
-	}
+    }
 
-	public PaginationVo SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
+    public PaginationVo SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
 
-		CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(json.getCommodityId());
-		paginationVo.setDataResultList(data);
-		return paginationVo;
-	}
+        CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
+        List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(json.getCommodityId());
+        paginationVo.setDataResultList(data);
+        return paginationVo;
+    }
 
-	public PaginationVo GetSelectCommodityByID(
-			@RequestParam(value = "commodityId", required = true) String commodityId) {
+    public PaginationVo GetSelectCommodityByID(
+            @RequestParam(value = "commodityId", required = true) String commodityId) {
 
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(commodityId);
-		paginationVo.setDataResultList(data);
-		return paginationVo;
-	}
+        List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(commodityId);
+        paginationVo.setDataResultList(data);
+        return paginationVo;
+    }
 
-	public PaginationVo SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
+    public PaginationVo SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
 
-		CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json);
-		paginationVo.setDataResultList(data);
-		return paginationVo;
+        CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
+        List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json);
+        paginationVo.setDataResultList(data);
+        return paginationVo;
 
-	}
+    }
 
-	public PaginationVo SelectCommodityall() {
+    public PaginationVo SelectCommodityall() {
 
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityall();
-		paginationVo.setDataResultList(data);
-		return paginationVo;
+        List<CommodityInfo> data = commodityInfoMapper.SelectCommodityall();
+        paginationVo.setDataResultList(data);
+        return paginationVo;
 
-	}
-	
+    }
 
+    public PaginationVo SelectAllByPage(String data) {
+        PaginationVo json = JSONObject.parseObject(data, PaginationVo.class);
+        List<CommodityInfoVo> sqldata = commodityInfoMapper.SelectAllByPage(json);
 
-	
-	public PaginationVo SelectAllByPage(String data) {
-		PaginationVo json = JSONObject.parseObject(data, PaginationVo.class);
-		List<CommodityInfo> sqldata = commodityInfoMapper.SelectAllByPage(json);
-	
-		paginationVo.setDataResultList(sqldata);
-		return paginationVo;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+        paginationVo.setPaginalNumber(Math.ceil(sqldata.get(0).getDataTotal() / json.getPagerow()));
 
-	public PaginationVo DeleteCommodityByNumber(@RequestBody String DeleteCommodityByNumber, Model model) {
-		CommodityInfo json = JSONObject.parseObject(DeleteCommodityByNumber, CommodityInfo.class);
-
-		int tostate = commodityInfoMapper.DeleteCommodityByNumber(json.getCommodityNumber());
-
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
-
-		List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json);
-
-		paginationVo.setDataResultList(data);
-		return paginationVo;
-
-	}
-
-	public PaginationVo DeleteCommodityById(@RequestBody String DeleteCommodityById, Model model) {
-
-		CommodityInfo json = JSONObject.parseObject(DeleteCommodityById, CommodityInfo.class);
-
-		int tostate = commodityInfoMapper.DeleteCommodityById(json.getCommodityId());
-
-		if (tostate != 0)
-			/* json.get(0).setSqlstate("Success"); */
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
-
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
-
-	}
-
-	public PaginationVo InsertCommodityInfo(@RequestBody String insertCommodityInfo, Model model) {
-
-		try {
-
-			HashMap<String, String> map = JSON.parseObject(insertCommodityInfo,
-					new TypeReference<HashMap<String, String>>() {
-					});
-
-			CommodityInfo json = JSONObject.parseObject(map.get("info"), CommodityInfo.class);
-			CommodityCatalog jsons = JSONObject.parseObject(map.get("classify"), CommodityCatalog.class);
-
-			/*
-			 * CommodityInfo json =
-			 * JSONObject.parseObject(insertCommodityInfo.getJSONObject(0).
-			 * getJSONObject("info").toString(), CommodityInfo.class);
-			 * CommodityCatalog jsons =
-			 * JSONObject.parseObject(arinsertCommodityInforay.getJSONObject(0).
-			 * getJSONObject("classify").toString(), CommodityCatalog.class);
-			 */
-
-			if (json.getCommodityName() == null || jsons.getParentsId() == null) {
-				paginationVo.setHtmlState("Error");
-				return paginationVo;
-
-			} else {
-				json.setCommodityId(uuid());
-				json.setCommodityNumber(cchuaTool.getOrderNumber(1, 2));
-				int tostate = commodityInfoMapper.InsertCommodityInfo(json);
-				int tostates = commodityCatalogMapper.InsertCommodityInfo(jsons);
-
-				if (tostate != 0 && tostates != 0)
-					/* json.get(0).setSqlstate("Success"); */
-					paginationVo.setHtmlState("Success");
-				else
-					paginationVo.setHtmlState("Error");
-
-				paginationVo.setDataResultObj(json);
-
-				return paginationVo;
-
-			}
-
-		} catch (Exception e) {
-			paginationVo.setHtmlState("Error");
-			return paginationVo;
-		}
-	}
-
-	public PaginationVo UpdCommodityInfoById(@RequestBody String CommodityByID, Model model) {
-
-		CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
-
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoById(json);
-
-		paginationVo.setDataResultList(user);
-		return paginationVo;
-
-	}
-
-	public PaginationVo UpdCommodityInfoByNumber(@RequestBody String UpdCommodityInfoByNumber, Model model) {
-
-		CommodityInfo json = JSONObject.parseObject(UpdCommodityInfoByNumber, CommodityInfo.class);
-
-		List<CommodityInfo> user = commodityInfoMapper.UpdCommodityInfoByNumber(json);
-
-		paginationVo.setDataResultList(user);
-		return paginationVo;
-
-	}
-
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
-		return uuid;
-	}
-
+        paginationVo.setDataResultList(sqldata);
+        return paginationVo;
+    }
 
 
 }

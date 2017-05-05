@@ -48,11 +48,29 @@ public interface CommodityInfoMapper {
 
 	
 	@SelectProvider(type = CommodityInfoSql.class, method = "SelectAllByPage")
-	public List<CommodityInfo> SelectAllByPage(PaginationVo paginationVo);
-	
-	
+	public List<CommodityInfoVo> SelectAllByPage(PaginationVo paginationVo);
+
+
+/*
+	@SelectProvider(type = CommodityInfoSql.class, method = "SelectAllByCondition")
+	public List<CommodityInfoVo> SelectAllByCondition(PaginationVo paginationVo);
+*/
+	@SelectProvider(type = CommodityInfoSql.class, method = "SelectCondition")
+	public List<CommodityInfoVo> SelectCondition(CommodityInfoVo commodityInfoVo);
+
+	@SelectProvider(type = CommodityInfoSql.class, method = "SelectConditionCount")
+	public List<CommodityInfoVo> SelectConditionCount(CommodityInfoVo commodityInfoVo);
+
+
+
+
+
+
 	@Select("SELECT * FROM commodity_info")
 	List<CommodityInfo> SelectCommodityall();
+
+
+
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 

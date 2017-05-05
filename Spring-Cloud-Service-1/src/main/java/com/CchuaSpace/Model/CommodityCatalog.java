@@ -9,7 +9,7 @@ public class CommodityCatalog {
     /**
     * 父亲ID
     */
-    private String parentsId;
+    private int parentsId;
 
     /**
     * 名称
@@ -21,10 +21,7 @@ public class CommodityCatalog {
     */
     private Integer commodityNumber;
 
-    /**
-    * 深度
-    */
-    private int depth;
+  
     
     private String Sqlstate;
     
@@ -39,15 +36,17 @@ public class CommodityCatalog {
         this.catalogId = catalogId;
     }
 
-    public String getParentsId() {
-        return parentsId;
-    }
 
-    public void setParentsId(String parentsId) {
-        this.parentsId = parentsId;
-    }
 
-    public String getNodeName() {
+    public int getParentsId() {
+		return parentsId;
+	}
+
+	public void setParentsId(int parentsId) {
+		this.parentsId = parentsId;
+	}
+
+	public String getNodeName() {
         return nodeName;
     }
 
@@ -72,11 +71,5 @@ public class CommodityCatalog {
 		Sqlstate = sqlstate;
 	}
 
-	public int getDepth() {
-		return depth;
-	}
 
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
 }

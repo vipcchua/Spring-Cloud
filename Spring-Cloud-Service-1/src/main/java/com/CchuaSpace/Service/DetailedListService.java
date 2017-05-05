@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.cchuaspace.mapper.CommodityInfoDetailsMapper;
+import com.cchuaspace.model.CommodityInfoDetails;
+import com.cchuaspace.pojo.DetailedListVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,152 +42,172 @@ import com.cchuaspace.pojo.PaginationVo;
 @Service
 @Scope("prototype")
 public class DetailedListService {
-	@Autowired
-	private DetailedListMapper detailedListMapper;
+    @Autowired
+    private DetailedListMapper detailedListMapper;
 
-	@Autowired
-	private PaginationVo paginationVo;
-	/*--------------- -----<----*查询*---->--- ----------------------*/
+    @Autowired
+    private PaginationVo paginationVo;
 
-	public PaginationVo SelectDetailedListByUserId(@RequestBody String CommodityInfo, Model model) {
+    @Autowired
+    private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
+    /*--------------- -----<----*查询*---->--- ----------------------*/
 
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
-		List<DetailedList> data = detailedListMapper.SelectDetailedListByUserId(json.getUserId());
+    public PaginationVo SelectDetailedListByUserId(String userid) {
 
-		paginationVo.setDataResultList(data);
-		return paginationVo;
+	/*	DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);*/
 
-	}
+        List<DetailedListVo> data = detailedListMapper.SelectDetailedListByUserId(userid);
 
-	public PaginationVo SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
+        for (int i = 0; i < data.size(); i++) {
 
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
-		List<DetailedList> data = detailedListMapper.SelectDetailedListByDetailedId(json.getDetailedId());
 
-		paginationVo.setDataResultList(data);
-		return paginationVo;
+            List<CommodityInfoDetails> InfoDetails = commodityInfoDetailsMapper.SelectCByNumberObj(data.get(i).getCommodityNumber());
 
-	}
+            if (InfoDetails.size() <= 0) {
+                JSONObject dataerror = new JSONObject();
+                dataerror.put("Sqlstatus", "Error-商品不存在");
+                data.get(i).setDataResultObj(dataerror);
+            } else {
+                data.get(i).setDataResultObj(InfoDetails);
+            }
+
+
+        }
+
+        paginationVo.setDataResultList(data);
+        return paginationVo;
+
+    }
+
+    public PaginationVo SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
+
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+        List<DetailedList> data = detailedListMapper.SelectDetailedListByDetailedId(json.getDetailedId());
+
+        paginationVo.setDataResultList(data);
+        return paginationVo;
+
+    }
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-	public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.DeleteByCommodity(json.getDetailedId(), json.getCommodityNumber());
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+        int tostate = detailedListMapper.DeleteByCommodity(json.getDetailedId(), json.getCommodityNumber());
 
-		if (tostate != 0)
-			if (tostate != 0)
-				paginationVo.setSqlState("Success");
-			else
-				paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            if (tostate != 0)
+                paginationVo.setSqlState("Success");
+            else
+                paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
 
-	}
+    }
 
-	public PaginationVo DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+    public PaginationVo DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
-		int tostate = detailedListMapper.DeleteBydetailedId(json.getUserId(), json.getDetailedId());
+        int tostate = detailedListMapper.DeleteBydetailedId(json.getUserId(), json.getDetailedId());
 
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
 
-	}
+    }
 
-	public PaginationVo DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+    public PaginationVo DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
-		int tostate = detailedListMapper.DeleteCommodity(json);
+        int tostate = detailedListMapper.DeleteCommodity(json);
 
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
 
-	}
+    }
 
-	public PaginationVo DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+    public PaginationVo DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
-		int tostate = detailedListMapper.DeleteAlldetailed(json.getUserId());
+        int tostate = detailedListMapper.DeleteAlldetailed(json.getUserId());
 
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
-	}
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
+    }
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
-	public PaginationVo InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
 
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
-		json.setDetailedId(uuid());
-		int tostate = detailedListMapper.InsertDetailedList(json);
+        json.setDetailedId(uuid());
+        int tostate = detailedListMapper.InsertDetailedListInfoDy(json);
 
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
 
-	}
+    }
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
-	public PaginationVo UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
 
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
-		int tostate = detailedListMapper.UpdateCommodityByUserId(json);
+        int tostate = detailedListMapper.UpdateCommodityByUserId(json);
 
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
 
-	}
+    }
 
-	public PaginationVo UpdateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo UpdateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
-		DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
-		int tostate = detailedListMapper.UpdateCommodityBydetailedId(json);
+        DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
+        int tostate = detailedListMapper.UpdateCommodityBydetailedId(json);
 
-		if (tostate != 0)
-			paginationVo.setSqlState("Success");
-		else
-			paginationVo.setSqlState("Error");
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
 
-		paginationVo.setDataResultObj(json);
-		return paginationVo;
+        paginationVo.setDataResultObj(json);
+        return paginationVo;
 
-	}
+    }
 
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
+    private String uuid() {
+        String uuid = UUID.randomUUID().toString();
+        System.out.println(uuid);
 
-		return uuid;
-	}
+        return uuid;
+    }
 
 }

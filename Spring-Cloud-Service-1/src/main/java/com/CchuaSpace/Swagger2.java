@@ -76,7 +76,7 @@ public class Swagger2 {
     @Test
 
     public void convertSwaggerToMarkdown() throws Exception {
-    	   String outputDir = "D:\\springcloudFile\\swagger.json";
+    	   String outputDir = "D:\\springcloudFile\\swagger.md";
         this.mockMvc.perform(MockMvcRequestBuilders.get("/v2/api-docs?group=Admin API")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(Swagger2MarkupResultHandler.outputDirectory(outputDir)

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cchuaspace.mapper.WarehouseStockMapper" >
+  <resultMap id="BaseResultMap" type="com.cchuaspace.model.WarehouseStock" >
+    <result column="id" property="id" jdbcType="CHAR" />
+    <result column="commodity_number" property="commodityNumber" jdbcType="INTEGER" />
+    <result column="commodity_price" property="commodityPrice" jdbcType="DECIMAL" />
+    <result column="totality" property="totality" jdbcType="INTEGER" />
+    <result column="shelf_number" property="shelfNumber" jdbcType="INTEGER" />
+    <result column="storage_time" property="storageTime" jdbcType="TIMESTAMP" />
+    <result column="supplier_number" property="supplierNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, commodity_number, commodity_price, totality, shelf_number, storage_time, supplier_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cchuaspace.entity.WarehouseStockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from warehouse_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.cchuaspace.entity.WarehouseStockExample" >
+    delete from warehouse_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cchuaspace.model.WarehouseStock" >
+    insert into warehouse_stock (id, commodity_number, commodity_price, 
+      totality, shelf_number, storage_time, 
+      supplier_number)
+    values (#{id,jdbcType=CHAR}, #{commodityNumber,jdbcType=INTEGER}, #{commodityPrice,jdbcType=DECIMAL}, 
+      #{totality,jdbcType=INTEGER}, #{shelfNumber,jdbcType=INTEGER}, #{storageTime,jdbcType=TIMESTAMP}, 
+      #{supplierNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cchuaspace.model.WarehouseStock" >
+    insert into warehouse_stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="commodityNumber != null" >
+        commodity_number,
+      </if>
+      <if test="commodityPrice != null" >
+        commodity_price,
+      </if>
+      <if test="totality != null" >
+        totality,
+      </if>
+      <if test="shelfNumber != null" >
+        shelf_number,
+      </if>
+      <if test="storageTime != null" >
+        storage_time,
+      </if>
+      <if test="supplierNumber != null" >
+        supplier_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="commodityNumber != null" >
+        #{commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commodityPrice != null" >
+        #{commodityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totality != null" >
+        #{totality,jdbcType=INTEGER},
+      </if>
+      <if test="shelfNumber != null" >
+        #{shelfNumber,jdbcType=INTEGER},
+      </if>
+      <if test="storageTime != null" >
+        #{storageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supplierNumber != null" >
+        #{supplierNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cchuaspace.entity.WarehouseStockExample" resultType="java.lang.Integer" >
+    select count(*) from warehouse_stock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update warehouse_stock
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.commodityNumber != null" >
+        commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityPrice != null" >
+        commodity_price = #{record.commodityPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totality != null" >
+        totality = #{record.totality,jdbcType=INTEGER},
+      </if>
+      <if test="record.shelfNumber != null" >
+        shelf_number = #{record.shelfNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.storageTime != null" >
+        storage_time = #{record.storageTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.supplierNumber != null" >
+        supplier_number = #{record.supplierNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update warehouse_stock
+    set id = #{record.id,jdbcType=CHAR},
+      commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+      commodity_price = #{record.commodityPrice,jdbcType=DECIMAL},
+      totality = #{record.totality,jdbcType=INTEGER},
+      shelf_number = #{record.shelfNumber,jdbcType=INTEGER},
+      storage_time = #{record.storageTime,jdbcType=TIMESTAMP},
+      supplier_number = #{record.supplierNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

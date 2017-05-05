@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cchuaspace.mapper.OrderCommodityMapper" >
+  <resultMap id="BaseResultMap" type="com.cchuaspace.model.OrderCommodity" >
+    <result column="order_detailedid" property="orderDetailedid" jdbcType="CHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="INTEGER" />
+    <result column="commodity_number" property="commodityNumber" jdbcType="INTEGER" />
+    <result column="buy_amount" property="buyAmount" jdbcType="INTEGER" />
+    <result column="commodity_price" property="commodityPrice" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_detailedid, order_number, commodity_number, buy_amount, commodity_price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cchuaspace.entity.OrderCommodityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_commodity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.cchuaspace.entity.OrderCommodityExample" >
+    delete from order_commodity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cchuaspace.model.OrderCommodity" >
+    insert into order_commodity (order_detailedid, order_number, commodity_number,
+    buy_amount, commodity_price)
+    values (#{orderDetailedid,jdbcType=CHAR}, #{orderNumber,jdbcType=INTEGER}, #{commodityNumber,jdbcType=INTEGER},
+    #{buyAmount,jdbcType=INTEGER}, #{commodityPrice,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cchuaspace.model.OrderCommodity" >
+    insert into order_commodity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderDetailedid != null" >
+        order_detailedid,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="commodityNumber != null" >
+        commodity_number,
+      </if>
+      <if test="buyAmount != null" >
+        buy_amount,
+      </if>
+      <if test="commodityPrice != null" >
+        commodity_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderDetailedid != null" >
+        #{orderDetailedid,jdbcType=CHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commodityNumber != null" >
+        #{commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="buyAmount != null" >
+        #{buyAmount,jdbcType=INTEGER},
+      </if>
+      <if test="commodityPrice != null" >
+        #{commodityPrice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cchuaspace.entity.OrderCommodityExample" resultType="java.lang.Integer" >
+    select count(*) from order_commodity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_commodity
+    <set >
+      <if test="record.orderDetailedid != null" >
+        order_detailedid = #{record.orderDetailedid,jdbcType=CHAR},
+      </if>
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityNumber != null" >
+        commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.buyAmount != null" >
+        buy_amount = #{record.buyAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityPrice != null" >
+        commodity_price = #{record.commodityPrice,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_commodity
+    set order_detailedid = #{record.orderDetailedid,jdbcType=CHAR},
+    order_number = #{record.orderNumber,jdbcType=INTEGER},
+    commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+    buy_amount = #{record.buyAmount,jdbcType=INTEGER},
+    commodity_price = #{record.commodityPrice,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

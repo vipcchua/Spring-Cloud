@@ -30,6 +30,13 @@ public interface CustomerInfoMapper {
 
 	@Select("SELECT * FROM customer_info where open_id = #{openId}")
 	List<CustomerInfo> selectcustomerinfobyopid(@Param("openId") String openId);
+
+
+	@Select("SELECT customer_info.id FROM customer_info where customer_info.open_id = #{openId}")
+	List<CustomerInfo> SelectUserid(@Param("openId") String openId);
+
+
+
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
 	@InsertProvider(type = CustomerInfoSql.class, method = "InsertCustomerInfo")
@@ -41,5 +48,6 @@ public interface CustomerInfoMapper {
 
 	@UpdateProvider(type = CustomerInfoSql.class, method = "UpdateCustomerInfo")
 	int UpdateCustomerInfo(CustomerInfo customerInfo);
+
 
 }

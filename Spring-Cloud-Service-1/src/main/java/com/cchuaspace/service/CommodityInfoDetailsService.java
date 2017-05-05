@@ -2,6 +2,7 @@ package com.cchuaspace.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,12 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import com.cchuaspace.currency.CchuaTool;
 import com.cchuaspace.mapper.CommodityInfoDetailsMapper;
 import com.cchuaspace.mapper.CommodityInfoMapper;
+import com.cchuaspace.mapper.SysCommodityPriceMapper;
 import com.cchuaspace.model.CommodityCatalog;
 import com.cchuaspace.model.CommodityInfo;
 import com.cchuaspace.model.CommodityInfoDetails;
+import com.cchuaspace.model.CommunityRelatives;
+import com.cchuaspace.model.SysCommodityPrice;
 import com.cchuaspace.pojo.CommodityCatalogVo;
 import com.cchuaspace.pojo.CommodityInfoVo;
 import com.cchuaspace.pojo.OrderInfoVo;
@@ -50,6 +55,8 @@ public class CommodityInfoDetailsService {
 	private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
 
 	@Autowired
+	private SysCommodityPriceMapper sysCommodityPriceMapper;
+	@Autowired
 	private PaginationVo paginationVo;
 
 	@Autowired
@@ -65,7 +72,7 @@ public class CommodityInfoDetailsService {
 
 		CommodityInfo data = commodityInfoMapper.SelectCommodityByNumberObj(commoditynumber);
 
-		CommodityInfoDetails datas = commodityInfoDetailsMapper.SelectCByNumberObj(data.getCommodityNumber());
+		List<CommodityInfoDetails> datas = commodityInfoDetailsMapper.SelectCByNumberObj(data.getCommodityNumber());
 
 		try {
 			PropertyUtils.copyProperties(commodityInfoVo, data);
@@ -101,5 +108,43 @@ public class CommodityInfoDetailsService {
 
 		return paginationVo;
 	}
+
+	public PaginationVo insertinfoprice(String commodityInfo) {
+		try {
+			HashMap<String, String> map = JSON.parseObject(commodityInfo, new TypeReference<HashMap<String, String>>() {
+			});
+
+			CommodityInfoDetails json = JSONObject.parseObject(map.get("info"), CommodityInfoDetails.class);
+
+			SysCommodityPrice price = JSONObject.parseObject(map.get("price"), SysCommodityPrice.class);
+
+			if (json.getCommodityNumber() == 0 && price.getCommodityNumber() == 0) {
+				paginationVo.setHtmlState("Error");
+				return paginationVo;
+
+			}
+
+			else {
+				json.setId(cchuaTool.uuid());
+				price.setId(cchuaTool.uuid());
+				int tostate = commodityInfoDetailsMapper.insertSelective(json);
+				int pricestate = sysCommodityPriceMapper.insertSelective(price);
+				if (tostate != 0 && pricestate != 0)
+					paginationVo.setHtmlState("Success");
+				else
+					paginationVo.setHtmlState("Error");
+				return paginationVo;
+
+			}
+		} catch (Exception e) {
+			paginationVo.setHtmlState("Error");
+			return paginationVo;
+		}
+
+	}
+
+
+
+
 
 }

@@ -26,11 +26,7 @@ public class CommodityCatalogVo {
     */
     private Integer commodityNumber;
 
-    /**
-    * 深度
-    */
-    private Integer depth;
-    
+  
     
     
     private String Sqlstate;
@@ -106,13 +102,6 @@ public class CommodityCatalogVo {
         this.commodityNumber = commodityNumber;
     }
 
-    public Integer getDepth() {
-        return depth;
-    }
-
-    public void setDepth(Integer depth) {
-        this.depth = depth;
-    }
 
 	public String getSqlstate() {
 		return Sqlstate;

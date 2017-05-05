@@ -1,16 +1,18 @@
 package com.cchuaspace.service;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
- 
+
 
 @Service
 @Scope("prototype")
+
 public class HelloService {
 
-      
+
 
        /**
 

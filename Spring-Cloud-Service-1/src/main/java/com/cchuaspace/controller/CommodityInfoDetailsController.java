@@ -79,6 +79,14 @@ public class CommodityInfoDetailsController {
 
 	}
 
+
+
+
+
+
+
+
+
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
@@ -95,6 +103,26 @@ public class CommodityInfoDetailsController {
 	public ResponseEntity<PaginationVo> InsertInfo(@RequestBody String CommodityInfo) {
 
 		PaginationVo user = commodityInfoDetailsService.InsertInfo(CommodityInfo);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+	
+	
+	@ApiOperation(value = "使用商品Id查询商品的上架信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "commoditynumber", value = "请输入商品编码", required = true, dataType = "varchar"), })
+
+	@RequestMapping(value = "/insertinfoprice", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> insertinfoprice(@RequestBody String CommodityInfo) {
+
+		PaginationVo user = commodityInfoDetailsService.insertinfoprice(CommodityInfo);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 

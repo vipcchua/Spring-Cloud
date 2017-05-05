@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cchuaspace.mapper.CommodityInfoDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.cchuaspace.model.CommodityInfoDetails" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="commodity_number" property="commodityNumber" jdbcType="INTEGER" />
+    <result column="commodity_id" property="commodityId" jdbcType="CHAR" />
+    <result column="listing_date" property="listingDate" jdbcType="TIMESTAMP" />
+    <result column="present_price" property="presentPrice" jdbcType="INTEGER" />
+    <result column="original_price" property="originalPrice" jdbcType="DECIMAL" />
+    <result column="shelf_state" property="shelfState" jdbcType="INTEGER" />
+    <result column="describe" property="describe" jdbcType="VARCHAR" />
+    <result column="small_title" property="smallTitle" jdbcType="VARCHAR" />
+    <result column="gift_number" property="giftNumber" jdbcType="INTEGER" />
+    <result column="introduce_url" property="introduceUrl" jdbcType="VARCHAR" />
+    <result column="introduce_photo" property="introducePhoto" jdbcType="VARCHAR" />
+    <result column="sale_unit" property="saleUnit" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cchuaspace.model.CommodityInfoDetails" extends="BaseResultMap" >
+    <result column="title" property="title" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, commodity_number, commodity_id, listing_date, present_price, original_price,
+    shelf_state, describe, small_title, gift_number, introduce_url, introduce_photo,
+    sale_unit
+  </sql>
+  <sql id="Blob_Column_List" >
+    title
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.cchuaspace.entity.CommodityInfoDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from commodity_info_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cchuaspace.entity.CommodityInfoDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from commodity_info_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from commodity_info_details
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from commodity_info_details
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cchuaspace.entity.CommodityInfoDetailsExample" >
+    delete from commodity_info_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cchuaspace.model.CommodityInfoDetails" >
+    insert into commodity_info_details (id, commodity_number, commodity_id,
+    listing_date, present_price, original_price,
+    shelf_state, describe, small_title,
+    gift_number, introduce_url, introduce_photo,
+    sale_unit, title)
+    values (#{id,jdbcType=CHAR}, #{commodityNumber,jdbcType=INTEGER}, #{commodityId,jdbcType=CHAR},
+    #{listingDate,jdbcType=TIMESTAMP}, #{presentPrice,jdbcType=INTEGER}, #{originalPrice,jdbcType=DECIMAL},
+    #{shelfState,jdbcType=INTEGER}, #{describe,jdbcType=VARCHAR}, #{smallTitle,jdbcType=VARCHAR},
+    #{giftNumber,jdbcType=INTEGER}, #{introduceUrl,jdbcType=VARCHAR}, #{introducePhoto,jdbcType=VARCHAR},
+    #{saleUnit,jdbcType=VARCHAR}, #{title,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cchuaspace.model.CommodityInfoDetails" >
+    insert into commodity_info_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="commodityNumber != null" >
+        commodity_number,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="listingDate != null" >
+        listing_date,
+      </if>
+      <if test="presentPrice != null" >
+        present_price,
+      </if>
+      <if test="originalPrice != null" >
+        original_price,
+      </if>
+      <if test="shelfState != null" >
+        shelf_state,
+      </if>
+      <if test="describe != null" >
+        describe,
+      </if>
+      <if test="smallTitle != null" >
+        small_title,
+      </if>
+      <if test="giftNumber != null" >
+        gift_number,
+      </if>
+      <if test="introduceUrl != null" >
+        introduce_url,
+      </if>
+      <if test="introducePhoto != null" >
+        introduce_photo,
+      </if>
+      <if test="saleUnit != null" >
+        sale_unit,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="commodityNumber != null" >
+        #{commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=CHAR},
+      </if>
+      <if test="listingDate != null" >
+        #{listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presentPrice != null" >
+        #{presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null" >
+        #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="shelfState != null" >
+        #{shelfState,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="smallTitle != null" >
+        #{smallTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="giftNumber != null" >
+        #{giftNumber,jdbcType=INTEGER},
+      </if>
+      <if test="introduceUrl != null" >
+        #{introduceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introducePhoto != null" >
+        #{introducePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="saleUnit != null" >
+        #{saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cchuaspace.entity.CommodityInfoDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from commodity_info_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update commodity_info_details
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.commodityNumber != null" >
+        commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityId != null" >
+        commodity_id = #{record.commodityId,jdbcType=CHAR},
+      </if>
+      <if test="record.listingDate != null" >
+        listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.presentPrice != null" >
+        present_price = #{record.presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.originalPrice != null" >
+        original_price = #{record.originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.shelfState != null" >
+        shelf_state = #{record.shelfState,jdbcType=INTEGER},
+      </if>
+      <if test="record.describe != null" >
+        describe = #{record.describe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smallTitle != null" >
+        small_title = #{record.smallTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.giftNumber != null" >
+        gift_number = #{record.giftNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.introduceUrl != null" >
+        introduce_url = #{record.introduceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introducePhoto != null" >
+        introduce_photo = #{record.introducePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleUnit != null" >
+        sale_unit = #{record.saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update commodity_info_details
+    set id = #{record.id,jdbcType=CHAR},
+    commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+    commodity_id = #{record.commodityId,jdbcType=CHAR},
+    listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+    present_price = #{record.presentPrice,jdbcType=INTEGER},
+    original_price = #{record.originalPrice,jdbcType=DECIMAL},
+    shelf_state = #{record.shelfState,jdbcType=INTEGER},
+    describe = #{record.describe,jdbcType=VARCHAR},
+    small_title = #{record.smallTitle,jdbcType=VARCHAR},
+    gift_number = #{record.giftNumber,jdbcType=INTEGER},
+    introduce_url = #{record.introduceUrl,jdbcType=VARCHAR},
+    introduce_photo = #{record.introducePhoto,jdbcType=VARCHAR},
+    sale_unit = #{record.saleUnit,jdbcType=VARCHAR},
+    title = #{record.title,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update commodity_info_details
+    set id = #{record.id,jdbcType=CHAR},
+    commodity_number = #{record.commodityNumber,jdbcType=INTEGER},
+    commodity_id = #{record.commodityId,jdbcType=CHAR},
+    listing_date = #{record.listingDate,jdbcType=TIMESTAMP},
+    present_price = #{record.presentPrice,jdbcType=INTEGER},
+    original_price = #{record.originalPrice,jdbcType=DECIMAL},
+    shelf_state = #{record.shelfState,jdbcType=INTEGER},
+    describe = #{record.describe,jdbcType=VARCHAR},
+    small_title = #{record.smallTitle,jdbcType=VARCHAR},
+    gift_number = #{record.giftNumber,jdbcType=INTEGER},
+    introduce_url = #{record.introduceUrl,jdbcType=VARCHAR},
+    introduce_photo = #{record.introducePhoto,jdbcType=VARCHAR},
+    sale_unit = #{record.saleUnit,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cchuaspace.model.CommodityInfoDetails" >
+    update commodity_info_details
+    <set >
+      <if test="commodityNumber != null" >
+        commodity_number = #{commodityNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=CHAR},
+      </if>
+      <if test="listingDate != null" >
+        listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presentPrice != null" >
+        present_price = #{presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="originalPrice != null" >
+        original_price = #{originalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="shelfState != null" >
+        shelf_state = #{shelfState,jdbcType=INTEGER},
+      </if>
+      <if test="describe != null" >
+        describe = #{describe,jdbcType=VARCHAR},
+      </if>
+      <if test="smallTitle != null" >
+        small_title = #{smallTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="giftNumber != null" >
+        gift_number = #{giftNumber,jdbcType=INTEGER},
+      </if>
+      <if test="introduceUrl != null" >
+        introduce_url = #{introduceUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introducePhoto != null" >
+        introduce_photo = #{introducePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="saleUnit != null" >
+        sale_unit = #{saleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cchuaspace.model.CommodityInfoDetails" >
+    update commodity_info_details
+    set commodity_number = #{commodityNumber,jdbcType=INTEGER},
+      commodity_id = #{commodityId,jdbcType=CHAR},
+      listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      present_price = #{presentPrice,jdbcType=INTEGER},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      shelf_state = #{shelfState,jdbcType=INTEGER},
+      describe = #{describe,jdbcType=VARCHAR},
+      small_title = #{smallTitle,jdbcType=VARCHAR},
+      gift_number = #{giftNumber,jdbcType=INTEGER},
+      introduce_url = #{introduceUrl,jdbcType=VARCHAR},
+      introduce_photo = #{introducePhoto,jdbcType=VARCHAR},
+      sale_unit = #{saleUnit,jdbcType=VARCHAR},
+      title = #{title,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cchuaspace.model.CommodityInfoDetails" >
+    update commodity_info_details
+    set commodity_number = #{commodityNumber,jdbcType=INTEGER},
+      commodity_id = #{commodityId,jdbcType=CHAR},
+      listing_date = #{listingDate,jdbcType=TIMESTAMP},
+      present_price = #{presentPrice,jdbcType=INTEGER},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      shelf_state = #{shelfState,jdbcType=INTEGER},
+      describe = #{describe,jdbcType=VARCHAR},
+      small_title = #{smallTitle,jdbcType=VARCHAR},
+      gift_number = #{giftNumber,jdbcType=INTEGER},
+      introduce_url = #{introduceUrl,jdbcType=VARCHAR},
+      introduce_photo = #{introducePhoto,jdbcType=VARCHAR},
+      sale_unit = #{saleUnit,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

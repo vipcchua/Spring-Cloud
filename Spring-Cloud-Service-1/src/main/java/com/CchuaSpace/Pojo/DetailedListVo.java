@@ -1,5 +1,7 @@
 package com.cchuaspace.pojo;
 
+import java.util.List;
+
 public class DetailedListVo {
     private String userId;
 
@@ -10,11 +12,30 @@ public class DetailedListVo {
     private String detailedId;
     
     private String Sqlstate;
-    
-    
-    
-    
 
+
+	private List<?> list;
+	@SuppressWarnings("unchecked")
+	public List<?> getList() {
+		return list;
+	}
+
+	public void setList(List<?> list) {
+		this.list = list;
+	}
+
+
+
+	public Object getDataResultObj() {
+		return DataResultObj;
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setDataResultObj(Object dataResultObj) {
+		this.DataResultObj = dataResultObj;
+	}
+
+	private Object DataResultObj;
 
 
 

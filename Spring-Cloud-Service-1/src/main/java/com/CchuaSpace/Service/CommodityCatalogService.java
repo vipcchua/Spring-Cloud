@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.cchuaspace.mapper.CommodityInfoDetailsMapper;
+import com.cchuaspace.pojo.CommodityInfoDetailsVo;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.assertj.core.api.IntArrayAssert;
 import org.springframework.beans.BeanUtils;
@@ -48,6 +50,14 @@ public class CommodityCatalogService {
 
 	@Autowired
 	private CommunityRelativesMapper communityRelativesMapper;
+	@Autowired
+	private CommodityInfoMapper commodityInfoMapper;
+
+	@Autowired
+	private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
+
+
+
 
 	@Autowired
 	private PaginationVo paginationVo;
@@ -66,7 +76,7 @@ public class CommodityCatalogService {
 			List<CommodityCatalog> datas = commodityCatalogMapper.SelectByParents(data.get(a).getCatalogId());
 
 			if (datas.size() <= 0) {
-				data.get(a).setClassifySon("flase");
+				data.get(a).setClassifySon("false");
 			} else {
 				data.get(a).setClassifySon("true");
 			}
@@ -78,15 +88,13 @@ public class CommodityCatalogService {
 
 	}
 
-	public PaginationVo Selectdepth(@RequestParam(value = "depth", required = true) int depth) {
 
-		List<CommodityCatalog> data = commodityCatalogMapper.Selectdepth(depth);
 
-		paginationVo.setDataResultList(data);
 
-		return paginationVo;
 
-	}
+
+
+
 
 	public PaginationVo SelectClassifyProduct(@RequestBody String commodityInfo, Model model) {
 
@@ -123,81 +131,41 @@ public class CommodityCatalogService {
 
 	}
 
-	/*--------------- -----<----*删除*---->--- ----------------------*/
-	public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
-		/*
-		 * List<CommodityCatalog> json = JSON.parseArray(CommodityInfo,
-		 * CommodityCatalog.class);
-		 */
-		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
+	public PaginationVo SelectAllByPage(String data) {
+		CommodityInfoDetailsVo json = JSONObject.parseObject(data, CommodityInfoDetailsVo.class);
 
-		int tostate = commodityCatalogMapper.DeleteCatalog(json);
+		json.setShelfState(1);
 
-		if (tostate != 0)
-			paginationVo.setHtmlState("Success");
-		else
-			paginationVo.setHtmlState("Error");
+		List<CommodityInfoDetailsVo> sqldata = commodityInfoDetailsMapper.SelectAllByPage(json);
 
-		paginationVo.setDataResultObj(json);
+		for (int i = 0; i < sqldata.size(); i++) {
 
+
+			try {
+				List<CommodityInfo> commodityInfodata = commodityInfoMapper.SelectCommodityByNumber(sqldata.get(i).getCommodityNumber());
+
+				sqldata.get(i).setDataResultList(commodityInfodata);
+			} catch (Exception e) {
+
+
+				sqldata.get(i).setDataResultObj("Error");
+			}
+
+		}
+
+
+
+
+		paginationVo.setPaginalNumber(Math.ceil(sqldata.get(0).getDataTotal() / json.getPagerow()));
+
+		paginationVo.setDataResultList(sqldata);
 		return paginationVo;
 
 	}
 
-	public PaginationVo DeleteCatalogById(@RequestBody String CommodityInfo, Model model) {
 
-		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
 
-		int tostate = commodityCatalogMapper.DeleteCatalogById(json);
 
-		if (tostate != 0)
-			paginationVo.setHtmlState("Success");
-		else
-			paginationVo.setHtmlState("Error");
 
-		paginationVo.setDataResultObj(json);
-
-		return paginationVo;
-
-	}
-
-	/*--------------- -----<----*增加*---->--- ----------------------*/
-
-	public PaginationVo InsertCommodityInfo(@RequestBody String CommodityInfo, Model model) {
-
-		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
-
-		json.setCatalogId(uuid());
-		int user = commodityCatalogMapper.InsertCommodityInfo(json);
-		paginationVo.setDataResultObj(json);
-
-		return paginationVo;
-
-	}
-
-	/*--------------- -----<----*修改*---->--- ----------------------*/
-	public PaginationVo UpdateCatalog(@RequestBody String CommodityInfo, Model model) {
-
-		CommodityCatalog json = JSONObject.parseObject(CommodityInfo, CommodityCatalog.class);
-
-		int tostate = commodityCatalogMapper.UpdateCatalog(json);
-
-		if (tostate != 0)
-			paginationVo.setHtmlState("Success");
-		else
-			paginationVo.setHtmlState("Error");
-
-		paginationVo.setDataResultObj(json);
-
-		return paginationVo;
-
-	}
-
-	private String uuid() {
-		String uuid = UUID.randomUUID().toString();
-		System.out.println(uuid);
-
-		return uuid;
-	}
 
 }

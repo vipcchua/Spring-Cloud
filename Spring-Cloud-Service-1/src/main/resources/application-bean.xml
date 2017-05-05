@@ -14,14 +14,17 @@
 
 
 
-     <bean id="helloService" class="com.cchuaspace.service.HelloService"/> 
-     
+     <bean id="helloService" class="com.cchuaspace.service.HelloService" lazy-init='true'/>
+     <!--如果设置为true，则Spring不会预初始化该Bean实例。-->
+
+
+
     <!--  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         扫描me.gacl.dao这个包以及它的子包下的所有映射接口类
         <property name="basePackage" value="com.cchuaspace.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
-    
+
     
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件
@@ -53,7 +56,7 @@
                 数据库超过25000秒仍未响应则超时
                 <prop key="defaultStatementTimeout">25000</prop>
             </props>
-        </property>       
+        </property>
     </bean> -->
 
 	</beans>

@@ -16,39 +16,50 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Configuration
 public class SecurityConfig extends WebMvcConfigurerAdapter {
 
-	@Bean
-	public SecurityInterceptor getSecurityInterceptor() {
-		return new SecurityInterceptor();
-	}
+    @Bean
+    public SecurityInterceptor getSecurityInterceptor() {
+        return new SecurityInterceptor();
+    }
 
-	public void addInterceptors(InterceptorRegistry registry) {
-		InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
+    public void addInterceptors(InterceptorRegistry registry) {
+        InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
 
-		// 多个拦截器组成一个拦截器链
+        // 多个拦截器组成一个拦截器链
 
-		// 添加拦截规则:addPathPatterns
+        // 添加拦截规则:addPathPatterns
 
-	/*
-		addInterceptor.addPathPatterns("/**");
-		// 排除拦截:excludePathPatterns
-		addInterceptor.excludePathPatterns("/api/system/login");
+
+        addInterceptor.addPathPatterns("/**");
+
+		/*// 排除拦截:excludePathPatterns
+        addInterceptor.excludePathPatterns("/api/system/login");
 		addInterceptor.excludePathPatterns("/api/system/getverifiCode");
-		addInterceptor.excludePathPatterns("/api/wecaht/**");*/
+		addInterceptor.excludePathPatterns("/api/wecaht/**");
 		
-		addInterceptor.excludePathPatterns("/**");
-		
-		super.addInterceptors(registry);
-	}
+		addInterceptor.excludePathPatterns("/**");*/
 
-	private class SecurityInterceptor extends HandlerInterceptorAdapter {
+        super.addInterceptors(registry);
+    }
 
-		@Override
-		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-				throws Exception {
-			System.err.println("aaa");
-			return false;
-		}
+    private class SecurityInterceptor extends HandlerInterceptorAdapter {
 
-	}
+        @Override
+        public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+                throws Exception {
+          /*  int aa = 1;
+            if (aa != 1)
+
+            {  System.err.println("密码错误");
+                return false;
+
+            } else {
+                System.err.println("密码正确");
+                return true;
+            }*/
+
+            return true;
+        }
+
+    }
 
 }
