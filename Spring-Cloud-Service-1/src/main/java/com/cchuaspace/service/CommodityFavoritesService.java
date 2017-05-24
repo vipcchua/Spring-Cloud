@@ -56,7 +56,7 @@ public class CommodityFavoritesService {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-    public PaginationVo SelectByUserid(String userid) {
+    public PaginationVo selectByUserid(String userid) {
 
         List<UseCommodityFavoritesVo> data = useCommodityFavoritesMapper.SelectByuserList(userid);
 
@@ -80,7 +80,7 @@ public class CommodityFavoritesService {
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-    public PaginationVo DeleteByNumber(String userid, int commodityNumber) {
+    public PaginationVo deleteByNumber(String userid, int commodityNumber) {
         int tostate = useCommodityFavoritesMapper.DeleteByNumber(commodityNumber, userid);
 
         if (tostate != 0)
@@ -91,7 +91,7 @@ public class CommodityFavoritesService {
         return paginationVo;
     }
 
-    public PaginationVo DeleteById(String id, String userid) {
+    public PaginationVo deleteById(String id, String userid) {
 
         int tostate = useCommodityFavoritesMapper.DeleteById(id, userid);
 
@@ -105,7 +105,7 @@ public class CommodityFavoritesService {
     }
 
     /*--------------- -----<----*增加*---->--- ----------------------*/
-    public PaginationVo InsertInfo(String insertinfo) {
+    public PaginationVo insertInfo(String insertinfo) {
 
         UseCommodityFavorites json = JSONObject.parseObject(insertinfo, UseCommodityFavorites.class);
 

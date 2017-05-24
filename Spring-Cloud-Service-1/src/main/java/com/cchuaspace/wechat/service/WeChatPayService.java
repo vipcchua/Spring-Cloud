@@ -3,13 +3,9 @@ package com.cchuaspace.wechat.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.cchuaspace.currency.CchuaTool;
-import com.cchuaspace.mapper.CustomerInfoMapper;
-import com.cchuaspace.mapper.OrderInfoMapper;
-import com.cchuaspace.mapper.WechatPayResultMapper;
-import com.cchuaspace.model.CustomerInfo;
-import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.mapper.*;
+import com.cchuaspace.model.*;
 
-import com.cchuaspace.model.WechatPayResult;
 import com.cchuaspace.pojo.OrderInfoVo;
 import com.cchuaspace.pojo.PaginationVo;
 import com.cchuaspace.pojo.WechatVo;
@@ -76,12 +72,19 @@ public class WeChatPayService {
     @Autowired
     private OrderInfoMapper orderInfoMapper;
 
+
     @Autowired
     private CchuaTool cchuaTool;
 
     @Autowired
-    private PaginationVo paginationVo;
+    private OrderCommodityMapper orderCommodityMapper;
 
+    @Autowired
+    private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
+    @Autowired
+    private PaginationVo paginationVo;
+    @Autowired
+    private WeChatFunctionService weChatFunctionService;
 
     String AppId = "wx253b97a570d99ccc";
     String AppSecret = "3c91bb1f519ad2604e78b7115deec5a5";
@@ -92,9 +95,10 @@ public class WeChatPayService {
     /*回调地址*/
     String NotifyUrl = "http://igo.vrdete.com/api/wechat/pay/payresponse";
 
+    String pfile = "D://apiclient_cert.p12";
 
     /*--------------- -----<----*直接获取订单信息生成成微信订单*---->--- ----------------------*/
-    public PaginationVo PayByOrder(OrderInfo orderInfo) {
+    public PaginationVo PayByOrder(OrderInfo orderInfo, String data) {
        /* OrderBy= JSONObject.parseObject(GenerateOrder, OrderRequest.class);*/
         OrderRequest json = new OrderRequest();
        /* String OrderNumber = String.valueOf(cchuaTool.getOrderNumber(11, 2));*/
@@ -102,6 +106,8 @@ public class WeChatPayService {
         json.setAppid(AppId);
         json.setAttach("Igo商城支付");
         json.setBody("Igo商城" + orderInfo.getContactName() + "用户的订单");
+
+
         json.setDeviceInfo("WEB");/*自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"*/
 
         json.setMchId(MchId);
@@ -202,7 +208,7 @@ public class WeChatPayService {
 
           /* orderInfoMapper.UpdatePaymentStateBYclose(orderInfo.getOrderNumber(), "PendingPay");*/
 
-            orderInfoMapper.UpdatePayInfo(orderInfo.getOrderNumber(),"PendingPay", JSON.toJSONString(PayApi));
+            orderInfoMapper.UpdatePayInfo(orderInfo.getOrderNumber(), "PendingPay", JSON.toJSONString(PayApi));
 
 
             paginationVo.setDataResultObj(PayApi);
@@ -216,6 +222,8 @@ public class WeChatPayService {
         return paginationVo;
 
     }
+/*--*/
+
 
 
     /*--------------- -----<----*获取订单信息后生成微信订单*---->--- ----------------------*/
@@ -227,7 +235,7 @@ public class WeChatPayService {
         OrderRequest json = new OrderRequest();
        /* String OrderNumber = String.valueOf(cchuaTool.getOrderNumber(11, 2));*/
 
-        OrderInfo orderInfo = orderInfoMapper.SelectByOpenid(Datas.getOpenid(), Datas.getOrderNumber());
+        OrderInfo orderInfo = orderInfoMapper.SelectByOrderNumber(Datas.getOrderNumber());
 
         json.setAppid(AppId);
         json.setAttach("Igo商城支付");
@@ -346,24 +354,25 @@ public class WeChatPayService {
     }
 
     /*--------------- -----<----*退款*---->--- ----------------------*/
-    public PaginationVo WechatRefund(String orderInfodata)  {
+    public PaginationVo WechatRefund(String orderInfodata) {
 
         OrderInfoVo Datas = JSONObject.parseObject(orderInfodata, OrderInfoVo.class);
 
         OrderRequest json = new OrderRequest();
 
-        OrderInfo orderInfo = orderInfoMapper.SelectByOpenid(Datas.getOpenid(), Datas.getOrderNumber());
 
+        List<OrderInfoVo> orderInfo = orderInfoMapper.selectByOrderNumberList(Datas.getOrderNumber());
+        if (orderInfo.size()==1){
         json.setAppid(AppId);
         json.setMchId(MchId);
         json.setNonceStr(cchuaTool.henuuid());
         json.setOpUserId(MchId);
 
 
-        json.setOutRefundNo(String.valueOf(cchuaTool.getOrderNumber(1,2)));
-        json.setOutTradeNo(orderInfo.getOrderNumber().toString());/*商户系统内部订单号*/
+        json.setOutRefundNo(String.valueOf(cchuaTool.getOrderNumber(1, 2)));
+        json.setOutTradeNo(orderInfo.get(0).getOrderNumber().toString());/*商户系统内部订单号*/
         json.setRefundFee(Datas.getRefundFee());
-        json.setTotalFee(orderInfo.getPaymentAmount());
+        json.setTotalFee(orderInfo.get(0).getPaymentAmount());
 
         json.setTransactionId("");
 
@@ -381,8 +390,7 @@ public class WeChatPayService {
 
         parameters.put("refund_fee", String.valueOf(json.getRefundFee()));// 标价金额（分）*/
         parameters.put("total_fee", String.valueOf(json.getTotalFee()));// 标价金额（分）*/
-        parameters.put("transaction_id",json.getTransactionId());
-
+        parameters.put("transaction_id", json.getTransactionId());
 
 
         String KeysignStr = MD5Util.getWXPayMD5(parameters, apiKey);
@@ -401,9 +409,9 @@ public class WeChatPayService {
 
                         + "<op_user_id>" + json.getOpUserId() + "</op_user_id>"
                         + "<out_refund_no>" + json.getOutRefundNo() + "</out_refund_no>"
-                        + "<out_trade_no>" + json.getOutTradeNo()+ "</out_trade_no>"
+                        + "<out_trade_no>" + json.getOutTradeNo() + "</out_trade_no>"
 
-                        + "<refund_fee>" + json.getRefundFee()+ "</refund_fee>"
+                        + "<refund_fee>" + json.getRefundFee() + "</refund_fee>"
                         + "<total_fee>" + json.getTotalFee() + "</total_fee>"
                         + "<transaction_id>" + json.getTransactionId() + "</transaction_id>"
 
@@ -421,10 +429,10 @@ public class WeChatPayService {
         HttpEntity<String> formEntity = new HttpEntity<String>(preOrderXml, headers);
 
        /* String result = HttpUtil.doPostSSL(url, preOrderXml);*/
-       String pfile="D://apiclient_cert.p12";
+
         String result = null;
         try {
-            result = HttpUtil.SslPost(url.trim(),preOrderXml.trim(),pfile.trim(),json.getMchId());
+            result = HttpUtil.SslPost(url.trim(), preOrderXml.trim(), pfile.trim(), json.getMchId());
         } catch (KeyStoreException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -448,13 +456,23 @@ public class WeChatPayService {
             String theTimestamp = DateUtil.getTimeStamp();
 
             SortedMap<String, String> thePaySign = new TreeMap<String, String>();
+            if (Xmldata.get("result_code").equals("SUCCESS") & Xmldata.get("return_msg").equals("OK")) {
+                orderInfoMapper.UpdateRefundInfo(orderInfo.get(0).getOrderNumber(), "Refund_Success", JSON.toJSONString(Xmldata));
+
+            } else {
+                orderInfoMapper.UpdateRefundInfo(orderInfo.get(0).getOrderNumber(), "Refund_Error", JSON.toJSONString(Xmldata));
+            }
 
 
-            paginationVo.setHtmlState("Success");
+            paginationVo.setHtmlState("Success:" + orderInfo.get(0).getOrderNumber() + "退款成功");
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
             paginationVo.setHtmlState("Error");
+        }
+        }
+        else{
+            paginationVo.setHtmlState("Error:不存在的订单或存在重复的订单，请管理员核对数据库");
         }
 
 
@@ -470,7 +488,7 @@ public class WeChatPayService {
 
         OrderRequest json = new OrderRequest();
 
-        OrderInfo orderInfo = orderInfoMapper.SelectByOpenid(Datas.getOpenid(), Datas.getOrderNumber());
+        OrderInfo orderInfo = orderInfoMapper.SelectByOrderNumber(Datas.getOrderNumber());
 
         json.setAppid(AppId);
         json.setMchId(MchId);
@@ -585,37 +603,117 @@ public class WeChatPayService {
                     XmlUtil xmlUtil = new XmlUtil();
                     try {
                         Map<String, String> Xmldata = xmlUtil.XmlAnalysis(PayResponse);
+                        try {
 
+                            WechatPayResult wechatPayResult = JSONObject.parseObject(JSON.toJSONString(Xmldata), WechatPayResult.class);
 
-                        WechatPayResult wechatPayResult = JSONObject.parseObject(JSON.toJSONString(Xmldata), WechatPayResult.class);
+                            List<OrderInfo> OrderInfoData = orderInfoMapper.SelectAllInfoByNumber(wechatPayResult.getOutTradeNo(), wechatPayResult.getOpenid());
 
+                            if (OrderInfoData.size() <= 0) {
 
-                        OrderInfo OrderInfoData = orderInfoMapper.SelectAllInfoByNumber(wechatPayResult.getOutTradeNo(), wechatPayResult.getOpenid());
-
-                        if (wechatPayResult.getOpenid() != OrderInfoData.getOpenid()) {
-                            OrderInfo errorinfo = new OrderInfo();
-                            errorinfo.setPaymentState("Error:未生成的系统订单");
-                            errorinfo.setWechatPayResult(PayResponse);
+                                int i = orderInfoMapper.UpdatePaymentStateBYclose(wechatPayResult.getOutTradeNo(), "Abnormal");
+                                if (i == 0) {
+                                    OrderInfo errorinfo = new OrderInfo();
+                                    errorinfo.setPaymentState("Error:未生成的系统订单");
+                                    errorinfo.setOrderNumber(cchuaTool.getOrderNumber(0, 0));
+                                    errorinfo.setWechatPayResult(PayResponse);
 /*这里偷懒没写的transaction_id*/
-                            orderInfoMapper.insertSelective(errorinfo);
+                                    orderInfoMapper.insertSelective(errorinfo);
+                                }
 
-                        } else {
-                            if (wechatPayResult.getTotalFee() == OrderInfoData.getPaymentAmount()) {
+                            } else {
+                                if (wechatPayResult.getTotalFee() == OrderInfoData.get(0).getPaymentAmount()) {
+
+                                    orderInfoMapper.
+                                            UpdatePaymentState(wechatPayResult.getOutTradeNo(),
+                                                    "Success", PayResponse,
+                                                    Xmldata.get("transaction_id"));
+
+                                    String AccessToken = weChatFunctionService.ObtainAccessToken(AppId, AppSecret);
+
+                                    if (AccessToken.equals("Error")) {
 
 
-                                orderInfoMapper.UpdatePaymentState(wechatPayResult.getOutTradeNo(), "Success", PayResponse, Xmldata.get("transaction_id"));
+                                    } else {
+
+                                        String OrderAddress = orderInfoMapper.
+                                                SelectByOrderNumber(Integer.valueOf(Xmldata.get("out_trade_no"))).getOrderAddress();
+                                        List<OrderCommodity> comm = orderCommodityMapper.SelectByNumber(Integer.valueOf(Xmldata.get("out_trade_no")));
+                                        String FirstCommTitle = commodityInfoDetailsMapper.SelectCByNumberObj(comm.get(0).getCommodityNumber()).get(0).getTitle();
+
+                                        String url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + AccessToken;
+
+                                        HttpHeaders headers = new HttpHeaders();
+                                        MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
+                                        headers.setContentType(type);
+                                        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+                                        String tid = "56X2n1Ee0J26LVQ4G7RRRNbphd762YFBRxJFU_NH9-k";
+                                        String orderdatainfo = "Igo商城微信支付订单";
+                                        String orderurl = "http://weixin.qq.com/download";
+
+                                        /*double ordertotalfeee = Integer.valueOf(Xmldata.get("total_fee")) / 100;*/
+
+                                    /*    Long ordertotalfeee=new Long((long)Integer.valueOf(Xmldata.get("total_fee")));*/
+
+                                        String ordertotalfeee = AmountUtils.changeY2F(Xmldata.get("total_fee"));
+
+
+                                        StringBuffer PostJson = new StringBuffer();
+                                        PostJson.append("{");
+                                        PostJson.append("\"touser\": \"" + Xmldata.get("openid") + "\",");
+                                        PostJson.append("\"template_id\": \"" + tid + "\",");
+                                        PostJson.append("\"url\": \"" + orderurl + "\",");
+
+                                        PostJson.append("\"data\": {");
+                                        PostJson.append("\"first\": {\"value\": \"您的订单已经支付成功，我们将尽快发货\",\"color\": \"#173177\"},");
+                                        PostJson.append("\"keyword1\": {\"value\": \"" + ordertotalfeee + "\",\"color\": \"#173177\"},");
+
+                                        if (comm.size() <= 1) {
+                                            PostJson.append("\"keyword2\": {\"value\": \"" + FirstCommTitle + "\",\"color\": \"#173177\"},");
+                                        } else {
+                                            PostJson.append("\"keyword2\": {\"value\": \"" + FirstCommTitle + "等商品\",\"color\": \"#173177\"},");
+                                        }
+
+
+                                        PostJson.append("\"keyword3\": {\"value\": \"" + OrderAddress + "\",\"color\": \"#173177\"},");
+                                        PostJson.append("\"keyword4\": {\"value\": \"" + Xmldata.get("out_trade_no") + "\",\"color\": \"#173177\"},");
+                                        PostJson.append("\"remark\": {\"value\": \"您的订单已经支付成功。\",\"color\": \"#173177\"}");
+                                        PostJson.append("}");
+                                        PostJson.append("}");
+
+                                        String result = HttpUtil.doPostSSL(url, PostJson.toString());
+
+
+                                    }
+
+
+
+
+
 
                                /*int a =  wechatPayResultMapper.insertSelective(wechatPayResult);
                                 System.out.println(a);*/
 
-                            } else {
-                                orderInfoMapper.UpdatePaymentState(wechatPayResult.getOutTradeNo(), "Abnormal", PayResponse, Xmldata.get("transaction_id"));
-                            }
+                                } else {
+                                    orderInfoMapper.UpdatePaymentState(wechatPayResult.getOutTradeNo(), "Abnormal", PayResponse, Xmldata.get("transaction_id"));
+                                }
 
+                            }
+                        } catch (Exception e) {
+                            OrderInfo errorinfo = new OrderInfo();
+                            errorinfo.setPaymentState("Error:未生成的系统订单");
+                            errorinfo.setOrderNumber(cchuaTool.getOrderNumber(0, 0));
+                            errorinfo.setWechatPayResult(PayResponse);
+/*这里偷懒没写的transaction_id*/
+                            orderInfoMapper.insertSelective(errorinfo);
                         }
 
 
-                    } catch (ParserConfigurationException e) {
+                    } catch (
+                            ParserConfigurationException e)
+
+                    {
                         e.printStackTrace();
                     }
                 }

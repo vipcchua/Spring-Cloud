@@ -8,9 +8,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
 
 import com.cchuaspace.model.CommodityInfo;
-import com.cchuaspace.wechat.tool.AesException;
+import com.cchuaspace.wechat.tool.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -54,6 +55,9 @@ public class WeChatLoginService {
 
     @Autowired
     private CustomerInfoMapper customerInfoMapper;
+
+
+
 
     @Autowired
 
@@ -357,12 +361,16 @@ public class WeChatLoginService {
 
     public final static String EncodingAESKey = "Tp82Rr5bREMsbKhWNc9pr7DgLTYiN7TPXDXZ80zlSmm";//公众平台上面自己填写的43位EncodingAESKey
     public final static String AppID = "wx253b97a570d99ccc";
-    public final static String token = "78faf82371944fe38c4f1d99be71bc9c";
+    public final static String Token = "78faf82371944fe38c4f1d99be71bc9c";
+
+
+
+
 
     public String wechatevent(String signature, String timestamp, String nonce, String echostr) throws AesException {
 
         try {
-            String[] array = new String[]{token, timestamp, nonce};
+            String[] array = new String[]{Token, timestamp, nonce};
             StringBuffer sb = new StringBuffer();
             // 字符串排序
             Arrays.sort(array);
@@ -390,7 +398,21 @@ public class WeChatLoginService {
             throw new AesException(AesException.ComputeSignatureError);
         }
     }
+
+
+    public String validateservernews(HttpServletRequest request,String commodityInfo) {
+
+        String aa = CchuaWechatTool.decryptMsg(request,commodityInfo);
+
+
+        return  aa;
+
+
+
+
+    }
 }
+
 
 		/*return null;*/
 

@@ -30,8 +30,13 @@ public interface CommodityInfoMapper {
 	
 	@Select("SELECT * FROM commodity_info where commodity_number = #{commodityNumber}")
 	List<CommodityInfoVo> SelectCommodityByNumberVo(@Param("commodityNumber") int commodityNumber);
-	
-	
+
+	@Select("SELECT home_photo,commodity_name,commodity_number FROM commodity_info where commodity_number = #{commodityNumber}")
+	List<CommodityInfoVo> SelectOrderListByNumberVo(@Param("commodityNumber") int commodityNumber);
+
+	@Select("SELECT home_photo,commodity_name,commodity_number FROM commodity_info where commodity_number = #{commodityNumber}")
+	List<CommodityInfoVo> SelectOrderinfoByNumberVo(@Param("commodityNumber") int commodityNumber);
+
 	@Select("SELECT * FROM commodity_info where commodity_number = #{commodityNumber}")
 	CommodityInfo SelectCommodityByNumberObj(@Param("commodityNumber") int commodityNumber);
 

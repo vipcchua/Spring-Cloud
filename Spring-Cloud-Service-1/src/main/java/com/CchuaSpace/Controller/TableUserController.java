@@ -128,7 +128,7 @@ public class TableUserController {
 	 */
 
 	@RequestMapping(value = "/selectuserid", method = RequestMethod.POST)
-	public ResponseEntity<PaginationVo> SelectuserID(@RequestBody String UserInfo, Model model) {
+	public ResponseEntity<PaginationVo> selectuserID(@RequestBody String UserInfo, Model model) {
 
 		/*
 		 * List<TableUser> json = JSON.parseArray(UserInfo, TableUser.class);
@@ -156,7 +156,7 @@ public class TableUserController {
 	@RequestMapping(value = "/selectusername", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectUsername(@RequestBody String UserInfo, Model model) {
+	public ResponseEntity<PaginationVo> selectUsername(@RequestBody String UserInfo, Model model) {
 
 		PaginationVo user = tableUserService.SelectUsername(UserInfo, model);
 
@@ -175,7 +175,7 @@ public class TableUserController {
 
 	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> Loginusers(@RequestBody String UserInfo, Model model) {
+	public ResponseEntity<PaginationVo> loginUsers(@RequestBody String UserInfo, Model model) {
 
 		PaginationVo user = tableUserService.Loginusers(UserInfo, model);
 
@@ -191,7 +191,7 @@ public class TableUserController {
 
 	@RequestMapping(value = "/selectusercondition", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> SelectUserCondition(@RequestBody String UserInfo, Model model) {
+	public ResponseEntity<PaginationVo> selectUserCondition(@RequestBody String UserInfo, Model model) {
 
 		PaginationVo user = tableUserService.SelectUserCondition(UserInfo, model);
 
@@ -206,7 +206,7 @@ public class TableUserController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@RequestMapping(value = "/updateuser", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> UpdateUser(@RequestBody String UserInsert, Model model) {
+	public ResponseEntity<PaginationVo> updateUser(@RequestBody String UserInsert, Model model) {
 
 		PaginationVo user = tableUserService.UpdateUser(UserInsert, model);
 
@@ -223,7 +223,7 @@ public class TableUserController {
 
 	@RequestMapping(value = "/selectalluser", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> alluser(@RequestBody String selectmodeid, Model model) {
+	public ResponseEntity<PaginationVo> allUser(@RequestBody String selectmodeid, Model model) {
 
 		PaginationVo user = tableUserService.alluser(selectmodeid, model);
 
@@ -257,7 +257,7 @@ public class TableUserController {
 	/* 在用 */
 	@RequestMapping(value = "/selectallusers", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> allusers() {
+	public ResponseEntity<PaginationVo> allUsers() {
 
 		PaginationVo user = tableUserService.allusers();
 
@@ -275,7 +275,7 @@ public class TableUserController {
 	@RequestMapping(value = "/UserInsert", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> UserInsert(@RequestBody String UserInsert, Model model) {
+	public ResponseEntity<PaginationVo> userInsert(@RequestBody String UserInsert, Model model) {
 
 		PaginationVo user = tableUserService.UserInsert(UserInsert, model);
 
@@ -295,7 +295,7 @@ public class TableUserController {
 	/* 在用 */
 	@RequestMapping(value = "/deleteuserid", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<String> DeleteUserid(@RequestBody String Dmouldinfo) {
+	public ResponseEntity<String> deleteUserId(@RequestBody String Dmouldinfo) {
 
 		String user = tableUserService.DeleteUserid(Dmouldinfo);
 
@@ -314,7 +314,7 @@ public class TableUserController {
 	/* 在用 */
 	@RequestMapping(value = "/deleteusername", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> DeleteUserName(@RequestBody String Dmouldinfo) {
+	public ResponseEntity<PaginationVo> deleteUserName(@RequestBody String Dmouldinfo) {
 		/*
 		 * List<TableUser> json = JSON.parseArray(Dmouldinfo, TableUser.class);
 		 * int Dmouldinfos =
@@ -340,7 +340,7 @@ public class TableUserController {
 	@RequestMapping(value = "/adminupdateuser", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> AdminUpdateUser(@RequestBody String UserInsert, Model model)
+	public ResponseEntity<PaginationVo> adminUpdateUser(@RequestBody String UserInsert, Model model)
 			throws UnsupportedEncodingException {
 
 		PaginationVo user = tableUserService.AdminUpdateUser(UserInsert, model);
@@ -356,7 +356,7 @@ public class TableUserController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@RequestMapping(value = "/modifypassword", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> Modifypassword(@RequestBody String UserInsert, Model model) {
+	public ResponseEntity<PaginationVo> modifyPassword(@RequestBody String UserInsert, Model model) {
 
 		PaginationVo user = tableUserService.Modifypassword(UserInsert, model);
 

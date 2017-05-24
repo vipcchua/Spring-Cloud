@@ -66,7 +66,7 @@ public class CommodityCatalogService {
 	private CommodityCatalogVo commodityCatalogVo;
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
-	public PaginationVo SelectCatalog(@RequestBody String commodityInfo, Model model) {
+	public PaginationVo selectCatalog(@RequestBody String commodityInfo, Model model) {
 
 		CommodityCatalog json = JSONObject.parseObject(commodityInfo, CommodityCatalog.class);
 
@@ -96,7 +96,7 @@ public class CommodityCatalogService {
 
 
 
-	public PaginationVo SelectClassifyProduct(@RequestBody String commodityInfo, Model model) {
+	public PaginationVo selectClassifyProduct(@RequestBody String commodityInfo, Model model) {
 
 		/*
 		 * List<CommodityCatalog> json = JSON.parseObject(commodityInfo,
@@ -131,7 +131,7 @@ public class CommodityCatalogService {
 
 	}
 
-	public PaginationVo SelectAllByPage(String data) {
+	public PaginationVo selectAllByPage(String data) {
 		CommodityInfoDetailsVo json = JSONObject.parseObject(data, CommodityInfoDetailsVo.class);
 
 		json.setShelfState(1);

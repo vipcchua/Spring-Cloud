@@ -1,6 +1,7 @@
 package com.cchuaspace.pojo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -15,13 +16,15 @@ public class PaginationVo extends BaseObjectVo implements java.io.Serializable {
 	public PaginationVo() {
 	}
 
+
+
 	private List<?> list;
-	
+
 	private String DataString;
 
 	/**
 	 * 获得分页内容
-	 * 
+	 *
 	 * @return
 	 */
 	public List<?> getList() {
@@ -30,7 +33,7 @@ public class PaginationVo extends BaseObjectVo implements java.io.Serializable {
 
 	/**
 	 * 设置分页内容
-	 * 
+	 *
 	 * @param list
 	 */
 	@SuppressWarnings("unchecked")
@@ -66,6 +69,14 @@ public class PaginationVo extends BaseObjectVo implements java.io.Serializable {
 		this.DataString = dataString;
 	}
 
+	private Map DataResultMap;
 
+	public Map getDataResultMap() {
+		return DataResultMap;
+	}
+
+	public void setDataResultMap(Map dataResultMap) {
+		DataResultMap = dataResultMap;
+	}
 
 }

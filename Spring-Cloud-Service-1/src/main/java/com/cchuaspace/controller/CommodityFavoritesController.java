@@ -62,7 +62,7 @@ public class CommodityFavoritesController {
 	public ResponseEntity<PaginationVo> selectbydeliveryname(
 			@RequestParam(value = "userid", required = true) String userid) {
 
-		PaginationVo user = commodityFavoritesService.SelectByUserid(userid);
+		PaginationVo user = commodityFavoritesService.selectByUserid(userid);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -79,9 +79,9 @@ public class CommodityFavoritesController {
 	@RequestMapping(value = "/insertinfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> InsertInfo(@RequestBody String insertinfo) {
+	public ResponseEntity<PaginationVo> insertInfo(@RequestBody String insertinfo) {
 
-		PaginationVo user = commodityFavoritesService.InsertInfo(insertinfo);
+		PaginationVo user = commodityFavoritesService.insertInfo(insertinfo);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -104,10 +104,10 @@ public class CommodityFavoritesController {
 	@RequestMapping(value = "/DeleteById", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> DeleteById(@RequestParam(value = "id", required = true) String id,
+	public ResponseEntity<PaginationVo> deleteById(@RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "userid", required = true) String userid) {
 
-		PaginationVo user = commodityFavoritesService.DeleteById(id, userid);
+		PaginationVo user = commodityFavoritesService.deleteById(id, userid);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -124,12 +124,12 @@ public class CommodityFavoritesController {
 
 	@RequestMapping(value = "/DeleteByNumber", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<PaginationVo> DeleteById(@RequestParam(value = "userid", required = true) String userid,
+	public ResponseEntity<PaginationVo> deleteById(@RequestParam(value = "userid", required = true) String userid,
 			@RequestParam(value = "commodityNumber", required = true) int commodityNumber
 
 	) {
 
-		PaginationVo user = commodityFavoritesService.DeleteByNumber(userid, commodityNumber);
+		PaginationVo user = commodityFavoritesService.deleteByNumber(userid, commodityNumber);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 

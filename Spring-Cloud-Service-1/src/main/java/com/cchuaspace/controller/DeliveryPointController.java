@@ -63,10 +63,10 @@ public class DeliveryPointController {
 	@RequestMapping(value = "/selectbyname", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> selectbydeliveryname(
+	public ResponseEntity<PaginationVo> selectByDeliveryName(
 			@RequestParam(value = "deliveryname", required = true) String deliveryname) {
 
-		PaginationVo user = deliveryPointService.SelectByDeliveryname(deliveryname);
+		PaginationVo user = deliveryPointService.selectByDeliveryname(deliveryname);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -84,10 +84,10 @@ public class DeliveryPointController {
 	@RequestMapping(value = "/selectbynumber", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> suppliername(
+	public ResponseEntity<PaginationVo> supplierName(
 			@RequestParam(value = "deliverynumber", required = true) int deliverynumber) {
 
-		PaginationVo user = deliveryPointService.SelectByDeliveryNumber(deliverynumber);
+		PaginationVo user = deliveryPointService.selectByDeliveryNumber(deliverynumber);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -105,10 +105,10 @@ public class DeliveryPointController {
 	@RequestMapping(value = "/selectbyregion", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> selectbyregion(
+	public ResponseEntity<PaginationVo> selectByRegion(
 			@RequestParam(value = "regionnumber", required = true) String commoditynumber) {
 
-		PaginationVo user = deliveryPointService.SelectByRegionNumber(commoditynumber);
+		PaginationVo user = deliveryPointService.selectByRegionNumber(commoditynumber);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -126,12 +126,12 @@ public class DeliveryPointController {
 	@ApiImplicitParams({
 	})
 
-	@RequestMapping(value = "/selectpoint", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectpoint", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectPoint(@RequestBody String SelectPoint) {
+	public ResponseEntity<PaginationVo> selectPoint(@RequestBody String SelectPoint) {
 
-		PaginationVo user = deliveryPointService.SelectPoint(SelectPoint);
+		PaginationVo user = deliveryPointService.selectPoint(SelectPoint);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 

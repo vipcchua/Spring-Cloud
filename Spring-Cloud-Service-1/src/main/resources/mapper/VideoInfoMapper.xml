@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cchuaspace.mapper.VideoInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cchuaspace.model.VideoInfo" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="video_number" property="videoNumber" jdbcType="INTEGER" />
+    <result column="present_price" property="presentPrice" jdbcType="INTEGER" />
+    <result column="video_name" property="videoName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cchuaspace.model.VideoInfo" extends="BaseResultMap" >
+    <result column="video_src" property="videoSrc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, video_number, present_price, video_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    video_src
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.cchuaspace.entity.VideoInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from video_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cchuaspace.entity.VideoInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from video_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null" >
+      <if test="offset != null" >
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null" >
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from video_info
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from video_info
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cchuaspace.entity.VideoInfoExample" >
+    delete from video_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cchuaspace.model.VideoInfo" >
+    insert into video_info (id, video_number, present_price,
+    video_name, video_src)
+    values (#{id,jdbcType=CHAR}, #{videoNumber,jdbcType=INTEGER}, #{presentPrice,jdbcType=INTEGER},
+    #{videoName,jdbcType=VARCHAR}, #{videoSrc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cchuaspace.model.VideoInfo" >
+    insert into video_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="videoNumber != null" >
+        video_number,
+      </if>
+      <if test="presentPrice != null" >
+        present_price,
+      </if>
+      <if test="videoName != null" >
+        video_name,
+      </if>
+      <if test="videoSrc != null" >
+        video_src,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="videoNumber != null" >
+        #{videoNumber,jdbcType=INTEGER},
+      </if>
+      <if test="presentPrice != null" >
+        #{presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="videoName != null" >
+        #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSrc != null" >
+        #{videoSrc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cchuaspace.entity.VideoInfoExample" resultType="java.lang.Integer" >
+    select count(*) from video_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update video_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=CHAR},
+      </if>
+      <if test="record.videoNumber != null" >
+        video_number = #{record.videoNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.presentPrice != null" >
+        present_price = #{record.presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.videoName != null" >
+        video_name = #{record.videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.videoSrc != null" >
+        video_src = #{record.videoSrc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update video_info
+    set id = #{record.id,jdbcType=CHAR},
+    video_number = #{record.videoNumber,jdbcType=INTEGER},
+    present_price = #{record.presentPrice,jdbcType=INTEGER},
+    video_name = #{record.videoName,jdbcType=VARCHAR},
+    video_src = #{record.videoSrc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update video_info
+    set id = #{record.id,jdbcType=CHAR},
+    video_number = #{record.videoNumber,jdbcType=INTEGER},
+    present_price = #{record.presentPrice,jdbcType=INTEGER},
+    video_name = #{record.videoName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cchuaspace.model.VideoInfo" >
+    update video_info
+    <set >
+      <if test="videoNumber != null" >
+        video_number = #{videoNumber,jdbcType=INTEGER},
+      </if>
+      <if test="presentPrice != null" >
+        present_price = #{presentPrice,jdbcType=INTEGER},
+      </if>
+      <if test="videoName != null" >
+        video_name = #{videoName,jdbcType=VARCHAR},
+      </if>
+      <if test="videoSrc != null" >
+        video_src = #{videoSrc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cchuaspace.model.VideoInfo" >
+    update video_info
+    set video_number = #{videoNumber,jdbcType=INTEGER},
+    present_price = #{presentPrice,jdbcType=INTEGER},
+    video_name = #{videoName,jdbcType=VARCHAR},
+    video_src = #{videoSrc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cchuaspace.model.VideoInfo" >
+    update video_info
+    set video_number = #{videoNumber,jdbcType=INTEGER},
+      present_price = #{presentPrice,jdbcType=INTEGER},
+      video_name = #{videoName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

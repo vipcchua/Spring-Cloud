@@ -61,7 +61,8 @@ int countByExample(CommodityInfoDetailsExample example);
 	@Select("SELECT * FROM commodity_info_details where commodity_number = #{commodityNumber}")
 	CommodityInfoDetailsVo SelectCByNumberObjVo(@Param("commodityNumber") int commodityNumber);
 
-
+    @Select("SELECT title FROM commodity_info_details where commodity_number = #{commodityNumber}")
+    CommodityInfoDetailsVo SelectOrderInfosCByNumber(@Param("commodityNumber") int commodityNumber);
 
 
     @SelectProvider(type = CommodityInfoDerailsSql.class, method = "SelectAllByPage")

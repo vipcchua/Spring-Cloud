@@ -150,13 +150,26 @@ public class SysCommodityInfoDetailsService {
         }
 
 
-
-
         paginationVo.setPaginalNumber(Math.ceil(sqldata.get(0).getDataTotal() / json.getPagerow()));
 
         paginationVo.setDataResultList(sqldata);
         return paginationVo;
 
+    }
+
+
+    public PaginationVo updateById(String CommodityInfo) {
+        CommodityInfoDetails json = JSONObject.parseObject(CommodityInfo, CommodityInfoDetails.class);
+
+
+        int tostate = commodityInfoDetailsMapper.updateByPrimaryKeySelective(json);
+
+        if (tostate != 0)
+            paginationVo.setSqlState("Success");
+        else
+            paginationVo.setSqlState("Error");
+
+        return paginationVo;
     }
 
 

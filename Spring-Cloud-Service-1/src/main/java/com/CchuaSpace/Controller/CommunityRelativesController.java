@@ -104,7 +104,7 @@ public class CommunityRelativesController {
 	@RequestMapping(value = "/selectallbyparents", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> selectallbyparents(
+	public ResponseEntity<PaginationVo> selectAllByParents(
 			@RequestBody String paginationVo) {
 
 		PaginationVo user = communityRelativesService.selectallbyparents(paginationVo);

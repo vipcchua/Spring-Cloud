@@ -14,7 +14,7 @@ package com.cchuaspace.mapper;
 import java.util.List;
 
 
-
+import com.cchuaspace.pojo.OrderInfoVo;
 import org.apache.ibatis.annotations.*;
 
 import com.cchuaspace.entity.OrderInfoExample;
@@ -70,15 +70,37 @@ public interface OrderInfoMapper {
 	
 	
 	
-	@Select("Select * from order_info WHERE order_info.order_number = #{orderNumber} AND order_info.order_number = #{orderNumber}")
+	@Select("Select * from order_info WHERE order_info.order_number = #{userId} AND order_info.order_number = #{orderNumber}")
 	OrderInfo SelectByNumber(@Param("userId") String userId,@Param("orderNumber") int orderNumber);
 
-	@Select("Select * from order_info WHERE order_info.openid = #{openid} AND order_info.order_number = #{orderNumber}")
-	OrderInfo SelectByOpenid(@Param("openid") String openid,@Param("orderNumber") int orderNumber);
+	@Select("Select * from order_info WHERE order_info.order_number = #{orderNumber} " +
+			"AND order_info.user_id= #{userId}")
+	List<OrderInfo> selectByNumberAndUser(@Param("orderNumber") int orderNumber
+			,@Param("userId") String userId);
+
+
+	@Select("Select order_number,contact_name,order_address,contact_phone," +
+			"contact_telephone,order_state,payment_method," +
+			"payment_amount,payment_state,express_number,express_business,order_Remarks,generate_time,invoice_type,invoice_header,delivery_number" +
+			" from order_info WHERE order_info.user_id = #{userId} AND order_info.order_number = #{orderNumber}")
+	List<OrderInfoVo> SelectByNumberList(@Param("userId") String userId,@Param("orderNumber") int orderNumber);
+
+	@Select("Select * from order_info WHERE  order_info.order_number = #{orderNumber}")
+	OrderInfo SelectByOrderNumber(@Param("orderNumber") int orderNumber);
+
+	@Select("Select * from order_info WHERE  order_info.order_number = #{orderNumber}")
+	List<OrderInfoVo>  selectByOrderNumberList(@Param("orderNumber") int orderNumber);
+
+	@Select("Select order_number,contact_name,order_state,payment_method,payment_amount from order_info WHERE order_info.user_id = #{userId}")
+	List<OrderInfoVo>  SelectByUserId(@Param("userId") String userId);
+
+	@Select("Select order_number,contact_name,order_state,payment_method,payment_amount from order_info WHERE order_info.user_id = #{userId}")
+	List<OrderInfoVo>  SelectByCondition(OrderInfo orderInfo);
+
 
 
 	@Select("SELECT * from order_info WHERE order_number = #{orderNumber} AND openid = #{openid}")
-	OrderInfo SelectAllInfoByNumber(@Param("orderNumber") int orderNumber,@Param("openid") String openid);
+	List<OrderInfo>  SelectAllInfoByNumber(@Param("orderNumber") int orderNumber,@Param("openid") String openid);
 
 
 
@@ -125,6 +147,14 @@ public interface OrderInfoMapper {
 						   @Param("wechatPayResult")String wechatPayResult
 						);
 
+
+	@Update("UPDATE order_info SET order_info.payment_state = #{paymentState}," +
+			"order_info.wechat_refund_result = #{wechatRefundResult}" +
+			"where order_info.order_number = #{orderNumber}")
+	int UpdateRefundInfo(@Param("orderNumber") int orderNumber ,
+					  @Param("paymentState") String paymentState,
+					  @Param("wechatRefundResult")String wechatRefundResult
+	);
 
 
 

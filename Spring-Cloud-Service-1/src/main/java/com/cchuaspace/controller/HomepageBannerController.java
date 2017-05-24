@@ -71,7 +71,7 @@ public class HomepageBannerController {
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 
-	@RequestMapping(value = "/insertbanner", method = { RequestMethod.POST })
+	@RequestMapping(value = "/insertBanner", method = { RequestMethod.POST })
 	@ResponseBody
 
 	public ResponseEntity<PaginationVo> insertBanner(@RequestBody String CommodityInfo, Model model) {
@@ -88,10 +88,10 @@ public class HomepageBannerController {
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "请输入对应参数", required = true, dataType = "varchar"), })
 
-	@RequestMapping(value = "/deletebanner", method = { RequestMethod.POST })
+	@RequestMapping(value = "/deleteBanner", method = { RequestMethod.POST })
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> deletebanner(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> deleteBanner(@RequestBody String CommodityInfo, Model model) {
 
 		PaginationVo user = homepageBannerService.deletebanner(CommodityInfo, model);
 

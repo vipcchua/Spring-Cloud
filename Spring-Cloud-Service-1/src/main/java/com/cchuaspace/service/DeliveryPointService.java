@@ -61,7 +61,7 @@ public class DeliveryPointService {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-    public PaginationVo SelectByDeliveryname(String deliveryname) {
+    public PaginationVo selectByDeliveryname(String deliveryname) {
 
         List<DeliveryPoint> data = deliveryPointMapper.SelectByNameList(deliveryname);
 
@@ -71,7 +71,7 @@ public class DeliveryPointService {
 
     }
 
-    public PaginationVo SelectByDeliveryNumber(int deliverynumber) {
+    public PaginationVo selectByDeliveryNumber(int deliverynumber) {
         DeliveryPoint data = deliveryPointMapper.SelectByDeliveryNumber(deliverynumber);
 
         paginationVo.setHtmlState("Success");
@@ -79,7 +79,7 @@ public class DeliveryPointService {
         return paginationVo;
     }
 
-    public PaginationVo SelectByRegionNumber(String commoditynumber) {
+    public PaginationVo selectByRegionNumber(String commoditynumber) {
 
         List<DeliveryPoint> data = deliveryPointMapper.SelectByRegionNumber(commoditynumber);
         paginationVo.setHtmlState("Success");
@@ -88,7 +88,7 @@ public class DeliveryPointService {
 
     }
 
-    public PaginationVo SelectPoint(String selectPoint) {
+    public PaginationVo selectPoint(String selectPoint) {
 
 
         try {

@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.swing.text.html.HTML.Tag;
 import java.util.UUID;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.apache.ibatis.io.Resources;
@@ -82,58 +84,57 @@ import io.swagger.annotations.ApiResponses;
 
 public class CommodityCatalogController {
 
-	@Autowired
-	private CommodityCatalogService commodityCatalogService;
+    @Autowired
+    private CommodityCatalogService commodityCatalogService;
 
-	@Resource
-	private Application computeServiceApplication;
+    @Resource
+    private Application computeServiceApplication;
 
-	/*--------------- -----<----*查询*---->--- ----------------------*/
-	@ApiOperation(value = "查询目录", notes = "传入深度 父亲ID 查询该深度的目录信息 如果是首层 父亲Id请使用0", response = CommodityCatalog.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar") })
+    /*--------------- -----<----*查询*---->--- ----------------------*/
+    @ApiOperation(value = "查询目录", notes = "传入深度 父亲ID 查询该深度的目录信息 如果是首层 父亲Id请使用0", response = CommodityCatalog.class)
+    @ApiResponses({@ApiResponse(code = 400, message = "请求参数没填好"),
+            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对")})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar")})
 
-	@RequestMapping(value = "/selectcatalog", method = RequestMethod.POST)
-	@ResponseBody
+    @RequestMapping(value = "/selectcatalog", method = RequestMethod.POST)
+    @ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCatalog(@RequestBody String CommodityInfo, Model model) {
+    public ResponseEntity<PaginationVo> selectCatalog(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = commodityCatalogService.SelectCatalog(CommodityInfo, model);
+        PaginationVo user = commodityCatalogService.selectCatalog(CommodityInfo, model);
 
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+        ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
-		return data;
+        return data;
 
-	}
+    }
 
 
-	@ApiOperation(value = "查询目录下的商品", notes = "查询目录下的商品", response = CommodityCatalog.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
-			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar") })
+    @ApiOperation(value = "查询目录下的商品", notes = "查询目录下的商品", response = CommodityCatalog.class)
+    @ApiResponses({@ApiResponse(code = 400, message = "请求参数没填好"),
+            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对")})
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "parentsId", value = "请输入对应参数", required = true, dataType = "varchar")})
 
-	@RequestMapping(value = "/selectallbypage", method = RequestMethod.POST)
-	@ResponseBody
+    @RequestMapping(value = "/selectallbypage", method = RequestMethod.POST)
+    @ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectAllByPage(@RequestBody String CommodityInfo, Model model) {
+    public ResponseEntity<PaginationVo> selectAllByPage(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = commodityCatalogService.SelectAllByPage(CommodityInfo);
+        PaginationVo user = commodityCatalogService.selectAllByPage(CommodityInfo);
 
-		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+        ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
-		return data;
+        return data;
 
-	}
+    }
 
 
 
 
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
-
 
 
 }

@@ -27,35 +27,35 @@ public class DeliveryPointSql {
                     WHERE("delivery_point.province = #{province}");
                 }
                 if (deliveryPoint.getCity() != null) {
-                    WHERE("commodity_info_details.city = #{city}");
+                    WHERE("delivery_point.city = #{city}");
                 }
 
 
                 if (deliveryPoint.getCounty() != null) {
-                    WHERE("commodity_info_details.county = #{county}");
+                    WHERE("delivery_point.county = #{county}");
                 }
 
 
                 if (deliveryPoint.getTown() != null) {
-                    WHERE("commodity_info_details.town = #{town}");
+                    WHERE("delivery_point.town = #{town}");
                 }
 
                 if (deliveryPoint.getAddress() != null) {
-                    WHERE("commodity_info.address like CONCAT('%',#{address},'%')");
+                    WHERE("delivery_point.address like CONCAT('%',#{address},'%')");
                 }
 
 
                 if (deliveryPoint.getLongitude() != null) {
-                    WHERE("commodity_info_details.longitude = #{longitude}");
+                    WHERE("delivery_point.longitude = #{longitude}");
                 }
 
 
                 if (deliveryPoint.getLatitude() != null) {
-                    WHERE("commodity_info_details.latitude = #{latitude}");
+                    WHERE("delivery_point.latitude = #{latitude}");
                 }
 
                 if (deliveryPoint.getDeliveryNumber() != null) {
-                    WHERE("commodity_info_details.delivery_number = #{deliveryNumber}");
+                    WHERE("delivery_point.delivery_number = #{deliveryNumber}");
                 }
 
 

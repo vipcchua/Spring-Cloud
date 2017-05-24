@@ -68,7 +68,7 @@ public class CommodityInfoDetailsService {
 	/* @Qualifier("PaginationVo") */
 	/* @Component */
 
-	public PaginationVo SelectByNumber(int commoditynumber) {
+	public PaginationVo selectByNumber(int commoditynumber) {
 
 		CommodityInfo data = commodityInfoMapper.SelectCommodityByNumberObj(commoditynumber);
 
@@ -94,7 +94,7 @@ public class CommodityInfoDetailsService {
 		return paginationVo;
 	}
 
-	public PaginationVo InsertInfo(String CommodityInfo) {
+	public PaginationVo insertInfo(String CommodityInfo) {
 		CommodityInfoDetails json = JSONObject.parseObject(CommodityInfo, CommodityInfoDetails.class);
 
 		json.setId(cchuaTool.uuid());
@@ -142,6 +142,20 @@ public class CommodityInfoDetailsService {
 		}
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@ package com.cchuaspace.wechat.controller;
 import com.cchuaspace.Application;
 import com.cchuaspace.model.CommodityInfo;
 import com.cchuaspace.model.OrderInfo;
+import com.cchuaspace.model.VideoOrderInfo;
 import com.cchuaspace.pojo.PaginationVo;
 import com.cchuaspace.wechat.service.WeChatLoginService;
 import com.cchuaspace.wechat.service.WeChatPayService;
@@ -94,14 +95,19 @@ public class WeChatPayController {
 
     }
 
+
+
+
+
+
+
+
+
 /*重订单处直接发送订单信息生成微信订单*/
-    public PaginationVo PayResponseOrder(OrderInfo orderInfo) {
-        PaginationVo paginationVo= weChatPayService.PayByOrder(orderInfo);
+    public PaginationVo PayResponseOrder(OrderInfo orderInfo,String data) {
+        PaginationVo paginationVo= weChatPayService.PayByOrder(orderInfo,data);
         return paginationVo;
     }
-
-
-
 
 
 

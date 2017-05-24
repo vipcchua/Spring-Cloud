@@ -97,7 +97,7 @@ public class ImageGenController {
 	@RequestMapping(value = "/selectbycode")
 	@ResponseBody
 
-	public String SelectByNumber(HttpServletRequest request, HttpServletResponse response) {
+	public String selectByNumber(HttpServletRequest request, HttpServletResponse response) {
 
 		String data = request.getHeader("Token");
 

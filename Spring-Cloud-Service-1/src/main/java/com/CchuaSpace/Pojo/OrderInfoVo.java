@@ -117,10 +117,39 @@ public class OrderInfoVo {
 
     private int refundFee;
 
+private String Tosort;
+
+    private String Sorting;
+
+    public String getSorting() {
+        return Sorting;
+    }
+
+    public void setSorting(String sorting) {
+        Sorting = sorting;
+    }
+
+    public String getTosort() {
+        return Tosort;
+    }
+
+    public void setTosort(String tosort) {
+        Tosort = tosort;
+    }
 
 
 
 
+
+    private List<OrderCommodityVo> OrderCommodityVo;
+
+    public List<com.cchuaspace.pojo.OrderCommodityVo> getOrderCommodityVo() {
+        return OrderCommodityVo;
+    }
+
+    public void setOrderCommodityVo(List<com.cchuaspace.pojo.OrderCommodityVo> orderCommodityVo) {
+        OrderCommodityVo = orderCommodityVo;
+    }
 
     private  OrderCommodity orderCommodity;
 

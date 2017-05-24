@@ -342,7 +342,7 @@ public class HttpUtil {
 
 
 
-
+/*SSL请求*/
 
     public static String SslPost(String url, String param, String p12File, String mchId) throws KeyStoreException,
             IOException, KeyManagementException, UnrecoverableKeyException, NoSuchAlgorithmException {
@@ -366,6 +366,9 @@ public class HttpUtil {
         // Allow TLSv1 protocol only
         SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1" }, null,
                 SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+
+
+
         CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
         try {
 

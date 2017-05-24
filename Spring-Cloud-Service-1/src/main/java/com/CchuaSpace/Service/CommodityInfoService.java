@@ -73,7 +73,7 @@ public class CommodityInfoService {
     /* @Qualifier("PaginationVo") */
 	/* @Component */
 
-    public PaginationVo SelectCommodityByNumber(int commodityNumber) {
+    public PaginationVo selectCommodityByNumber(int commodityNumber) {
 
 		/*
 		 * CommodityInfo json =
@@ -126,7 +126,7 @@ public class CommodityInfoService {
 
     }
 
-    public PaginationVo SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
+    public PaginationVo selectCommodityByID(@RequestBody String CommodityByID, Model model) {
 
         CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
         List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(json.getCommodityId());
@@ -134,7 +134,7 @@ public class CommodityInfoService {
         return paginationVo;
     }
 
-    public PaginationVo GetSelectCommodityByID(
+    public PaginationVo getSelectCommodityByID(
             @RequestParam(value = "commodityId", required = true) String commodityId) {
 
         List<CommodityInfo> data = commodityInfoMapper.SelectCommodityByID(commodityId);
@@ -142,7 +142,7 @@ public class CommodityInfoService {
         return paginationVo;
     }
 
-    public PaginationVo SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
+    public PaginationVo selectCommodityInfo(@RequestBody String CommodityByID, Model model) {
 
         CommodityInfo json = JSONObject.parseObject(CommodityByID, CommodityInfo.class);
         List<CommodityInfo> data = commodityInfoMapper.SelectCommodityInfo(json);
@@ -151,7 +151,7 @@ public class CommodityInfoService {
 
     }
 
-    public PaginationVo SelectCommodityall() {
+    public PaginationVo selectCommodityall() {
 
         List<CommodityInfo> data = commodityInfoMapper.SelectCommodityall();
         paginationVo.setDataResultList(data);
@@ -159,7 +159,7 @@ public class CommodityInfoService {
 
     }
 
-    public PaginationVo SelectAllByPage(String data) {
+    public PaginationVo selectAllByPage(String data) {
         PaginationVo json = JSONObject.parseObject(data, PaginationVo.class);
         List<CommodityInfoVo> sqldata = commodityInfoMapper.SelectAllByPage(json);
 

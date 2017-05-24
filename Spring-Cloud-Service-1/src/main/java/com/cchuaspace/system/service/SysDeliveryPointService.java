@@ -111,5 +111,27 @@ public class SysDeliveryPointService {
 	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
+	public PaginationVo UpdatetInfo(String insertinfo) {
+
+		DeliveryPoint json = JSONObject.parseObject(insertinfo, DeliveryPoint.class);
+
+
+		int tostate = deliveryPointMapper.updateByPrimaryKey(json);
+
+		if (tostate != 0)
+			paginationVo.setHtmlState("Success");
+		else
+			paginationVo.setHtmlState("Error");
+
+		paginationVo.setDataResultObj(json);
+
+		return paginationVo;
+
+	}
+
+
+
+
+
 
 }

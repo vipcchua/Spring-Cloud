@@ -4,6 +4,7 @@ import com.cchuaspace.model.OrderCommodity;
 import com.cchuaspace.entity.OrderCommodityExample;
 import java.util.List;
 
+import com.cchuaspace.pojo.OrderCommodityVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -24,8 +25,17 @@ public interface OrderCommodityMapper {
 
     int updateByExample(@Param("record") OrderCommodity record, @Param("example") OrderCommodityExample example);
 
-    @Select("Select * from order_commodity WHERE order_info.order_number = #{orderNumber}")
+    @Select("Select * from order_commodity WHERE order_commodity.order_number = #{orderNumber}")
     List<OrderCommodity> SelectByNumber(@Param("orderNumber") int orderNumber);
 
+
+
+    @Select("Select commodity_number,buy_amount from order_commodity WHERE " +
+            "order_commodity.order_number = #{orderNumber}")
+    List<OrderCommodityVo> SelectorderlistByNumber(@Param("orderNumber") int orderNumber);
+
+    @Select("Select commodity_number,buy_amount,commodity_price,order_number from " +
+            "order_commodity WHERE order_commodity.order_number = #{orderNumber}")
+    List<OrderCommodityVo> SelectorderinfoByNumber(@Param("orderNumber") int orderNumber);
 
 }

@@ -68,10 +68,10 @@ public class CommodityInfoDetailsController {
 	@RequestMapping(value = "/selectbynumber", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectByNumber(
+	public ResponseEntity<PaginationVo> selectByNumber(
 			@RequestParam(value = "commoditynumber", required = true) int commoditynumber) {
 
-		PaginationVo user = commodityInfoDetailsService.SelectByNumber(commoditynumber);
+		PaginationVo user = commodityInfoDetailsService.selectByNumber(commoditynumber);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -100,9 +100,9 @@ public class CommodityInfoDetailsController {
 	@RequestMapping(value = "/insertinfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> InsertInfo(@RequestBody String CommodityInfo) {
+	public ResponseEntity<PaginationVo> insertInfo(@RequestBody String CommodityInfo) {
 
-		PaginationVo user = commodityInfoDetailsService.InsertInfo(CommodityInfo);
+		PaginationVo user = commodityInfoDetailsService.insertInfo(CommodityInfo);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -120,7 +120,7 @@ public class CommodityInfoDetailsController {
 	@RequestMapping(value = "/insertinfoprice", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> insertinfoprice(@RequestBody String CommodityInfo) {
+	public ResponseEntity<PaginationVo> insertInfoPrice(@RequestBody String CommodityInfo) {
 
 		PaginationVo user = commodityInfoDetailsService.insertinfoprice(CommodityInfo);
 
@@ -131,5 +131,20 @@ public class CommodityInfoDetailsController {
 	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

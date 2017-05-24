@@ -127,5 +127,26 @@ public class SysCommodityInfoDetailsController {
 	}
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
+	@ApiOperation(value = "使用商品Id查询商品的上架信息", notes = "使用商品Id查询商品详细信息，本接口只能传商品Id", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "commoditynumber", value = "请输入商品编码", required = true, dataType = "varchar"), })
+
+	@RequestMapping(value = "/updatebyid", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> updateById(@RequestBody String CommodityInfo) {
+
+		PaginationVo user = commodityInfoDetailsService.updateById(CommodityInfo);
+
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+
+		return data;
+
+	}
+
+
+
 
 }

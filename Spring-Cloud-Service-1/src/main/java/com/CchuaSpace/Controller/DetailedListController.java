@@ -95,7 +95,7 @@ public class DetailedListController {
 
 	) {
 
-		PaginationVo user = detailedListService.SelectDetailedListByUserId(userid);
+		PaginationVo user = detailedListService.selectDetailedListByUserId(userid);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -113,7 +113,7 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.SelectDetailedListByDetailedId(CommodityInfo, model);
+		PaginationVo user = detailedListService.selectDetailedListByDetailedId(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -134,7 +134,7 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.DeleteByCommodity(CommodityInfo, model);
+		PaginationVo user = detailedListService.deleteByCommodity(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -153,7 +153,7 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.DeleteBydetailedId(CommodityInfo, model);
+		PaginationVo user = detailedListService.deleteBydetailedId(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -174,7 +174,7 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.DeleteCommodity(CommodityInfo, model);
+		PaginationVo user = detailedListService.deleteCommodity(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -193,7 +193,7 @@ public class DetailedListController {
 
 	public ResponseEntity<PaginationVo> DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.DeleteAlldetailed(CommodityInfo, model);
+		PaginationVo user = detailedListService.deleteAlldetailed(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -209,9 +209,9 @@ public class DetailedListController {
 	@RequestMapping(value = "/insertdetailed", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> insertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.InsertDetailedListInfo(CommodityInfo, model);
+		PaginationVo user = detailedListService.insertDetailedListInfo(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -228,9 +228,9 @@ public class DetailedListController {
 	@RequestMapping(value = "/updatebyuserid", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> updateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.UpdateCommodityByUserId(CommodityInfo, model);
+		PaginationVo user = detailedListService.updateCommodityByUserId(CommodityInfo, model);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
@@ -243,9 +243,9 @@ public class DetailedListController {
 	@RequestMapping(value = "/updatebydetailedid", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> UpdateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> updateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
-		PaginationVo user = detailedListService.UpdateCommodityBydetailedId(CommodityInfo, model);
+		PaginationVo user = detailedListService.updateCommodityBydetailedId(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 

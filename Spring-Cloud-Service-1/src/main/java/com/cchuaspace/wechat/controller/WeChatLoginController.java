@@ -206,6 +206,7 @@ public class WeChatLoginController {
 		return wecdata;
 
 	}
+
     @RequestMapping(value = "/pushserver", method = { RequestMethod.GET })
     @ResponseBody
 
@@ -218,11 +219,25 @@ public class WeChatLoginController {
     )  {
 
         System.out.print(echostr);
-
-
         return echostr;
 
     }
+
+
+    @RequestMapping(value = "/pushserver", method = { RequestMethod.POST })
+    @ResponseBody
+
+    public String validateservernews(HttpServletRequest request,
+            @RequestBody String CommodityInfo
+
+    )  {
+        weChatLoginService.validateservernews(request,CommodityInfo);
+
+        System.out.print(CommodityInfo);
+        return CommodityInfo;
+
+    }
+
 
 
 

@@ -80,7 +80,7 @@ public class OrderInfoController {
 	private Application application;
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
-	@ApiOperation(value = "使用用户Id查询购物车", notes = "使用商品Id查询购物车", response = CommodityInfo.class)
+	@ApiOperation(value = "使用用户Id+商品编号查询订单信息", notes = "", response = CommodityInfo.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
 			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
 	@ApiImplicitParams({ @ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"),
@@ -89,13 +89,63 @@ public class OrderInfoController {
 	@RequestMapping(value = "/selectbynumber", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectByNumber(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> selectByNumber(@RequestBody String CommodityInfo, Model model) {
 
 		PaginationVo user = orderInfoService.SelectByNumber(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
+
+
+
+
+
+	@ApiOperation(value = "使用用户Id+商品编号查询订单信息", notes = "", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "orderNumber", value = "请输入对应参数", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/selectbyuserid", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> selectByUserId(@RequestBody String CommodityInfo) {
+
+		PaginationVo user = orderInfoService.SelectByUserId(CommodityInfo);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		return data;
+
+	}
+
+
+
+
+
+
+
+	@ApiOperation(value = "使用用户Id+商品编号查询订单信息", notes = "", response = CommodityInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+	@ApiImplicitParams({ @ApiImplicitParam(name = "UserId", value = "请输入对应参数", required = true, dataType = "varchar"),
+			@ApiImplicitParam(name = "orderNumber", value = "请输入对应参数", required = true, dataType = "varchar") })
+
+	@RequestMapping(value = "/selectbycondition", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> selectByCondition(@RequestBody String CommodityInfo) {
+
+		PaginationVo user = orderInfoService.SelectByCondition(CommodityInfo);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		return data;
+
+	}
+
+
+
+
+
+
 
 
 
@@ -111,7 +161,7 @@ public class OrderInfoController {
 	@RequestMapping(value = "/deletebynumber", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> deleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
 		PaginationVo user = orderInfoService.DeleteByCommodity(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
@@ -128,7 +178,7 @@ public class OrderInfoController {
 	@RequestMapping(value = "/deletebyid", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> DeleteByOrderId(@RequestBody String CommodityInfo, Model model) {
+	public ResponseEntity<PaginationVo> deleteByOrderId(@RequestBody String CommodityInfo, Model model) {
 
 		PaginationVo user = orderInfoService.DeleteByOrderId(CommodityInfo, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
@@ -144,13 +194,29 @@ public class OrderInfoController {
 	@RequestMapping(value = "/generateorder", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> NewOrder(@RequestBody String CommodityInfo,HttpServletRequest request) {
+	public ResponseEntity<PaginationVo> newOrder(@RequestBody String CommodityInfo,HttpServletRequest request) {
 
 		PaginationVo user = orderInfoService.NewOrder(CommodityInfo,request);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
 	}
+
+	@ApiOperation(value = "再次生成已生成订单", notes = "使用各种信息生成一张新的订单", response = OrderInfo.class)
+	@ApiResponses({ @ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对") })
+
+	@RequestMapping(value = "/againneworder", method = RequestMethod.POST)
+	@ResponseBody
+
+	public ResponseEntity<PaginationVo> againNewOrder(@RequestBody String CommodityInfo,HttpServletRequest request) {
+
+		PaginationVo user = orderInfoService.againNewOrder(CommodityInfo,request);
+		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
+		return data;
+
+	}
+
 
 
 

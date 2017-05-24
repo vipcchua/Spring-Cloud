@@ -38,7 +38,7 @@ public class LoignController {
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> AdminUpdateUser(@RequestBody String userlogin, Model model)
+	public ResponseEntity<PaginationVo> adminUpdateUser(@RequestBody String userlogin, Model model)
 			throws UnsupportedEncodingException {
 
 		PaginationVo user = loginService.userlogin(userlogin, model);

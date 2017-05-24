@@ -1,66 +1,70 @@
 package com.cchuaspace.model;
 
-
 public class CommodityInfo {
     /**
-    * 商品编号
-    */
-    private int commodityNumber;
+     * 商品编号
+     */
+    private Integer commodityNumber;
 
     /**
-    * 商品Id
-    */
+     * 商品Id
+     */
     private String commodityId;
 
     /**
-    * 商品品牌
-    */
+     * 商品品牌
+     */
     private String commodityBrand;
 
     /**
-    * 商品名称
-    */
+     * 商品名称
+     */
     private String commodityName;
 
     /**
-    * 产品型号
-    */
+     * 产品型号
+     */
     private String commodityModel;
 
     /**
-    * 条形码
-    */
+     * 条形码
+     */
     private String barCode;
 
     /**
-    * 商品产地
-    */
+     * 商品产地
+     */
     private String commodityOrigin;
 
     /**
-    * 商品重量
-    */
+     * 商品重量
+     */
     private String commodityWeigh;
 
     /**
-    * 产品重量的单位
-    */
+     * 产品重量的单位
+     */
     private String commodityUnit;
 
     /**
-    * 商品图片
-    */
+     * 商品图片
+     */
     private String commodityPhoto;
 
     /**
-    * 产品适用范围
-    */
+     * 产品适用范围
+     */
     private String commodityApply;
 
     /**
-    * 商品概述
-    */
+     * 商品概述
+     */
     private String commoditySummary;
+
+    /**
+     * 主图(商品最基本图片）
+     */
+    private String homePhoto;
 
     public Integer getCommodityNumber() {
         return commodityNumber;
@@ -156,5 +160,13 @@ public class CommodityInfo {
 
     public void setCommoditySummary(String commoditySummary) {
         this.commoditySummary = commoditySummary;
+    }
+
+    public String getHomePhoto() {
+        return homePhoto;
+    }
+
+    public void setHomePhoto(String homePhoto) {
+        this.homePhoto = homePhoto;
     }
 }

@@ -38,7 +38,7 @@ public class DeliveryAddressService {
 
 	/*--------------- -----<----*查询*---->--- ----------------------*/
 
-	public PaginationVo SelectByUserid(String userid) {
+	public PaginationVo selectByUserid(String userid) {
 
 		List<UseDeliveryAddress> data = useDeliveryAddressMapper.SelectByuserList(userid);
 		paginationVo.setHtmlState("Success");
@@ -49,7 +49,7 @@ public class DeliveryAddressService {
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-	public PaginationVo DeleteById(String id, String userId) {
+	public PaginationVo deleteById(String id, String userId) {
 		int tostate = useDeliveryAddressMapper.DeleteById(id, userId);
 
 		if (tostate != 0)
@@ -61,7 +61,7 @@ public class DeliveryAddressService {
 	}
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
-	public PaginationVo InsertInfo(String insertinfo) {
+	public PaginationVo insertInfo(String insertinfo) {
 
 		UseDeliveryAddress json = JSONObject.parseObject(insertinfo, UseDeliveryAddress.class);
 

@@ -1,13 +1,17 @@
 package com.cchuaspace.service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.TypeReference;
 import com.cchuaspace.currency.CchuaTool;
 import com.cchuaspace.mapper.CommodityInfoDetailsMapper;
+import com.cchuaspace.mapper.CommodityInfoMapper;
 import com.cchuaspace.model.CommodityInfoDetails;
+import com.cchuaspace.pojo.OrderCommodityVo;
 import com.cchuaspace.wechat.controller.WeChatPayController;
 import com.cchuaspace.wechat.model.WechatOrderPayApi;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -50,6 +54,9 @@ public class OrderInfoService {
 
     @Autowired
     private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
+
+    @Autowired
+    private CommodityInfoMapper commodityInfoMapper;
 
     @Autowired
     private PaginationVo paginationVo;
@@ -104,12 +111,29 @@ public class OrderInfoService {
 
         OrderInfo json = JSONObject.parseObject(CommodityInfo, OrderInfo.class);
 
-        OrderInfo infodata = orderInfoMapper.SelectByNumber(json.getUserId(), json.getOrderNumber());
+        List<OrderInfoVo> infodata = orderInfoMapper.SelectByNumberList(json.getUserId(), json.getOrderNumber());
+
+
+        for (int i = 0; i < infodata.size(); i++) {
+            infodata.get(i)
+                    .setOrderCommodityVo(orderCommodityMapper.SelectorderinfoByNumber(infodata.get(i).getOrderNumber()));
+
+            for (int j = 0; j < infodata.get(i).getOrderCommodityVo().size(); j++) {
+                infodata.get(i).getOrderCommodityVo().get(j).
+                        setList(commodityInfoMapper.SelectOrderListByNumberVo(infodata.get(i).getOrderCommodityVo().get(j).getCommodityNumber()));
+                infodata.get(i).getOrderCommodityVo().get(j).
+                        setDataResultObj(commodityInfoDetailsMapper.SelectOrderInfosCByNumber(infodata.get(i).getOrderCommodityVo().get(j).getCommodityNumber()));
+
+
+            }
+
+        }
+
 
         System.out.println(infodata);
 
 
-        paginationVo.setDataResultObj(infodata);
+        paginationVo.setDataResultList(infodata);
         return paginationVo;
 
     }
@@ -211,14 +235,35 @@ public class OrderInfoService {
 
 
             if (OrderInfoState != 0) {
-                PaginationVo WechatRequest = weChatPayController.PayResponseOrder(orderinfo);
+
+                /*传第一个商品以及收货地址给微信*/
+
+              /* String firstName= commodityInfoDetailsMapper.SelectPriceByNumber(commodity.get(0).getCommodityNumber()).getTitle();*/
+
+
+
+                PaginationVo WechatRequest = weChatPayController.PayResponseOrder(orderinfo,null);
 
                 if (WechatRequest.getHtmlState() != "Error") {
-                    paginationVo.setHtmlState("Success:订单生成功");
+
 
                     JSONObject ToUserOrderNumber = new JSONObject();
 
                     ToUserOrderNumber.put("OrderNumber", ToOrderNumber);
+
+
+
+                    Map payWaitInfo=new HashMap<String, String>();
+
+
+                    payWaitInfo.put("orderNumbenr",orderinfo.getOrderNumber());
+                    payWaitInfo.put("generateTime",orderinfo.getGenerateTime());
+                    payWaitInfo.put("paymentState","PendingPay");
+
+
+
+                    WechatRequest.setDataResultMap(payWaitInfo);
+                    WechatRequest.setHtmlState("Success:订单生成功");
                     return WechatRequest;
 
 
@@ -228,25 +273,20 @@ public class OrderInfoService {
                 }
 
 
-
             } else {
                 paginationVo.setHtmlState("Error:后台订单生成失败，请重新生成订单");
                 return paginationVo;
             }
 
 
-        } catch (
-                Exception e)
+        } catch (Exception e)
 
         {
-            paginationVo.setHtmlState("Error:缺少关键性信息");
+            paginationVo.setHtmlState("Error:传递参数错误");
             return paginationVo;
         }
 
     }
-
-
-
 
 
     public PaginationVo NewOrderThenWechat(String commodityInfo, HttpServletRequest request) {
@@ -348,6 +388,105 @@ public class OrderInfoService {
         }
 
     }
+
+    public PaginationVo SelectByUserId(String commodityInfo) {
+        try {
+            OrderInfo json = JSONObject.parseObject(commodityInfo, OrderInfo.class);
+
+            List<OrderInfoVo> infodata = orderInfoMapper.SelectByUserId(json.getUserId());
+
+            for (int i = 0; i < infodata.size(); i++) {
+                infodata.get(i)
+                        .setOrderCommodityVo(orderCommodityMapper.SelectorderlistByNumber(infodata.get(i).getOrderNumber()));
+
+                for (int j = 0; j < infodata.get(i).getOrderCommodityVo().size(); j++) {
+                    infodata.get(i).getOrderCommodityVo().get(j).
+                            setList(commodityInfoMapper.SelectOrderListByNumberVo(infodata.get(i).getOrderCommodityVo().get(j).getCommodityNumber()));
+
+                }
+
+            }
+
+            paginationVo.setHtmlState("Success");
+            paginationVo.setDataResultList(infodata);
+        } catch (Exception e) {
+            paginationVo.setHtmlState("Error:" + e);
+
+        }
+        return paginationVo;
+    }
+
+
+    public PaginationVo SelectByCondition(String commodityInfo) {
+        try {
+            OrderInfo json = JSONObject.parseObject(commodityInfo, OrderInfo.class);
+
+            List<OrderInfoVo> infodata = orderInfoMapper.SelectByCondition(json);
+
+            for (int i = 0; i < infodata.size(); i++) {
+                infodata.get(i)
+                        .setOrderCommodityVo(orderCommodityMapper.SelectorderlistByNumber(infodata.get(i).getOrderNumber()));
+
+                for (int j = 0; j < infodata.get(i).getOrderCommodityVo().size(); j++) {
+                    infodata.get(i).getOrderCommodityVo().get(j).
+                            setList(commodityInfoMapper.SelectOrderListByNumberVo(infodata.get(i).getOrderCommodityVo().get(j).getCommodityNumber()));
+
+                }
+
+            }
+
+            paginationVo.setHtmlState("Success");
+            paginationVo.setDataResultList(infodata);
+        } catch (Exception e) {
+            paginationVo.setHtmlState("Error:" + e);
+
+        }
+        return paginationVo;
+    }
+
+    public PaginationVo againNewOrder(String commodityInfo, HttpServletRequest request) {
+
+
+
+
+
+        OrderInfo json = JSONObject.parseObject(commodityInfo, OrderInfo.class);
+
+        List<OrderInfo> orderinfo= orderInfoMapper
+                .selectByNumberAndUser(json.getOrderNumber(),json.getUserId());
+
+
+            if (orderinfo.size() > 0) {
+
+                PaginationVo WechatRequest = weChatPayController.PayResponseOrder(orderinfo.get(0),null);
+
+                if (WechatRequest.getHtmlState() != "Error") {
+                    WechatRequest.setHtmlState("Success:订单生成功");
+
+                    JSONObject ToUserOrderNumber = new JSONObject();
+
+                    ToUserOrderNumber.put("OrderNumber", orderinfo.get(0).getOrderNumber());
+                    return WechatRequest;
+
+
+                } else {
+                    paginationVo.setHtmlState("Error:微信支付订单生成失败，请重传输正确用户数据！");
+                    return paginationVo;
+                }
+
+
+            } else {
+                paginationVo.setHtmlState("Error:后台订单生成失败，请重新生成订单");
+                return paginationVo;
+            }
+
+
+
+
+    }
+
+
+
 
 
 

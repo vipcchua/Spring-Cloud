@@ -110,10 +110,10 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/selectbynumber", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCommodityByNumber(
+	public ResponseEntity<PaginationVo> selectCommodityByNumber(
 			@RequestParam(value = "commoditynumber", required = true) int commodityNumber) {
 
-		PaginationVo user = commodityInfoService.SelectCommodityByNumber(commodityNumber);
+		PaginationVo user = commodityInfoService.selectCommodityByNumber(commodityNumber);
 
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 
@@ -129,9 +129,9 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/selectcommoditybyid", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCommodityByID(@RequestBody String CommodityByID, Model model) {
+	public ResponseEntity<PaginationVo> selectCommodityByID(@RequestBody String CommodityByID, Model model) {
 
-		PaginationVo user = commodityInfoService.SelectCommodityByID(CommodityByID, model);
+		PaginationVo user = commodityInfoService.selectCommodityByID(CommodityByID, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
@@ -146,10 +146,10 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/getcommoditybyid", method = RequestMethod.GET)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> GetSelectCommodityByID(
+	public ResponseEntity<PaginationVo> getSelectCommodityByID(
 			@RequestParam(value = "commodityid", required = true) String commodityId) {
 
-		PaginationVo user = commodityInfoService.GetSelectCommodityByID(commodityId);
+		PaginationVo user = commodityInfoService.getSelectCommodityByID(commodityId);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
@@ -161,8 +161,8 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/selectcommodityinfo", method = RequestMethod.POST)
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCommodityInfo(@RequestBody String CommodityByID, Model model) {
-		PaginationVo user = commodityInfoService.SelectCommodityInfo(CommodityByID, model);
+	public ResponseEntity<PaginationVo> selectCommodityInfo(@RequestBody String CommodityByID, Model model) {
+		PaginationVo user = commodityInfoService.selectCommodityInfo(CommodityByID, model);
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
@@ -174,8 +174,8 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/selectall", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCommodityall() {
-		PaginationVo user = commodityInfoService.SelectCommodityall();
+	public ResponseEntity<PaginationVo> selectCommodityall() {
+		PaginationVo user = commodityInfoService.selectCommodityall();
 		ResponseEntity<PaginationVo> data = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 		return data;
 
@@ -187,9 +187,9 @@ public class CommodityInfoController {
 	@RequestMapping(value = "/selectallpage", method = { RequestMethod.POST, RequestMethod.GET })
 	@ResponseBody
 
-	public ResponseEntity<PaginationVo> SelectCommodityallpage(@RequestBody String data) {
+	public ResponseEntity<PaginationVo> selectCommodityallpage(@RequestBody String data) {
 
-		PaginationVo user = commodityInfoService.SelectAllByPage(data);
+		PaginationVo user = commodityInfoService.selectAllByPage(data);
 
 		ResponseEntity<PaginationVo> htmldata = new ResponseEntity<PaginationVo>(user, HttpStatus.OK);
 

@@ -52,7 +52,7 @@ public class DetailedListService {
     private CommodityInfoDetailsMapper commodityInfoDetailsMapper;
     /*--------------- -----<----*查询*---->--- ----------------------*/
 
-    public PaginationVo SelectDetailedListByUserId(String userid) {
+    public PaginationVo selectDetailedListByUserId(String userid) {
 
 	/*	DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);*/
 
@@ -79,7 +79,7 @@ public class DetailedListService {
 
     }
 
-    public PaginationVo SelectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo selectDetailedListByDetailedId(@RequestBody String CommodityInfo, Model model) {
 
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
         List<DetailedList> data = detailedListMapper.SelectDetailedListByDetailedId(json.getDetailedId());
@@ -91,7 +91,7 @@ public class DetailedListService {
 
 	/*--------------- -----<----*删除*---->--- ----------------------*/
 
-    public PaginationVo DeleteByCommodity(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo deleteByCommodity(@RequestBody String CommodityInfo, Model model) {
 
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
         int tostate = detailedListMapper.DeleteByCommodity(json.getDetailedId(), json.getCommodityNumber());
@@ -107,7 +107,7 @@ public class DetailedListService {
 
     }
 
-    public PaginationVo DeleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo deleteBydetailedId(@RequestBody String CommodityInfo, Model model) {
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
         int tostate = detailedListMapper.DeleteBydetailedId(json.getUserId(), json.getDetailedId());
@@ -122,7 +122,7 @@ public class DetailedListService {
 
     }
 
-    public PaginationVo DeleteCommodity(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo deleteCommodity(@RequestBody String CommodityInfo, Model model) {
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
         int tostate = detailedListMapper.DeleteCommodity(json);
@@ -137,7 +137,7 @@ public class DetailedListService {
 
     }
 
-    public PaginationVo DeleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo deleteAlldetailed(@RequestBody String CommodityInfo, Model model) {
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
         int tostate = detailedListMapper.DeleteAlldetailed(json.getUserId());
@@ -153,7 +153,7 @@ public class DetailedListService {
 
 	/*--------------- -----<----*增加*---->--- ----------------------*/
 
-    public PaginationVo InsertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo insertDetailedListInfo(@RequestBody String CommodityInfo, Model model) {
 
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
@@ -172,7 +172,7 @@ public class DetailedListService {
 
 	/*--------------- -----<----*修改*---->--- ----------------------*/
 
-    public PaginationVo UpdateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo updateCommodityByUserId(@RequestBody String CommodityInfo, Model model) {
 
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
 
@@ -188,7 +188,7 @@ public class DetailedListService {
 
     }
 
-    public PaginationVo UpdateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
+    public PaginationVo updateCommodityBydetailedId(@RequestBody String CommodityInfo, Model model) {
 
         DetailedList json = JSONObject.parseObject(CommodityInfo, DetailedList.class);
         int tostate = detailedListMapper.UpdateCommodityBydetailedId(json);
